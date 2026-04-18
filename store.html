@@ -1,370 +1,916 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" 
-          content="width=device-width, 
-                   initial-scale=1.0">
-    <title>NPCForge Store — 
-           AI NPC Personality Packs</title>
-    <meta name="description" 
-          content="Buy SentiencePro personality 
-                   packs. Aldric, Dravek, bundles, 
-                   and custom characters.">
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPCForge Store — SentiencePro Personality Packs</title>
+<meta name="description" content="Buy SentiencePro and LlamaCraft Bridge personality packs. Aldric, Dravek, bundles, custom commissions. Crypto payments. Files delivered within 1 hour.">
+<style>
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --black:#0A0A0F; --navy:#0F1021; --card:#141528;
+  --border:#1E2040; --gold:#C9A84C; --gold2:#E8C36A;
+  --white:#F0F0F0; --grey:#8A8AA0; --green:#3DBE6C;
+  --red:#E04444; --blue:#4A6CF7;
+}
+
+html { scroll-behavior:smooth; }
+body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--black); color:var(--white); line-height:1.6; }
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--navy); }
+::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+nav {
+  position:sticky; top:0; z-index:999;
+  background:rgba(10,10,15,0.95); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem; height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; gap:0.75rem; text-decoration:none; }
+.logo-icon { width:38px; height:38px; background:linear-gradient(135deg,var(--gold),#8B6914); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.logo-text { font-size:1.3rem; font-weight:800; color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:0.25rem; }
+.nav-links a { color:var(--grey); text-decoration:none; padding:0.4rem 0.85rem; border-radius:6px; font-size:0.9rem; font-weight:500; transition:all 0.2s; }
+.nav-links a:hover,.nav-links a.active { color:var(--white); background:var(--card); }
+.nav-cta { background:var(--gold)!important; color:var(--black)!important; font-weight:700!important; }
+
+.store-hero {
+  background:linear-gradient(180deg,var(--navy),var(--black));
+  border-bottom:1px solid var(--border);
+  padding:4rem 2rem;
+  text-align:center;
+}
+.store-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:900; margin-bottom:1rem; }
+.store-hero h1 span { color:var(--gold); }
+.store-hero p { color:var(--grey); max-width:560px; margin:0 auto 1.5rem; line-height:1.7; }
+
+.payment-info {
+  display:inline-flex; align-items:center; gap:0.75rem;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:50px; padding:0.6rem 1.25rem;
+  font-size:0.85rem; color:var(--grey);
+  flex-wrap:wrap; justify-content:center;
+}
+.payment-info strong { color:var(--gold); }
+
+.container { max-width:1100px; margin:0 auto; }
+.section { padding:5rem 2rem; }
+.section-dark { background:var(--black); }
+.section-navy { background:var(--navy); }
+
+.section-anchor {
+  position:relative;
+  top:-80px;
+  visibility:hidden;
+}
+
+.product-block {
+  max-width:960px;
+  margin:0 auto 4rem;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  transition:border-color 0.3s;
+}
+.product-block:hover { border-color:rgba(201,168,76,0.3); }
+.product-block.featured-block { border-color:var(--gold); box-shadow:0 0 40px rgba(201,168,76,0.1); }
+
+.featured-strip {
+  background:var(--gold);
+  color:var(--black);
+  text-align:center;
+  padding:0.4rem;
+  font-size:0.75rem;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.product-layout {
+  display:grid;
+  grid-template-columns:340px 1fr;
+}
+
+.product-visual {
+  position:relative;
+  min-height:380px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Aldric store visual */
+.store-visual-aldric {
+  background:linear-gradient(160deg,#050810,#0A1505,#050505);
+}
+.store-visual-dravek {
+  background:linear-gradient(160deg,#0A0800,#100A00,#050400);
+}
+.store-visual-bundle {
+  background:linear-gradient(160deg,#05050F,#0A0510,#050505);
+}
+.store-visual-dfy {
+  background:linear-gradient(135deg,#080510,#050810);
+}
+
+/* Large character displays */
+.char-display {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+/* Large Aldric */
+.aldric-large-helm {
+  width:64px; height:58px;
+  background:linear-gradient(180deg,#999,#666);
+  border-radius:50% 50% 30% 30%;
+  border:2px solid #BBB;
+  position:relative;
+}
+.aldric-large-helm::before {
+  content:''; position:absolute;
+  top:55%; left:50%; transform:translate(-50%,-50%);
+  width:28px; height:14px;
+  background:rgba(0,0,0,0.7);
+  border-radius:30%;
+}
+.aldric-large-body {
+  width:80px; height:95px;
+  background:linear-gradient(180deg,#888,#555);
+  border-radius:4px; margin-top:3px;
+  border:2px solid #AAA;
+  position:relative;
+}
+.aldric-large-body::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:25px;
+  background:linear-gradient(180deg,#666,#555);
+  border-radius:4px 4px 0 0;
+  border-bottom:1px solid #999;
+}
+.aldric-large-body::after {
+  content:''; position:absolute;
+  top:30px; left:50%; transform:translateX(-50%);
+  width:36px; height:45px;
+  background:linear-gradient(180deg,#444,#222);
+  border-radius:2px; border:1px solid #555;
+}
+.aldric-large-legs {
+  display:flex; gap:6px; margin-top:3px;
+}
+.aldric-large-leg {
+  width:35px; height:45px;
+  background:linear-gradient(180deg,#555,#333);
+  border-radius:2px 2px 6px 6px;
+  border:1px solid #666;
+}
+.aldric-large-spear {
+  position:absolute;
+  right:-45px; top:-30px;
+  width:5px; height:180px;
+  background:linear-gradient(180deg,var(--gold),#8B6914,#4A3A1A);
+  border-radius:3px;
+}
+.aldric-large-spear::before {
+  content:''; position:absolute;
+  top:-16px; left:-6px;
+  width:17px; height:22px;
+  background:linear-gradient(180deg,var(--gold2),#CCC);
+  clip-path:polygon(50% 0%,0% 100%,100% 100%);
+}
+
+.store-bg-castle {
+  position:absolute; bottom:0; left:0; right:0; height:100px;
+  display:flex; align-items:flex-end; justify-content:space-between;
+  padding:0 15px; opacity:0.35;
+}
+.store-merlon-group { display:flex; gap:4px; align-items:flex-end; }
+.store-merlon { width:10px; height:25px; background:#333; border-radius:1px; }
+.store-merlon.t { height:36px; }
+
+.store-dusk {
+  position:absolute; bottom:0; left:0; right:0; height:80px;
+  background:linear-gradient(0deg,rgba(180,80,10,0.35),transparent);
+}
+
+/* Large Dravek */
+.dravek-large-head {
+  width:52px; height:52px;
+  background:linear-gradient(180deg,#D4A574,#A07040);
+  border-radius:50%; border:1px solid #C08050;
+  position:relative;
+}
+.dravek-large-head::after {
+  content:''; position:absolute;
+  top:12px; left:50%; transform:translateX(-50%);
+  width:26px; height:11px;
+  background:rgba(0,0,0,0.2); border-radius:30%;
+}
+.dravek-large-coat {
+  width:82px; height:100px;
+  background:linear-gradient(180deg,#2A1F0A,#1A1200);
+  border-radius:4px 4px 8px 8px;
+  margin-top:3px;
+  border:1px solid #3A2F1A;
+  position:relative;
+}
+.dravek-large-coat::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:28px;
+  background:linear-gradient(180deg,#3A2A10,#2A1F0A);
+  border-radius:4px 4px 0 0;
+  border-bottom:1px solid #4A3A1A;
+}
+.dravek-large-lapel {
+  position:absolute; top:28px; left:0; right:0; height:30px;
+  background:linear-gradient(180deg,#2A1800,#1A1000);
+}
+.dravek-large-rings {
+  position:absolute; right:-12px; top:35px;
+  display:flex; flex-direction:column; gap:5px;
+}
+.dravek-large-ring {
+  width:12px; height:12px; border-radius:50%; border:2.5px solid;
+}
+.dravek-large-ring.g { border-color:var(--gold); }
+.dravek-large-ring.s { border-color:#CCC; }
+
+.store-candle-glow {
+  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:120px; height:120px;
+  background:radial-gradient(circle,rgba(255,160,30,0.35) 0%,transparent 70%);
+  animation:flicker 2.5s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% { opacity:0.7; transform:translateX(-50%) scale(1); }
+  100% { opacity:1; transform:translateX(-50%) scale(1.15); }
+}
+
+.store-stall-surface {
+  position:absolute; bottom:40px; left:0; right:0; height:18px;
+  background:linear-gradient(180deg,#8B6914,#5A4210);
+}
+
+/* DFY visual */
+.dfy-visual {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  z-index:2;
+}
+.dfy-icon-large {
+  font-size:4rem;
+  filter:drop-shadow(0 0 20px rgba(74,108,247,0.5));
+}
+.dfy-badges {
+  display:flex; flex-direction:column; gap:0.5rem;
+  align-items:center;
+}
+.dfy-badge {
+  background:rgba(74,108,247,0.15);
+  border:1px solid rgba(74,108,247,0.3);
+  border-radius:50px; padding:0.3rem 1rem;
+  font-size:0.8rem; color:#8A9CF7; font-weight:600;
+}
+.dfy-glow {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:200px; height:200px;
+  background:radial-gradient(circle,rgba(74,108,247,0.12) 0%,transparent 70%);
+}
+
+/* Stars */
+.store-stars { position:absolute; top:0; left:0; right:0; bottom:0; }
+.s-star {
+  position:absolute; width:2px; height:2px;
+  background:white; border-radius:50%;
+  animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,100% { opacity:0.2; }
+  50% { opacity:0.9; }
+}
+
+/* Product info panel */
+.product-info-panel {
+  padding:2.5rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.prod-type {
+  font-size:0.75rem; font-weight:700;
+  color:var(--gold); letter-spacing:1.5px;
+  text-transform:uppercase; margin-bottom:0.4rem;
+}
+.prod-name {
+  font-size:2rem; font-weight:900;
+  letter-spacing:-0.5px; margin-bottom:0.5rem;
+}
+.prod-tagline {
+  font-style:italic; color:var(--grey);
+  font-size:0.95rem; margin-bottom:1.5rem;
+  padding-left:0.75rem;
+  border-left:2px solid var(--gold);
+  line-height:1.5;
+}
+
+.prod-includes { margin-bottom:1.5rem; }
+.prod-includes h4 {
+  font-size:0.8rem; font-weight:700;
+  color:var(--grey); letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:0.75rem;
+}
+.include-row {
+  display:flex; align-items:flex-start;
+  gap:0.6rem; margin-bottom:0.6rem;
+}
+.inc-check { color:var(--green); font-weight:700; flex-shrink:0; margin-top:0.1rem; }
+.inc-text { font-size:0.88rem; color:var(--grey); line-height:1.5; }
+.inc-text strong { color:var(--white); }
+
+.prod-convo {
+  background:var(--navy);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1.25rem;
+  margin-bottom:1.5rem;
+}
+.prod-convo-title {
+  font-size:0.7rem; font-weight:700;
+  color:var(--grey); letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:0.75rem;
+}
+.convo-line { display:flex; gap:0.5rem; margin-bottom:0.5rem; align-items:flex-start; }
+.convo-who { font-size:0.8rem; font-weight:700; white-space:nowrap; flex-shrink:0; }
+.convo-who.p { color:var(--blue); }
+.convo-who.n { color:var(--gold); }
+.convo-say { font-size:0.85rem; color:var(--white); font-style:italic; line-height:1.5; }
+
+.prod-buy-row {
+  display:flex; align-items:center;
+  justify-content:space-between;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+  flex-wrap:wrap; gap:1rem;
+}
+.prod-price-wrap {}
+.prod-price-old { font-size:0.9rem; color:var(--grey); text-decoration:line-through; }
+.prod-price { font-size:2.2rem; font-weight:900; color:var(--gold); }
+
+.btn-buy {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:var(--gold); color:var(--black);
+  padding:0.9rem 2rem; border-radius:10px;
+  text-decoration:none; font-weight:800; font-size:1rem;
+  transition:all 0.2s; border:none; cursor:pointer;
+}
+.btn-buy:hover {
+  background:var(--gold2); transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(201,168,76,0.3);
+}
+
+.btn-outline {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:transparent; color:var(--gold);
+  padding:0.9rem 2rem; border-radius:10px;
+  text-decoration:none; font-weight:700; font-size:1rem;
+  border:2px solid var(--gold); transition:all 0.2s;
+}
+.btn-outline:hover { background:rgba(201,168,76,0.08); transform:translateY(-2px); }
+
+.shared-world-box {
+  background:rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px; padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+}
+.shared-world-box h5 {
+  font-size:0.75rem; font-weight:700;
+  color:var(--gold); letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:0.75rem;
+}
+.sw-exchange { margin-bottom:0.6rem; }
+.sw-label { font-size:0.75rem; color:var(--grey); margin-bottom:0.15rem; }
+.sw-quote {
+  font-style:italic; color:var(--white);
+  font-size:0.85rem; line-height:1.5;
+  padding-left:0.75rem;
+  border-left:2px solid rgba(201,168,76,0.4);
+}
+
+.section-divider {
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  max-width:960px; margin:0 auto;
+}
+
+footer {
+  background:var(--navy); border-top:1px solid var(--border); padding:3rem 2rem;
+}
+.footer-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:2rem;
+}
+.footer-brand p { color:var(--grey); font-size:0.85rem; margin-top:0.4rem; }
+.footer-links-col h4 { color:var(--white); font-size:0.85rem; font-weight:700; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:1px; }
+.footer-links-col a { display:block; color:var(--grey); text-decoration:none; font-size:0.85rem; margin-bottom:0.4rem; transition:color 0.2s; }
+.footer-links-col a:hover { color:var(--gold); }
+.footer-bottom {
+  max-width:1100px; margin:2rem auto 0;
+  padding-top:1.5rem; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:1rem;
+}
+.footer-bottom p { color:var(--grey); font-size:0.8rem; }
+.crypto-badges { display:flex; gap:0.5rem; flex-wrap:wrap; }
+.crypto-badge { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:0.25rem 0.6rem; font-size:0.75rem; color:var(--grey); font-weight:600; }
+
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .product-layout { grid-template-columns:1fr; }
+  .product-visual { min-height:240px; }
+  .footer-inner { flex-direction:column; text-align:center; }
+}
+
+</style>
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="nav-brand">
-        <img src="assets/images/logo.png" 
-             alt="NPCForge" class="nav-logo">
-        <span>NPCForge</span>
-    </div>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="store.html">Store</a>
-        <a href="free.html">Free Packs</a>
-        <a href="custom.html">Custom Order</a>
-    </div>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⚔️</div>
+    <span class="logo-text">NPCForge</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="store.html" class="active">Store</a>
+    <a href="free.html">Free Packs</a>
+    <a href="custom.html">Custom Order</a>
+    <a href="store.html" class="nav-cta">Buy Now</a>
+  </div>
 </nav>
 
-<section class="store-header">
-    <h1>Character Store</h1>
-    <p>Every pack includes system_prompt.txt, 
-       memories.json, config.yml, and SETUP.pdf.<br>
-       Delivered to your email automatically 
-       after payment.</p>
-    <p class="payment-note">
-        💰 All payments in cryptocurrency.<br>
-        BTC · ETH · LTC · DOGE · USDT (TRC20)<br>
-        Instant delivery after confirmation.
-    </p>
+<div class="store-hero">
+  <h1>Character <span>Store</span></h1>
+  <p>
+    Every pack includes system_prompt.txt, memories.json, config.yml, and SETUP.pdf.
+    Files delivered to your email within 1 hour of payment confirmation.
+  </p>
+  <div class="payment-info">
+    <span>💰 Payments via cryptocurrency</span>
+    <strong>BTC · ETH · LTC · DOGE · USDT (TRC20)</strong>
+    <span>Instant delivery after blockchain confirmation</span>
+  </div>
+</div>
+
+<section class="section section-dark">
+<div class="container">
+
+  <!-- ALDRIC -->
+  <div id="aldric" class="section-anchor"></div>
+  <div class="product-block">
+    <div class="product-layout">
+
+      <div class="product-visual store-visual-aldric">
+        <div class="store-bg-castle">
+          <div class="store-merlon-group">
+            <div class="store-merlon"></div><div class="store-merlon t"></div>
+            <div class="store-merlon"></div><div class="store-merlon t"></div>
+            <div class="store-merlon"></div>
+          </div>
+          <div class="store-merlon-group">
+            <div class="store-merlon t"></div><div class="store-merlon"></div>
+            <div class="store-merlon t"></div><div class="store-merlon"></div>
+          </div>
+        </div>
+        <div class="store-dusk"></div>
+        <div class="char-display">
+          <div class="aldric-large-helm"></div>
+          <div class="aldric-large-body"></div>
+          <div class="aldric-large-legs">
+            <div class="aldric-large-leg"></div>
+            <div class="aldric-large-leg"></div>
+          </div>
+          <div class="aldric-large-spear"></div>
+        </div>
+      </div>
+
+      <div class="product-info-panel">
+        <div>
+          <div class="prod-type">Grizzled Guard</div>
+          <div class="prod-name">Aldric</div>
+          <div class="prod-tagline">
+            "Thirty-one years on this gate. Started the year the East Tower burned."
+          </div>
+
+          <div class="prod-includes">
+            <h4>What Is Included</h4>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>system_prompt.txt</strong> — 600-word deep personality definition. History, speech patterns, relationships, and a personal code.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>memories.json</strong> — 25 hand-crafted memories. Aldric knows the blacksmith by name. He knows about the East Tower. He has opinions about Lord Harren he will not quite say.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>config.yml</strong> — Advanced settings. Token management, cost controls, 7 pre-configured edge case responses.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>SETUP.pdf</strong> — Three steps. Under 10 minutes. Troubleshooting section included.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>24hr personal support</strong> — If it does not work, I fix it.</span>
+            </div>
+          </div>
+
+          <div class="prod-convo">
+            <div class="prod-convo-title">Real Conversation Sample</div>
+            <div class="convo-line">
+              <span class="convo-who p">Player:</span>
+              <span class="convo-say">"Have you always been a guard?"</span>
+            </div>
+            <div class="convo-line">
+              <span class="convo-who n">Aldric:</span>
+              <span class="convo-say">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen. Too young to know that some fires don't go out just because you stop seeing the smoke."</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-buy-row">
+          <div class="prod-price-wrap">
+            <div class="prod-price">$15</div>
+            <div style="font-size:0.8rem;color:var(--grey);margin-top:0.25rem;">Delivered in under 1 hour</div>
+          </div>
+          <a href="pay-aldric.html" class="btn-buy">Buy Aldric ⚔️</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <br><br>
+
+  <!-- DRAVEK -->
+  <div id="dravek" class="section-anchor"></div>
+  <div class="product-block">
+    <div class="product-layout">
+
+      <div class="product-visual store-visual-dravek">
+        <div class="store-stall-surface"></div>
+        <div class="store-candle-glow"></div>
+        <div class="char-display">
+          <div class="dravek-large-head"></div>
+          <div class="dravek-large-coat">
+            <div class="dravek-large-lapel"></div>
+            <div class="dravek-large-rings">
+              <div class="dravek-large-ring g"></div>
+              <div class="dravek-large-ring s"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info-panel">
+        <div>
+          <div class="prod-type">Corrupt Merchant</div>
+          <div class="prod-name">Dravek</div>
+          <div class="prod-tagline">
+            "I deal in solutions to problems. What problem are you trying to solve?"
+          </div>
+
+          <div class="prod-includes">
+            <h4>What Is Included</h4>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>system_prompt.txt</strong> — Full personality including his personal code of ethics. Yes, he has one. It makes him more unsettling.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>memories.json</strong> — 25 memories including the two cities he fled, his implied arrangement with Lord Harren, and his one non-negotiable ethical line.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>config.yml</strong> — Merchant-optimized. Higher conversation memory, lower cooldown, pre-built responses for threats, haggling, and illegal goods questions.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>SETUP.pdf</strong> — Same three-step guide. Under 10 minutes.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>24hr personal support</strong> — Every purchase.</span>
+            </div>
+          </div>
+
+          <div class="prod-convo">
+            <div class="prod-convo-title">Real Conversation Sample</div>
+            <div class="convo-line">
+              <span class="convo-who p">Player:</span>
+              <span class="convo-say">"I'll report you to the guard."</span>
+            </div>
+            <div class="convo-line">
+              <span class="convo-who n">Dravek:</span>
+              <span class="convo-say">"Interesting approach. People who lead with threats want something badly enough to become unpleasant. That tells me something useful. Now. What is it you actually need?"</span>
+            </div>
+          </div>
+
+          <div class="shared-world-box">
+            <h5>⚔️ Shared World With Aldric</h5>
+            <div class="sw-exchange">
+              <div class="sw-label">Ask Dravek about Aldric:</div>
+              <div class="sw-quote">"Honest man. Deeply inconvenient quality in his profession. We maintain a respectful distance."</div>
+            </div>
+            <div class="sw-exchange">
+              <div class="sw-label">Ask Aldric about Dravek:</div>
+              <div class="sw-quote">"Never given me a reason to move him on. I find that mildly suspicious on its own merits."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-buy-row">
+          <div class="prod-price-wrap">
+            <div class="prod-price">$15</div>
+            <div style="font-size:0.8rem;color:var(--grey);margin-top:0.25rem;">Delivered in under 1 hour</div>
+          </div>
+          <a href="pay-dravek.html" class="btn-buy">Buy Dravek 🗝️</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <br><br>
+
+  <!-- BUNDLE -->
+  <div id="bundle" class="section-anchor"></div>
+  <div class="product-block featured-block">
+    <div class="featured-strip">⭐ Best Value — Save $5</div>
+    <div class="product-layout">
+
+      <div class="product-visual store-visual-bundle">
+        <div class="store-stars">
+          <div class="s-star" style="top:10%;left:15%;animation-delay:0s;"></div>
+          <div class="s-star" style="top:20%;left:75%;animation-delay:0.6s;"></div>
+          <div class="s-star" style="top:55%;left:10%;animation-delay:1.2s;"></div>
+          <div class="s-star" style="top:35%;left:88%;animation-delay:0.3s;"></div>
+          <div class="s-star" style="top:75%;left:60%;animation-delay:0.9s;"></div>
+          <div class="s-star" style="top:8%;left:45%;animation-delay:1.5s;"></div>
+          <div class="s-star" style="top:65%;left:30%;animation-delay:0.4s;"></div>
+          <div class="s-star" style="top:45%;left:55%;animation-delay:1.8s;"></div>
+        </div>
+        <div class="char-display" style="flex-direction:row;gap:2rem;align-items:flex-end;">
+          <div style="display:flex;flex-direction:column;align-items:center;transform:scale(0.8);opacity:0.95;">
+            <div class="aldric-large-helm"></div>
+            <div class="aldric-large-body"></div>
+            <div class="aldric-large-legs">
+              <div class="aldric-large-leg"></div>
+              <div class="aldric-large-leg"></div>
+            </div>
+          </div>
+          <div style="width:2px;height:100px;background:linear-gradient(180deg,transparent,var(--gold),transparent);"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;transform:scale(0.8);opacity:0.95;">
+            <div class="dravek-large-head"></div>
+            <div class="dravek-large-coat">
+              <div class="dravek-large-rings">
+                <div class="dravek-large-ring g"></div>
+                <div class="dravek-large-ring s"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info-panel">
+        <div>
+          <div class="prod-type">Aldric + Dravek — One World</div>
+          <div class="prod-name">City Bundle</div>
+          <div class="prod-tagline">
+            "One city. Two characters. They have watched each other for eleven years. Neither trusts the other."
+          </div>
+
+          <div class="prod-includes">
+            <h4>Everything In Both Packs Plus</h4>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Complete Aldric pack</strong> — all files, full version ($15 value)</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Complete Dravek pack</strong> — all files, full version ($15 value)</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>BONUS: varenhold-lore.pdf</strong> — The shared world document. City layout, named locations, political tensions, the mystery at the docks. Use this to build more NPCs that fit the same world.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Cross-reference memories</strong> — They know each other. Ask either about the other and get a consistent answer.</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>48hr priority support</strong> — Faster response for bundle buyers.</span>
+            </div>
+          </div>
+
+          <div class="prod-convo">
+            <div class="prod-convo-title">The Cross-Reference In Action</div>
+            <div class="convo-line">
+              <span class="convo-who p">Player asks Aldric:</span>
+              <span class="convo-say">"What do you think of that merchant?"</span>
+            </div>
+            <div class="convo-line">
+              <span class="convo-who n">Aldric:</span>
+              <span class="convo-say">"Dravek. Eleven years near my gate. Never given me a direct reason to move him on. I find that mildly suspicious on its own merits."</span>
+            </div>
+            <div style="height:0.5rem;"></div>
+            <div class="convo-line">
+              <span class="convo-who p">Player asks Dravek:</span>
+              <span class="convo-say">"Do you know the guard?"</span>
+            </div>
+            <div class="convo-line">
+              <span class="convo-who n">Dravek:</span>
+              <span class="convo-say">"Aldric. Honest man. Deeply inconvenient quality in his profession. We maintain a respectful distance."</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-buy-row">
+          <div class="prod-price-wrap">
+            <div class="prod-price-old">$30</div>
+            <div class="prod-price">$25</div>
+            <div style="font-size:0.8rem;color:var(--green);margin-top:0.25rem;">You save $5</div>
+          </div>
+          <a href="pay-bundle.html" class="btn-buy">Buy Bundle 🏰</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <br><br>
+
+  <!-- DFY -->
+  <div id="dfy" class="section-anchor"></div>
+  <div class="product-block">
+    <div class="product-layout">
+
+      <div class="product-visual store-visual-dfy">
+        <div class="dfy-glow"></div>
+        <div class="dfy-visual">
+          <div class="dfy-icon-large">🔧</div>
+          <div class="dfy-badges">
+            <div class="dfy-badge">API Connection Repair</div>
+            <div class="dfy-badge">Prompt Rewrite</div>
+            <div class="dfy-badge">Token Optimization</div>
+            <div class="dfy-badge">4hr Turnaround</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info-panel">
+        <div>
+          <div class="prod-type">Done-For-You Service</div>
+          <div class="prod-name">Fix My Setup</div>
+          <div class="prod-tagline">
+            "Your SentiencePro is running. Your NPC is not doing what you expected. I fix it."
+          </div>
+
+          <div class="prod-includes">
+            <h4>What I Fix</h4>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>API connection issues</strong> — Key format errors, path mistakes, provider mismatches</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Empty or broken system_prompt</strong> — I rewrite it from scratch if needed</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Token and temperature chaos</strong> — Every setting optimized with inline comments</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Character breaking problems</strong> — Protection settings configured properly</span>
+            </div>
+          </div>
+
+          <div class="prod-includes">
+            <h4>What You Receive</h4>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Corrected config.yml</strong> — Fully commented, every setting explained</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Fixed system_prompt.txt</strong> — Yours repaired or rewritten from scratch</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>7-day follow-up support</strong> — If anything breaks in the first week I fix it free</span>
+            </div>
+            <div class="include-row">
+              <span class="inc-check">✓</span>
+              <span class="inc-text"><strong>Full refund if I cannot fix it</strong> — This has not happened. The offer stands.</span>
+            </div>
+          </div>
+
+          <div class="prod-convo" style="background:rgba(74,108,247,0.05);border-color:rgba(74,108,247,0.2);">
+            <div class="prod-convo-title">How It Works</div>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                <span style="color:var(--blue);font-weight:700;font-size:0.85rem;white-space:nowrap;">1.</span>
+                <span style="font-size:0.85rem;color:var(--grey);">You purchase and send me your config.yml and system_prompt.txt. No server access needed.</span>
+              </div>
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                <span style="color:var(--blue);font-weight:700;font-size:0.85rem;white-space:nowrap;">2.</span>
+                <span style="font-size:0.85rem;color:var(--grey);">I identify every problem in your configuration.</span>
+              </div>
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                <span style="color:var(--blue);font-weight:700;font-size:0.85rem;white-space:nowrap;">3.</span>
+                <span style="font-size:0.85rem;color:var(--grey);">I send corrected files within 4 hours with explanations.</span>
+              </div>
+              <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                <span style="color:var(--blue);font-weight:700;font-size:0.85rem;white-space:nowrap;">4.</span>
+                <span style="font-size:0.85rem;color:var(--grey);">You install. Restart. Your NPC works.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-buy-row">
+          <div class="prod-price-wrap">
+            <div class="prod-price">$35</div>
+            <div style="font-size:0.8rem;color:var(--grey);margin-top:0.25rem;">4hr turnaround guaranteed</div>
+          </div>
+          <a href="pay-dfy.html" class="btn-buy">Fix My Setup 🔧</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 </section>
 
-<!-- PRODUCT: ALDRIC -->
-<section class="product-full" id="aldric">
-    <div class="product-full-grid">
-    
-        <div class="product-full-image">
-            <img src="assets/images/aldric-thumb.png" 
-                 alt="Aldric Grizzled Guard">
-            <div class="conversation-demo">
-                <div class="demo-exchange">
-                    <span class="demo-player">
-                        Player:
-                    </span>
-                    <span class="demo-text">
-                        "Have you always been a guard?"
-                    </span>
-                </div>
-                <div class="demo-exchange npc">
-                    <span class="demo-npc">Aldric:</span>
-                    <span class="demo-text">
-                        "Thirty-one years on this gate. 
-                        Started the year the East Tower 
-                        burned. I was seventeen. Too young 
-                        to know that some fires don't go 
-                        out just because you stop seeing 
-                        the smoke."
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="product-full-info">
-            <h2>Aldric — Grizzled Guard</h2>
-            <p class="product-tagline">
-                "State your business. 
-                 I won't ask again."
-            </p>
-            
-            <div class="includes-list">
-                <h3>What Is Included</h3>
-                <ul>
-                    <li>✅ system_prompt.txt 
-                        (600-word personality definition)
-                    </li>
-                    <li>✅ memories.json 
-                        (25 hand-crafted memories)
-                    </li>
-                    <li>✅ config.yml 
-                        (advanced settings + 
-                        7 edge case responses)
-                    </li>
-                    <li>✅ SETUP.pdf 
-                        (3-step guide + troubleshooting)
-                    </li>
-                    <li>✅ 24hr personal support guarantee
-                    </li>
-                </ul>
-            </div>
-
-            <div class="compat-list">
-                <h3>Compatible With</h3>
-                <p>✅ SentiencePro · LlamaCraft Bridge<br>
-                   ✅ OpenAI · Anthropic APIs<br>
-                   ✅ Paper · Spigot · Fabric</p>
-            </div>
-
-            <div class="buy-section">
-                <div class="price-display">$15</div>
-                <p class="crypto-note">
-                    Pay with crypto. 
-                    Files delivered to your 
-                    email automatically.
-                </p>
-                <!-- 
-                REPLACE THIS HREF WITH YOUR 
-                FAUCETPAY PAYMENT LINK FOR ALDRIC 
-                -->
-                <a href="YOUR_FAUCETPAY_LINK_ALDRIC" 
-                   class="btn-buy">
-                    Buy Aldric — $15
-                </a>
-                <p class="crypto-accepted">
-                    BTC · ETH · LTC · DOGE · USDT
-                </p>
-            </div>
-        </div>
-        
-    </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="section-divider"></div>
-
-<!-- PRODUCT: DRAVEK -->
-<section class="product-full" id="dravek">
-    <div class="product-full-grid reverse">
-    
-        <div class="product-full-info">
-            <h2>Dravek — Corrupt Merchant</h2>
-            <p class="product-tagline">
-                "I deal in solutions to problems. 
-                 What problem are you trying 
-                 to solve?"
-            </p>
-            
-            <div class="includes-list">
-                <h3>What Is Included</h3>
-                <ul>
-                    <li>✅ system_prompt.txt 
-                        (full personality with 
-                        personal code of ethics)
-                    </li>
-                    <li>✅ memories.json 
-                        (25 memories including 
-                        his two previous cities 
-                        and why he left both)
-                    </li>
-                    <li>✅ config.yml 
-                        (merchant-optimized: 
-                        higher memory, lower cooldown, 
-                        haggle responses pre-built)
-                    </li>
-                    <li>✅ SETUP.pdf + 24hr guarantee
-                    </li>
-                </ul>
-            </div>
-
-            <div class="shared-world-note">
-                <h3>Shared World Feature</h3>
-                <p>Ask Dravek about Aldric:</p>
-                <blockquote>
-                    "Honest man. Deeply inconvenient 
-                     quality in his profession."
-                </blockquote>
-                <p>Ask Aldric about Dravek:</p>
-                <blockquote>
-                    "Never given me a reason to move 
-                     him on. I find that mildly 
-                     suspicious."
-                </blockquote>
-            </div>
-
-            <div class="buy-section">
-                <div class="price-display">$15</div>
-                <!-- 
-                REPLACE WITH FAUCETPAY LINK FOR DRAVEK 
-                -->
-                <a href="YOUR_FAUCETPAY_LINK_DRAVEK" 
-                   class="btn-buy">
-                    Buy Dravek — $15
-                </a>
-                <p class="crypto-accepted">
-                    BTC · ETH · LTC · DOGE · USDT
-                </p>
-            </div>
-        </div>
-        
-        <div class="product-full-image">
-            <img src="assets/images/dravek-thumb.png" 
-                 alt="Dravek Corrupt Merchant">
-            <div class="conversation-demo">
-                <div class="demo-exchange">
-                    <span class="demo-player">Player:</span>
-                    <span class="demo-text">
-                        "I'll report you to the guard"
-                    </span>
-                </div>
-                <div class="demo-exchange npc">
-                    <span class="demo-npc">Dravek:</span>
-                    <span class="demo-text">
-                        "Interesting approach. People who 
-                        lead with threats want something 
-                        badly enough to become unpleasant. 
-                        That tells me something useful. 
-                        Now. What is it you actually need?"
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="section-divider"></div>
-
-<!-- PRODUCT: BUNDLE -->
-<section class="product-full featured-section" 
-         id="bundle">
-    <div class="featured-header">
-        ⭐ BEST VALUE — SAVE $5
-    </div>
-    <div class="product-full-grid">
-    
-        <div class="product-full-image">
-            <img src="assets/images/bundle-thumb.png" 
-                 alt="City Bundle">
-        </div>
-        
-        <div class="product-full-info">
-            <h2>The City Bundle</h2>
-            <p class="product-tagline">
-                Aldric + Dravek. 
-                One city. They know each other.
-            </p>
-            
-            <div class="includes-list">
-                <h3>Everything In Both Packs Plus:</h3>
-                <ul>
-                    <li>✅ Aldric complete pack 
-                        ($15 value)
-                    </li>
-                    <li>✅ Dravek complete pack 
-                        ($15 value)
-                    </li>
-                    <li>✅ BONUS: varenhold-lore.pdf
-                        The shared world document. 
-                        City layout, named locations, 
-                        political tensions, 
-                        the mystery at the docks.
-                        Use this to build more NPCs 
-                        that fit the same world.
-                    </li>
-                    <li>✅ 48hr priority support
-                    </li>
-                </ul>
-            </div>
-
-            <div class="buy-section">
-                <div class="price-row">
-                    <span class="price-old">$30</span>
-                    <div class="price-display">$25</div>
-                </div>
-                <!-- 
-                REPLACE WITH FAUCETPAY LINK FOR BUNDLE 
-                -->
-                <a href="YOUR_FAUCETPAY_LINK_BUNDLE" 
-                   class="btn-buy">
-                    Buy Bundle — $25
-                </a>
-                <p class="crypto-accepted">
-                    BTC · ETH · LTC · DOGE · USDT
-                </p>
-            </div>
-        </div>
-        
-    </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="section-divider"></div>
-
-<!-- DFY SERVICE -->
-<section class="product-full" id="dfy">
-    <div class="product-full-grid">
-        <div class="product-full-info" 
-             style="grid-column: 1 / -1; 
-                    max-width: 700px; 
-                    margin: 0 auto;">
-            <h2>Done-For-You Installation</h2>
-            <p class="product-tagline">
-                Your SentiencePro is running 
-                but nothing works right. 
-                I fix it.
-            </p>
-            
-            <div class="includes-list">
-                <h3>What I Fix</h3>
-                <ul>
-                    <li>✅ API connection issues</li>
-                    <li>✅ Broken or empty system_prompt</li>
-                    <li>✅ Token and temperature chaos</li>
-                    <li>✅ Character breaking problems</li>
-                    <li>✅ Cost optimization</li>
-                </ul>
-                <h3>What You Receive</h3>
-                <ul>
-                    <li>✅ Corrected config.yml 
-                        (fully commented)
-                    </li>
-                    <li>✅ Fixed or rewritten 
-                        system_prompt.txt
-                    </li>
-                    <li>✅ 7-day follow-up support</li>
-                    <li>✅ Full refund if I cannot fix it
-                    </li>
-                </ul>
-            </div>
-
-            <div class="buy-section">
-                <div class="price-display">$35</div>
-                <p class="process-note">
-                    After payment: Send me your 
-                    config files via the contact 
-                    link below. No server access needed.
-                    Fixed files returned within 4 hours.
-                </p>
-                <!-- 
-                REPLACE WITH FAUCETPAY LINK FOR DFY 
-                -->
-                <a href="YOUR_FAUCETPAY_LINK_DFY" 
-                   class="btn-buy">
-                    Buy DFY Service — $35
-                </a>
-                <p class="crypto-accepted">
-                    BTC · ETH · LTC · DOGE · USDT
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-    <div class="footer-content">
-        <p>NPCForge | AI NPC Character Design</p>
-        <p>Questions? 
-           Find me on BuiltByBit: NPCForge</p>
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="free.html">Free Packs</a>
-            <a href="custom.html">Custom Orders</a>
-        </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚔️</div>
+        <span class="logo-text">NPCForge</span>
+      </a>
+      <p>AI NPC Character Design</p>
+      <p>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
     </div>
+    <div class="footer-links-col">
+      <h4>Products</h4>
+      <a href="#aldric">Aldric — $15</a>
+      <a href="#dravek">Dravek — $15</a>
+      <a href="#bundle">Bundle — $25</a>
+      <a href="#dfy">Fix My Setup — $35</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Free</h4>
+      <a href="free.html">Starter Guard Pack</a>
+      <a href="free.html#diagnostic">Diagnostic Checklist</a>
+      <a href="free.html#guide">5-Line Prompt Guide</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Support</h4>
+      <a href="https://builtbybit.com" target="_blank">BuiltByBit: NPCForge</a>
+      <a href="custom.html">Custom Commission</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 NPCForge. All rights reserved.</p>
+    <div class="crypto-badges">
+      <span class="crypto-badge">BTC</span>
+      <span class="crypto-badge">ETH</span>
+      <span class="crypto-badge">LTC</span>
+      <span class="crypto-badge">DOGE</span>
+      <span class="crypto-badge">USDT</span>
+    </div>
+  </div>
 </footer>
 
 </body>
