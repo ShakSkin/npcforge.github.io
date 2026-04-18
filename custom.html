@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPCForge — Custom AI NPC Commission</title>
+<meta name="description" content="Order a custom AI NPC character built specifically for your server. Any theme, any role, any personality. Crypto payment. Delivered within 6 hours.">
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0A0A0F;--navy:#0F1021;--card:#141528;
+  --border:#1E2040;--gold:#C9A84C;--gold2:#E8C36A;
+  --white:#F0F0F0;--grey:#8A8AA0;--green:#3DBE6C;
+  --red:#E04444;--blue:#4A6CF7;--purple:#8B5CF6;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.6;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px;}
+
+nav{position:sticky;top:0;z-index:999;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#8B6914);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.logo-text{font-size:1.3rem;font-weight:800;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:0.25rem;}
+.nav-links a{color:var(--grey);text-decoration:none;padding:0.4rem 0.85rem;border-radius:6px;font-size:0.9rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);background:var(--card);}
+.nav-cta{background:var(--gold)!important;color:var(--black)!important;font-weight:700!important;}
+
+.custom-hero{
+  min-height:50vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:4rem 2rem;text-align:center;
+  background:linear-gradient(180deg,#050510,var(--black));
+  position:relative;overflow:hidden;
+}
+.custom-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle at 30% 50%,rgba(139,92,246,0.05) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(201,168,76,0.05) 0%,transparent 50%);
+}
+.custom-hero-inner{position:relative;z-index:1;max-width:700px;}
+.custom-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:50px;padding:0.4rem 1rem;font-size:0.8rem;color:var(--purple);font-weight:700;letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase;}
+.custom-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:1rem;}
+.custom-hero h1 span{color:var(--purple);}
+.custom-hero p{color:var(--grey);max-width:560px;margin:0 auto;line-height:1.7;}
+
+.section{padding:5rem 2rem;}
+.section-dark{background:var(--black);}
+.section-navy{background:var(--navy);}
+.container{max-width:1000px;margin:0 auto;}
+
+/* Examples grid */
+.examples-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-bottom:3rem;
+}
+.example-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;text-align:center;
+  transition:all 0.3s;
+}
+.example-card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,0.3);}
+.example-em{font-size:2.5rem;margin-bottom:0.75rem;display:block;}
+.example-theme{font-size:0.75rem;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.3rem;}
+.example-name{font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;}
+.example-desc{font-size:0.8rem;color:var(--grey);line-height:1.5;}
+
+/* Pricing tiers */
+.tiers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.25rem;margin-bottom:4rem;
+}
+.tier-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:2rem;
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.tier-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--border);transition:background 0.3s;
+}
+.tier-card:hover::before{background:var(--gold);}
+.tier-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.3);}
+.tier-card.popular{border-color:var(--gold);}
+.tier-card.popular::before{background:var(--gold);}
+.tier-pop-badge{
+  position:absolute;top:16px;right:16px;
+  background:var(--gold);color:var(--black);
+  font-size:0.65rem;font-weight:800;
+  padding:0.2rem 0.6rem;border-radius:20px;
+  letter-spacing:1px;text-transform:uppercase;
+}
+.tier-name{font-size:0.8rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
+.tier-price{font-size:2.2rem;font-weight:900;color:var(--gold);margin-bottom:0.25rem;}
+.tier-sub{font-size:0.8rem;color:var(--grey);margin-bottom:1.5rem;}
+.tier-features{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;}
+.tier-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.87rem;color:var(--grey);}
+.tier-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.tier-features li strong{color:var(--white);}
+.btn-tier{
+  display:block;text-align:center;
+  background:var(--gold);color:var(--black);
+  padding:0.85rem;border-radius:10px;
+  text-decoration:none;font-weight:800;
+  transition:all 0.2s;
+}
+.btn-tier:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-tier-outline{
+  display:block;text-align:center;
+  background:transparent;color:var(--gold);
+  padding:0.85rem;border-radius:10px;
+  text-decoration:none;font-weight:700;
+  border:2px solid var(--gold);
+  transition:all 0.2s;
+}
+.btn-tier-outline:hover{background:rgba(201,168,76,0.08);}
+
+/* Process */
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;position:relative;
+}
+.process-step{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.75rem;text-align:center;
+}
+.step-number{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(201,168,76,0.1);
+  border:2px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:900;color:var(--gold);
+  margin:0 auto 1rem;
+}
+.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.5rem;}
+.process-step p{font-size:0.85rem;color:var(--grey);line-height:1.6;}
+
+/* Character builder */
+.char-builder{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:2.5rem;
+  max-width:800px;margin:0 auto;
+}
+.char-builder h3{font-size:1.3rem;font-weight:800;margin-bottom:0.5rem;}
+.char-builder p{color:var(--grey);font-size:0.9rem;margin-bottom:2rem;line-height:1.6;}
+
+.builder-options{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+.option-group{}
+.option-label{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;display:block;}
+.option-pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.option-pill{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:20px;padding:0.35rem 0.85rem;
+  font-size:0.8rem;color:var(--grey);cursor:pointer;
+  transition:all 0.2s;user-select:none;
+}
+.option-pill:hover,.option-pill.selected{
+  background:rgba(201,168,76,0.1);
+  border-color:var(--gold);color:var(--gold);
+}
+
+.char-preview{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;
+}
+.char-preview-title{font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
+.preview-line{font-size:0.88rem;color:var(--grey);margin-bottom:0.4rem;}
+.preview-line strong{color:var(--gold);}
+.preview-line .preview-val{color:var(--white);}
+
+/* Payment info */
+.payment-block{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;
+  max-width:800px;margin:0 auto 3rem;
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+}
+.payment-block .pay-icon{font-size:2rem;flex-shrink:0;}
+.payment-block-info h4{font-size:1rem;font-weight:700;margin-bottom:0.35rem;}
+.payment-block-info p{font-size:0.87rem;color:var(--grey);line-height:1.6;}
+.crypto-accepted-row{display:flex;gap:0.5rem;margin-top:0.6rem;flex-wrap:wrap;}
+.crypto-pill{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--grey);font-weight:600;}
+
+/* Guarantee */
+.custom-guarantee{
+  background:linear-gradient(135deg,#0A0A1A,#050510);
+  border:1px solid var(--border);border-radius:20px;
+  padding:3rem;text-align:center;max-width:700px;margin:0 auto;
+  position:relative;overflow:hidden;
+}
+.custom-guarantee::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.custom-guarantee h2{font-size:1.8rem;font-weight:800;margin-bottom:1rem;}
+.custom-guarantee p{color:var(--grey);margin-bottom:0.75rem;line-height:1.7;}
+
+.section-header{text-align:center;margin-bottom:3rem;}
+.section-tag{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;}
+.section-header h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;}
+.section-header p{color:var(--grey);max-width:560px;margin:0 auto;line-height:1.7;}
+
+footer{background:var(--navy);border-top:1px solid var(--border);padding:3rem 2rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;}
+.footer-brand p{color:var(--grey);font-size:0.85rem;margin-top:0.4rem;}
+.footer-links-col h4{color:var(--white);font-size:0.85rem;font-weight:700;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:1px;}
+.footer-links-col a{display:block;color:var(--grey);text-decoration:none;font-size:0.85rem;margin-bottom:0.4rem;transition:color 0.2s;}
+.footer-links-col a:hover{color:var(--gold);}
+.footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{color:var(--grey);font-size:0.8rem;}
+.crypto-badges{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.crypto-badge{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--grey);font-weight:600;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .builder-options{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;text-align:center;}
+  .payment-block{flex-direction:column;text-align:center;}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⚔️</div>
+    <span class="logo-text">NPCForge</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="store.html">Store</a>
+    <a href="free.html">Free Packs</a>
+    <a href="custom.html" class="active">Custom Order</a>
+    <a href="store.html" class="nav-cta">Buy Now</a>
+  </div>
+</nav>
+
+<div class="custom-hero">
+  <div class="custom-hero-inner">
+    <div class="custom-badge">✨ Bespoke Character Design</div>
+    <h1>A Character Built For <span>Your World</span></h1>
+    <p>
+      Aldric and Dravek are built for a medieval fantasy setting.
+      Your server might be something completely different.
+      I build custom characters for any theme, any role, any personality.
+    </p>
+  </div>
+</div>
+
+<section class="section section-dark">
+<div class="container">
+
+  <!-- EXAMPLES -->
+  <div class="section-header">
+    <div class="section-tag">Examples</div>
+    <h2>Any Server. Any Character.</h2>
+    <p>These are the types of custom characters I have built. Your server's theme is the starting point, not a limitation.</p>
+  </div>
+
+  <div class="examples-grid">
+    <div class="example-card">
+      <span class="example-em">🏰</span>
+      <div class="example-theme">Medieval</div>
+      <div class="example-name">Court Spy</div>
+      <div class="example-desc">Loyal to three different lords. Certain only one of them knows about the other two.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-em">🚀</span>
+      <div class="example-theme">Sci-Fi</div>
+      <div class="example-name">Station AI</div>
+      <div class="example-desc">Helpful. Slightly too helpful. Knows things it should not about the crew.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-em">☠️</span>
+      <div class="example-theme">Post-Apocalyptic</div>
+      <div class="example-name">Scavenger Chief</div>
+      <div class="example-desc">Survived the collapse. Has opinions about why. Most of them are wrong in interesting ways.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-em">🏴‍☠️</span>
+      <div class="example-theme">Pirate</div>
+      <div class="example-name">The Quartermaster</div>
+      <div class="example-desc">Manages the crew with iron efficiency. The captain thinks he is in charge. He is not.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-em">🌲</span>
+      <div class="example-theme">Fantasy</div>
+      <div class="example-name">Forest Elder</div>
+      <div class="example-desc">Ancient. Patient. Has watched seventeen human civilizations rise and collapse. Unimpressed by this one.</div>
+    </div>
+    <div class="example-card">
+      <span class="example-em">🏙️</span>
+      <div class="example-theme">Modern</div>
+      <div class="example-name">City Fixer</div>
+      <div class="example-desc">Knows every backroom deal in the city. Never made one he regrets. A few he prefers not to discuss.</div>
+    </div>
+  </div>
+
+  <!-- PRICING TIERS -->
+  <div class="section-header">
+    <div class="section-tag">Pricing</div>
+    <h2>Commission Options</h2>
+    <p>Three tiers depending on how deep you want to go.</p>
+  </div>
+
+  <div class="tiers-grid">
+
+    <div class="tier-card">
+      <div class="tier-name">Single Character</div>
+      <div class="tier-price">$25</div>
+      <div class="tier-sub">One complete character for your server</div>
+      <ul class="tier-features">
+        <li><strong>system_prompt.txt</strong> — 600+ words, built for your world</li>
+        <li><strong>memories.json</strong> — 20-25 custom memories based on your lore</li>
+        <li><strong>config.yml</strong> — Optimized for your character type</li>
+        <li><strong>SETUP.pdf</strong> — Installation guide</li>
+        <li>7-day revision window</li>
+        <li>Delivered within 6 hours</li>
+      </ul>
+      <a href="pay-custom-single.html" class="btn-tier-outline">Commission — $25</a>
+    </div>
+
+    <div class="tier-card popular">
+      <div class="tier-pop-badge">Popular</div>
+      <div class="tier-name">Two Connected Characters</div>
+      <div class="tier-price">$40</div>
+      <div class="tier-sub">Two characters who know each other</div>
+      <ul class="tier-features">
+        <li>Two complete character packs</li>
+        <li>Cross-reference memories — they know each other</li>
+        <li>Consistent relationship encoding in both files</li>
+        <li>Shared world document connecting them</li>
+        <li>7-day revision window</li>
+        <li>Delivered within 12 hours</li>
+      </ul>
+      <a href="pay-custom-duo.html" class="btn-tier">Commission — $40</a>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-name">Full World Build</div>
+      <div class="tier-price">$80</div>
+      <div class="tier-sub">Five characters. One cohesive world.</div>
+      <ul class="tier-features">
+        <li>Five complete character packs</li>
+        <li>All characters reference each other</li>
+        <li>Full world lore document</li>
+        <li>Mystery or tension woven through all five</li>
+        <li>14-day revision window</li>
+        <li>Delivered within 48 hours</li>
+        <li>Priority support for 30 days</li>
+      </ul>
+      <a href="pay-custom-world.html" class="btn-tier-outline">Commission — $80</a>
+    </div>
+
+  </div>
+
+  <!-- PROCESS -->
+  <div class="section-header">
+    <div class="section-tag">How It Works</div>
+    <h2>The Commission Process</h2>
+    <p>Simple. Fast. No server access needed.</p>
+  </div>
+
+  <div class="process-steps" style="margin-bottom:4rem;">
+    <div class="process-step">
+      <div class="step-number">1</div>
+      <h4>You Purchase</h4>
+      <p>Select your tier and pay via crypto. I receive notification immediately.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">2</div>
+      <h4>You Brief Me</h4>
+      <p>I message you within 2 hours. You tell me about your server, the character's role, tone, and any lore I should know.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">3</div>
+      <h4>I Build</h4>
+      <p>I write the personality definition, craft the memories, and configure the settings for your specific character type.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">4</div>
+      <h4>You Receive</h4>
+      <p>Files delivered to your email. Install in under 10 minutes using the included PDF guide.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">5</div>
+      <h4>You Revise</h4>
+      <p>7-day revision window. If anything feels off I adjust it at no extra charge. Usually one round of small tweaks is all it takes.</p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE BUILDER PREVIEW -->
+  <div class="section-header">
+    <div class="section-tag">Character Builder</div>
+    <h2>Preview Your Character</h2>
+    <p>Select options below to see what I will build for you. This is not a form. It is a preview tool.</p>
+  </div>
+
+  <div class="char-builder">
+    <div class="builder-options">
+      <div class="option-group">
+        <span class="option-label">Server Theme</span>
+        <div class="option-pills" id="theme-pills">
+          <div class="option-pill selected" onclick="selectPill(this,'theme','Medieval')">Medieval</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Sci-Fi')">Sci-Fi</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Post-Apoc')">Post-Apocalyptic</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Pirate')">Pirate</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Fantasy')">High Fantasy</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Modern')">Modern City</div>
+          <div class="option-pill" onclick="selectPill(this,'theme','Horror')">Horror</div>
+        </div>
+      </div>
+      <div class="option-group">
+        <span class="option-label">NPC Role</span>
+        <div class="option-pills" id="role-pills">
+          <div class="option-pill selected" onclick="selectPill(this,'role','Guard')">Guard</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Merchant')">Merchant</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Oracle')">Oracle / Prophet</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Quest Giver')">Quest Giver</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Villain')">Villain</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Ally')">Ally / Companion</div>
+          <div class="option-pill" onclick="selectPill(this,'role','Informant')">Informant</div>
+        </div>
+      </div>
+      <div class="option-group">
+        <span class="option-label">Tone</span>
+        <div class="option-pills" id="tone-pills">
+          <div class="option-pill selected" onclick="selectPill(this,'tone','Serious')">Serious</div>
+          <div class="option-pill" onclick="selectPill(this,'tone','Humorous')">Humorous</div>
+          <div class="option-pill" onclick="selectPill(this,'tone','Mysterious')">Mysterious</div>
+          <div class="option-pill" onclick="selectPill(this,'tone','Threatening')">Threatening</div>
+          <div class="option-pill" onclick="selectPill(this,'tone','Wise')">Wise / Ancient</div>
+          <div class="option-pill" onclick="selectPill(this,'tone','Naive')">Naive / Young</div>
+        </div>
+      </div>
+      <div class="option-group">
+        <span class="option-label">Moral Alignment</span>
+        <div class="option-pills" id="moral-pills">
+          <div class="option-pill selected" onclick="selectPill(this,'moral','Lawful Good')">Lawful Good</div>
+          <div class="option-pill" onclick="selectPill(this,'moral','Neutral')">Neutral</div>
+          <div class="option-pill" onclick="selectPill(this,'moral','Morally Grey')">Morally Grey</div>
+          <div class="option-pill" onclick="selectPill(this,'moral','Corrupt')">Corrupt</div>
+          <div class="option-pill" onclick="selectPill(this,'moral','Chaotic')">Chaotic</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-preview">
+      <div class="char-preview-title">Character Preview</div>
+      <div class="preview-line">Theme: <strong class="preview-val" id="prev-theme">Medieval</strong></div>
+      <div class="preview-line">Role: <strong class="preview-val" id="prev-role">Guard</strong></div>
+      <div class="preview-line">Tone: <strong class="preview-val" id="prev-tone">Serious</strong></div>
+      <div class="preview-line">Alignment: <strong class="preview-val" id="prev-moral">Lawful Good</strong></div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <div style="font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;">What I Will Build</div>
+        <div class="preview-line" id="prev-description" style="color:var(--white);font-style:italic;">A serious lawful good Medieval Guard. Thirty years of service. Suspicious by profession. Honest by choice. Will not accept bribes. Will not break character. Will remember every face that passes through his gate.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="pay-custom-single.html" class="btn-tier" style="display:inline-block;max-width:300px;">
+        Commission This Character — $25
+      </a>
+      <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--grey);">
+        You describe the details after purchase. This preview just helps you think it through.
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="section section-navy">
+<div class="container">
+
+  <!-- PAYMENT -->
+  <div class="section-header">
+    <div class="section-tag">Payment</div>
+    <h2>Crypto Only</h2>
+    <p>All custom commissions are paid in cryptocurrency. Instant settlement. No geographic restrictions.</p>
+  </div>
+
+  <div class="payment-block">
+    <div class="pay-icon">💰</div>
+    <div class="payment-block-info">
+      <h4>Accepted Cryptocurrencies</h4>
+      <p>Send to any of the addresses on the payment page. Files delivered automatically after blockchain confirmation. USDT TRC20 is recommended for stable pricing.</p>
+      <div class="crypto-accepted-row">
+        <span class="crypto-pill">USDT (TRC20)</span>
+        <span class="crypto-pill">Bitcoin (BTC)</span>
+        <span class="crypto-pill">Litecoin (LTC)</span>
+        <span class="crypto-pill">Dogecoin (DOGE)</span>
+        <span class="crypto-pill">Ethereum (ETH)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="custom-guarantee">
+    <h2>The Custom Commission Guarantee</h2>
+    <p>
+      If the character does not feel right after delivery,
+      tell me specifically what is off.
+    </p>
+    <p>
+      I revise it within 24 hours.
+      The 7-day revision window exists for exactly this.
+      Small adjustments are free and expected.
+      Major rewrites are free if the brief was unclear on my end.
+    </p>
+    <p>
+      If after revisions you are genuinely unhappy,
+      I refund you. Full amount. In crypto.
+    </p>
+    <br>
+    <p style="font-size:0.85rem;color:var(--grey);">
+      Find me on BuiltByBit: <strong style="color:var(--gold);">NPCForge</strong><br>
+      If anything is unclear before purchase, ask there first.
+    </p>
+  </div>
+
+</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚔️</div>
+        <span class="logo-text">NPCForge</span>
+      </a>
+      <p>AI NPC Character Design</p>
+      <p>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+    </div>
+    <div class="footer-links-col">
+      <h4>Store</h4>
+      <a href="store.html#aldric">Aldric — $15</a>
+      <a href="store.html#dravek">Dravek — $15</a>
+      <a href="store.html#bundle">Bundle — $25</a>
+      <a href="store.html#dfy">Fix My Setup — $35</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Free</h4>
+      <a href="free.html">Starter Guard Pack</a>
+      <a href="free.html#diagnostic">Diagnostic Checklist</a>
+      <a href="free.html#guide">5-Line Guide</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Support</h4>
+      <a href="https://builtbybit.com" target="_blank">BuiltByBit: NPCForge</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 NPCForge. All rights reserved.</p>
+    <div class="crypto-badges">
+      <span class="crypto-badge">BTC</span>
+      <span class="crypto-badge">ETH</span>
+      <span class="crypto-badge">LTC</span>
+      <span class="crypto-badge">DOGE</span>
+      <span class="crypto-badge">USDT</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const selections = { theme: 'Medieval', role: 'Guard', tone: 'Serious', moral: 'Lawful Good' };
+
+const descriptions = {
+  'Medieval-Guard-Serious-Lawful Good': 'A serious lawful good Medieval Guard. Decades of service. Suspicious by profession. Honest by choice. Will not accept bribes. Will not break character. Remembers every face that passes through his gate.',
+  'Medieval-Merchant-Morally Grey-Neutral': 'A neutral morally grey Medieval Merchant. Sells legitimate goods as cover for everything else. Pragmatic. Charming. Remembers every deal ever made. Silence is his most effective negotiating tool.',
+  'Sci-Fi-Guard-Serious-Lawful Good': 'A serious lawful good Sci-Fi Security Officer. Forty years protecting the station. Has seen three different administrations. Trusts none of them equally. Does his job regardless.',
+  'Post-Apoc-Merchant-Humorous-Neutral': 'A humorous neutral Post-Apocalyptic Trader. Survived the collapse with dark wit intact. Sells everything. Questions nothing. Has a story for every scar.',
+  'default': 'A unique character built specifically for your server world. Their history, speech patterns, relationships, and code of ethics all emerge from the theme and role you select. No templates. Built from scratch.'
+};
+
+function selectPill(el, type, value) {
+  const group = document.getElementById(type + '-pills');
+  group.querySelectorAll('.option-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selections[type] = value;
+  updatePreview();
+}
+
+function updatePreview() {
+  document.getElementById('prev-theme').textContent = selections.theme;
+  document.getElementById('prev-role').textContent = selections.role;
+  document.getElementById('prev-tone').textContent = selections.tone;
+  document.getElementById('prev-moral').textContent = selections.moral;
+  const key = selections.theme + '-' + selections.role + '-' + selections.moral + '-' + selections.moral;
+  const altKey = Object.keys(descriptions).find(k => k.includes(selections.theme) && k.includes(selections.role));
+  document.getElementById('prev-description').textContent = altKey ? descriptions[altKey] : descriptions['default'];
+}
+</script>
+
+</body>
+</html>
