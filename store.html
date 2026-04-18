@@ -2,33 +2,370 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Listings</title>
+    <meta name="viewport" 
+          content="width=device-width, 
+                   initial-scale=1.0">
+    <title>NPCForge Store — 
+           AI NPC Personality Packs</title>
+    <meta name="description" 
+          content="Buy SentiencePro personality 
+                   packs. Aldric, Dravek, bundles, 
+                   and custom characters.">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <h1>Product Listings</h1>
-    <div class="product">
-        <h2>Aldric</h2>
-        <p>Price: $15</p>
-        <button onclick="pay('Aldric', 15)">Buy Now</button>
-    </div>
-    <div class="product">
-        <h2>Dravek</h2>
-        <p>Price: $15</p>
-        <button onclick="pay('Dravek', 15)">Buy Now</button>
-    </div>
-    <div class="product">
-        <h2>City Bundle</h2>
-        <p>Price: $25</p>
-        <button onclick="pay('City Bundle', 25)">Buy Now</button>
-    </div>
 
-    <script>
-        function pay(productName, amount) {
-            // FaucetPay integration logic here
-            alert('Redirecting to payment for ' + productName + ' ($' + amount + ')');
-            // Redirect to FaucetPay payment URL here
-        }
-    </script>
+<nav class="navbar">
+    <div class="nav-brand">
+        <img src="assets/images/logo.png" 
+             alt="NPCForge" class="nav-logo">
+        <span>NPCForge</span>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="free.html">Free Packs</a>
+        <a href="custom.html">Custom Order</a>
+    </div>
+</nav>
+
+<section class="store-header">
+    <h1>Character Store</h1>
+    <p>Every pack includes system_prompt.txt, 
+       memories.json, config.yml, and SETUP.pdf.<br>
+       Delivered to your email automatically 
+       after payment.</p>
+    <p class="payment-note">
+        💰 All payments in cryptocurrency.<br>
+        BTC · ETH · LTC · DOGE · USDT (TRC20)<br>
+        Instant delivery after confirmation.
+    </p>
+</section>
+
+<!-- PRODUCT: ALDRIC -->
+<section class="product-full" id="aldric">
+    <div class="product-full-grid">
+    
+        <div class="product-full-image">
+            <img src="assets/images/aldric-thumb.png" 
+                 alt="Aldric Grizzled Guard">
+            <div class="conversation-demo">
+                <div class="demo-exchange">
+                    <span class="demo-player">
+                        Player:
+                    </span>
+                    <span class="demo-text">
+                        "Have you always been a guard?"
+                    </span>
+                </div>
+                <div class="demo-exchange npc">
+                    <span class="demo-npc">Aldric:</span>
+                    <span class="demo-text">
+                        "Thirty-one years on this gate. 
+                        Started the year the East Tower 
+                        burned. I was seventeen. Too young 
+                        to know that some fires don't go 
+                        out just because you stop seeing 
+                        the smoke."
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-full-info">
+            <h2>Aldric — Grizzled Guard</h2>
+            <p class="product-tagline">
+                "State your business. 
+                 I won't ask again."
+            </p>
+            
+            <div class="includes-list">
+                <h3>What Is Included</h3>
+                <ul>
+                    <li>✅ system_prompt.txt 
+                        (600-word personality definition)
+                    </li>
+                    <li>✅ memories.json 
+                        (25 hand-crafted memories)
+                    </li>
+                    <li>✅ config.yml 
+                        (advanced settings + 
+                        7 edge case responses)
+                    </li>
+                    <li>✅ SETUP.pdf 
+                        (3-step guide + troubleshooting)
+                    </li>
+                    <li>✅ 24hr personal support guarantee
+                    </li>
+                </ul>
+            </div>
+
+            <div class="compat-list">
+                <h3>Compatible With</h3>
+                <p>✅ SentiencePro · LlamaCraft Bridge<br>
+                   ✅ OpenAI · Anthropic APIs<br>
+                   ✅ Paper · Spigot · Fabric</p>
+            </div>
+
+            <div class="buy-section">
+                <div class="price-display">$15</div>
+                <p class="crypto-note">
+                    Pay with crypto. 
+                    Files delivered to your 
+                    email automatically.
+                </p>
+                <!-- 
+                REPLACE THIS HREF WITH YOUR 
+                FAUCETPAY PAYMENT LINK FOR ALDRIC 
+                -->
+                <a href="YOUR_FAUCETPAY_LINK_ALDRIC" 
+                   class="btn-buy">
+                    Buy Aldric — $15
+                </a>
+                <p class="crypto-accepted">
+                    BTC · ETH · LTC · DOGE · USDT
+                </p>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-divider"></div>
+
+<!-- PRODUCT: DRAVEK -->
+<section class="product-full" id="dravek">
+    <div class="product-full-grid reverse">
+    
+        <div class="product-full-info">
+            <h2>Dravek — Corrupt Merchant</h2>
+            <p class="product-tagline">
+                "I deal in solutions to problems. 
+                 What problem are you trying 
+                 to solve?"
+            </p>
+            
+            <div class="includes-list">
+                <h3>What Is Included</h3>
+                <ul>
+                    <li>✅ system_prompt.txt 
+                        (full personality with 
+                        personal code of ethics)
+                    </li>
+                    <li>✅ memories.json 
+                        (25 memories including 
+                        his two previous cities 
+                        and why he left both)
+                    </li>
+                    <li>✅ config.yml 
+                        (merchant-optimized: 
+                        higher memory, lower cooldown, 
+                        haggle responses pre-built)
+                    </li>
+                    <li>✅ SETUP.pdf + 24hr guarantee
+                    </li>
+                </ul>
+            </div>
+
+            <div class="shared-world-note">
+                <h3>Shared World Feature</h3>
+                <p>Ask Dravek about Aldric:</p>
+                <blockquote>
+                    "Honest man. Deeply inconvenient 
+                     quality in his profession."
+                </blockquote>
+                <p>Ask Aldric about Dravek:</p>
+                <blockquote>
+                    "Never given me a reason to move 
+                     him on. I find that mildly 
+                     suspicious."
+                </blockquote>
+            </div>
+
+            <div class="buy-section">
+                <div class="price-display">$15</div>
+                <!-- 
+                REPLACE WITH FAUCETPAY LINK FOR DRAVEK 
+                -->
+                <a href="YOUR_FAUCETPAY_LINK_DRAVEK" 
+                   class="btn-buy">
+                    Buy Dravek — $15
+                </a>
+                <p class="crypto-accepted">
+                    BTC · ETH · LTC · DOGE · USDT
+                </p>
+            </div>
+        </div>
+        
+        <div class="product-full-image">
+            <img src="assets/images/dravek-thumb.png" 
+                 alt="Dravek Corrupt Merchant">
+            <div class="conversation-demo">
+                <div class="demo-exchange">
+                    <span class="demo-player">Player:</span>
+                    <span class="demo-text">
+                        "I'll report you to the guard"
+                    </span>
+                </div>
+                <div class="demo-exchange npc">
+                    <span class="demo-npc">Dravek:</span>
+                    <span class="demo-text">
+                        "Interesting approach. People who 
+                        lead with threats want something 
+                        badly enough to become unpleasant. 
+                        That tells me something useful. 
+                        Now. What is it you actually need?"
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-divider"></div>
+
+<!-- PRODUCT: BUNDLE -->
+<section class="product-full featured-section" 
+         id="bundle">
+    <div class="featured-header">
+        ⭐ BEST VALUE — SAVE $5
+    </div>
+    <div class="product-full-grid">
+    
+        <div class="product-full-image">
+            <img src="assets/images/bundle-thumb.png" 
+                 alt="City Bundle">
+        </div>
+        
+        <div class="product-full-info">
+            <h2>The City Bundle</h2>
+            <p class="product-tagline">
+                Aldric + Dravek. 
+                One city. They know each other.
+            </p>
+            
+            <div class="includes-list">
+                <h3>Everything In Both Packs Plus:</h3>
+                <ul>
+                    <li>✅ Aldric complete pack 
+                        ($15 value)
+                    </li>
+                    <li>✅ Dravek complete pack 
+                        ($15 value)
+                    </li>
+                    <li>✅ BONUS: varenhold-lore.pdf
+                        The shared world document. 
+                        City layout, named locations, 
+                        political tensions, 
+                        the mystery at the docks.
+                        Use this to build more NPCs 
+                        that fit the same world.
+                    </li>
+                    <li>✅ 48hr priority support
+                    </li>
+                </ul>
+            </div>
+
+            <div class="buy-section">
+                <div class="price-row">
+                    <span class="price-old">$30</span>
+                    <div class="price-display">$25</div>
+                </div>
+                <!-- 
+                REPLACE WITH FAUCETPAY LINK FOR BUNDLE 
+                -->
+                <a href="YOUR_FAUCETPAY_LINK_BUNDLE" 
+                   class="btn-buy">
+                    Buy Bundle — $25
+                </a>
+                <p class="crypto-accepted">
+                    BTC · ETH · LTC · DOGE · USDT
+                </p>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-divider"></div>
+
+<!-- DFY SERVICE -->
+<section class="product-full" id="dfy">
+    <div class="product-full-grid">
+        <div class="product-full-info" 
+             style="grid-column: 1 / -1; 
+                    max-width: 700px; 
+                    margin: 0 auto;">
+            <h2>Done-For-You Installation</h2>
+            <p class="product-tagline">
+                Your SentiencePro is running 
+                but nothing works right. 
+                I fix it.
+            </p>
+            
+            <div class="includes-list">
+                <h3>What I Fix</h3>
+                <ul>
+                    <li>✅ API connection issues</li>
+                    <li>✅ Broken or empty system_prompt</li>
+                    <li>✅ Token and temperature chaos</li>
+                    <li>✅ Character breaking problems</li>
+                    <li>✅ Cost optimization</li>
+                </ul>
+                <h3>What You Receive</h3>
+                <ul>
+                    <li>✅ Corrected config.yml 
+                        (fully commented)
+                    </li>
+                    <li>✅ Fixed or rewritten 
+                        system_prompt.txt
+                    </li>
+                    <li>✅ 7-day follow-up support</li>
+                    <li>✅ Full refund if I cannot fix it
+                    </li>
+                </ul>
+            </div>
+
+            <div class="buy-section">
+                <div class="price-display">$35</div>
+                <p class="process-note">
+                    After payment: Send me your 
+                    config files via the contact 
+                    link below. No server access needed.
+                    Fixed files returned within 4 hours.
+                </p>
+                <!-- 
+                REPLACE WITH FAUCETPAY LINK FOR DFY 
+                -->
+                <a href="YOUR_FAUCETPAY_LINK_DFY" 
+                   class="btn-buy">
+                    Buy DFY Service — $35
+                </a>
+                <p class="crypto-accepted">
+                    BTC · ETH · LTC · DOGE · USDT
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <p>NPCForge | AI NPC Character Design</p>
+        <p>Questions? 
+           Find me on BuiltByBit: NPCForge</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="free.html">Free Packs</a>
+            <a href="custom.html">Custom Orders</a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
