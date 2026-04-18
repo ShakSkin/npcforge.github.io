@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Dravek — NPCForge</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0A0A0F;--navy:#0F1021;--card:#141528;
+  --border:#1E2040;--gold:#C9A84C;--gold2:#E8C36A;
+  --white:#F0F0F0;--grey:#8A8AA0;--green:#3DBE6C;
+  --red:#E04444;--blue:#4A6CF7;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.6;min-height:100vh;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+
+nav{background:rgba(10,10,15,0.98);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),#8B6914);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-text{font-size:1.2rem;font-weight:800;color:var(--gold);}
+.nav-back{color:var(--grey);text-decoration:none;font-size:0.9rem;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;}
+.nav-back:hover{color:var(--white);}
+
+.page-wrap{max-width:780px;margin:0 auto;padding:3rem 1.5rem;}
+
+/* Product header */
+.prod-header{
+  background:linear-gradient(135deg,#0F0A00,#1A1000);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:20px;padding:2rem;
+  display:flex;align-items:center;gap:1.5rem;
+  margin-bottom:2rem;position:relative;overflow:hidden;
+}
+.prod-header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* Dravek mini figure */
+.mini-figure{
+  width:80px;height:80px;flex-shrink:0;
+  background:linear-gradient(135deg,#0F0A00,#1A1000);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:2.5rem;
+  box-shadow:0 0 20px rgba(201,168,76,0.15);
+  position:relative;overflow:hidden;
+}
+.mini-figure::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(255,160,30,0.3),transparent);
+}
+
+.prod-info{}
+.prod-info-type{font-size:0.75rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.25rem;}
+.prod-info-name{font-size:1.8rem;font-weight:900;margin-bottom:0.25rem;}
+.prod-info-quote{font-style:italic;color:var(--grey);font-size:0.9rem;line-height:1.5;}
+.prod-price-badge{
+  margin-left:auto;flex-shrink:0;
+  background:rgba(201,168,76,0.1);
+  border:2px solid var(--gold);
+  border-radius:12px;padding:0.75rem 1.25rem;
+  text-align:center;
+}
+.prod-price-badge .price{font-size:2rem;font-weight:900;color:var(--gold);display:block;}
+.prod-price-badge .price-label{font-size:0.7rem;color:var(--grey);}
+
+/* Steps */
+.steps-wrap{display:flex;flex-direction:column;gap:1.5rem;}
+
+.step-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  transition:border-color 0.3s;
+}
+.step-card.active{border-color:rgba(201,168,76,0.4);}
+.step-card.completed{border-color:rgba(61,190,108,0.4);}
+
+.step-header{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.02);
+}
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;font-weight:800;flex-shrink:0;
+  background:rgba(201,168,76,0.1);
+  border:2px solid rgba(201,168,76,0.3);
+  color:var(--gold);
+}
+.step-num.done{
+  background:rgba(61,190,108,0.1);
+  border-color:rgba(61,190,108,0.3);
+  color:var(--green);
+}
+.step-title{font-size:1rem;font-weight:700;}
+.step-subtitle{font-size:0.8rem;color:var(--grey);margin-top:0.1rem;}
+.step-body{padding:1.5rem;}
+
+/* Form elements */
+.form-group{margin-bottom:1.25rem;}
+.form-label{
+  display:block;font-size:0.8rem;font-weight:700;
+  color:var(--grey);letter-spacing:0.5px;
+  text-transform:uppercase;margin-bottom:0.5rem;
+}
+.form-input{
+  width:100%;background:var(--navy);
+  border:1px solid var(--border);border-radius:10px;
+  padding:0.85rem 1rem;color:var(--white);
+  font-size:0.95rem;font-family:inherit;
+  transition:border-color 0.2s;outline:none;
+}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:#404060;}
+.form-select{
+  width:100%;background:var(--navy);
+  border:1px solid var(--border);border-radius:10px;
+  padding:0.85rem 1rem;color:var(--white);
+  font-size:0.95rem;font-family:inherit;
+  transition:border-color 0.2s;outline:none;
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8AA0' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 1rem center;
+}
+.form-select:focus{border-color:var(--gold);}
+
+.form-hint{font-size:0.78rem;color:var(--grey);margin-top:0.4rem;line-height:1.5;}
+.form-hint a{color:var(--gold);text-decoration:none;}
+
+/* Verify button */
+.btn-verify{
+  background:var(--navy);border:1px solid var(--gold);
+  color:var(--gold);padding:0.6rem 1.25rem;
+  border-radius:8px;font-size:0.85rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s;margin-top:0.5rem;
+}
+.btn-verify:hover{background:rgba(201,168,76,0.1);}
+.verify-result{
+  margin-top:0.75rem;padding:0.6rem 0.9rem;
+  border-radius:8px;font-size:0.82rem;font-weight:600;
+  display:none;
+}
+.verify-result.success{background:rgba(61,190,108,0.1);border:1px solid rgba(61,190,108,0.3);color:var(--green);}
+.verify-result.error{background:rgba(224,68,68,0.1);border:1px solid rgba(224,68,68,0.3);color:var(--red);}
+
+/* Crypto options */
+.crypto-options{display:flex;flex-direction:column;gap:0.75rem;}
+.crypto-option{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem;
+  transition:all 0.2s;cursor:pointer;
+}
+.crypto-option:hover{border-color:rgba(201,168,76,0.3);}
+.crypto-option.expanded{border-color:var(--gold);}
+.crypto-option-header{
+  display:flex;align-items:center;gap:0.75rem;
+}
+.crypto-logo{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.btc-logo{background:linear-gradient(135deg,#F7931A,#E07B00);}
+.eth-logo{background:linear-gradient(135deg,#627EEA,#3455C7);}
+.ltc-logo{background:linear-gradient(135deg,#A6A9AA,#808080);}
+.doge-logo{background:linear-gradient(135deg,#C2A633,#9A7F10);}
+.usdt-logo{background:linear-gradient(135deg,#26A17B,#1A7A5C);}
+
+.crypto-name{font-weight:700;font-size:0.95rem;}
+.crypto-network{font-size:0.75rem;color:var(--grey);margin-top:0.1rem;}
+.crypto-amount{
+  margin-left:auto;text-align:right;
+}
+.crypto-amount .amount-val{
+  font-size:1.1rem;font-weight:800;color:var(--gold);
+}
+.crypto-amount .amount-usd{
+  font-size:0.75rem;color:var(--grey);
+}
+.crypto-expand{
+  margin-left:0.5rem;color:var(--grey);
+  font-size:0.8rem;transition:transform 0.2s;
+}
+.crypto-option.expanded .crypto-expand{transform:rotate(180deg);}
+
+.crypto-details{
+  display:none;margin-top:1rem;
+  padding-top:1rem;border-top:1px solid var(--border);
+}
+.crypto-option.expanded .crypto-details{display:block;}
+
+.address-label{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.4rem;}
+.address-box{
+  background:var(--black);border:1px solid var(--border);
+  border-radius:8px;padding:0.85rem 1rem;
+  font-family:'Courier New',monospace;font-size:0.82rem;
+  color:var(--white);word-break:break-all;
+  cursor:pointer;transition:border-color 0.2s;
+  position:relative;user-select:all;
+}
+.address-box:hover{border-color:var(--gold);}
+.address-box::after{
+  content:'Click to copy';
+  position:absolute;top:-24px;right:0;
+  font-size:0.7rem;color:var(--grey);
+  font-family:'Segoe UI',sans-serif;
+}
+.address-box.copied{border-color:var(--green);}
+.address-box.copied::after{content:'Copied! ✓';color:var(--green);}
+
+.qr-placeholder{
+  width:80px;height:80px;
+  background:var(--black);border:1px solid var(--border);
+  border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:0.65rem;
+  color:var(--grey);text-align:center;
+  line-height:1.3;float:right;margin-left:1rem;
+}
+
+.network-warning{
+  background:rgba(224,68,68,0.08);
+  border:1px solid rgba(224,68,68,0.2);
+  border-radius:8px;padding:0.6rem 0.9rem;
+  font-size:0.78rem;color:#CCA0A0;
+  margin-top:0.75rem;line-height:1.5;
+}
+
+.usdt-note{
+  background:rgba(38,161,123,0.08);
+  border:1px solid rgba(38,161,123,0.2);
+  border-radius:8px;padding:0.6rem 0.9rem;
+  font-size:0.78rem;color:#80C4B0;
+  margin-top:0.75rem;
+}
+
+/* Confirm form */
+.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.confirm-grid .full{grid-column:1/-1;}
+
+.btn-submit{
+  width:100%;background:var(--gold);color:var(--black);
+  padding:1rem;border:none;border-radius:12px;
+  font-size:1.05rem;font-weight:800;cursor:pointer;
+  transition:all 0.2s;margin-top:0.5rem;
+  font-family:inherit;
+}
+.btn-submit:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.3);}
+.btn-submit:disabled{background:#444;color:#666;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.submit-note{
+  font-size:0.78rem;color:var(--grey);
+  text-align:center;margin-top:0.6rem;line-height:1.5;
+}
+
+/* Warning */
+.warning-box{
+  background:rgba(201,168,76,0.06);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px;padding:1rem 1.25rem;
+  font-size:0.82rem;color:#C4A860;
+  line-height:1.6;margin-top:1rem;
+}
+.warning-box strong{color:var(--gold);}
+
+/* Includes preview */
+.includes-preview{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;
+}
+.includes-preview h4{
+  font-size:0.75rem;font-weight:700;color:var(--grey);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;
+}
+.inc-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem;}
+.inc-row::before{content:'✓';color:var(--green);font-weight:700;}
+.inc-row span{font-size:0.85rem;color:var(--grey);}
+.inc-row span strong{color:var(--white);}
+
+/* Shared world note */
+.shared-note{
+  background:rgba(201,168,76,0.04);
+  border:1px solid rgba(201,168,76,0.15);
+  border-radius:10px;padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+}
+.shared-note h5{font-size:0.75rem;font-weight:700;color:rgba(201,168,76,0.8);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;}
+.shared-quote{font-style:italic;font-size:0.85rem;color:var(--grey);padding-left:0.75rem;border-left:2px solid rgba(201,168,76,0.3);margin-bottom:0.5rem;line-height:1.5;}
+.shared-who{font-size:0.72rem;color:rgba(201,168,76,0.6);margin-bottom:0.6rem;}
+
+/* Loading state */
+.loading{
+  display:inline-block;width:12px;height:12px;
+  border:2px solid rgba(201,168,76,0.3);
+  border-top-color:var(--gold);border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  margin-left:0.4rem;vertical-align:middle;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+footer{background:var(--navy);border-top:1px solid var(--border);padding:1.5rem 2rem;margin-top:3rem;}
+.footer-simple{max-width:780px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-simple p{color:var(--grey);font-size:0.82rem;}
+.footer-simple a{color:var(--gold);text-decoration:none;font-size:0.82rem;}
+
+@media(max-width:600px){
+  .prod-header{flex-wrap:wrap;}
+  .prod-price-badge{margin-left:0;width:100%;}
+  .confirm-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⚔️</div>
+    <span class="logo-text">NPCForge</span>
+  </a>
+  <a href="store.html" class="nav-back">← Back to Store</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- PRODUCT HEADER -->
+  <div class="prod-header">
+    <div class="mini-figure">🗝️</div>
+    <div class="prod-info">
+      <div class="prod-info-type">Corrupt Merchant · Full Character Pack</div>
+      <div class="prod-info-name">Dravek</div>
+      <div class="prod-info-quote">"I deal in solutions to problems. What problem are you trying to solve?"</div>
+    </div>
+    <div class="prod-price-badge">
+      <span class="price">$15</span>
+      <span class="price-label">one-time · crypto</span>
+    </div>
+  </div>
+
+  <div class="steps-wrap">
+
+    <!-- STEP 1: WHAT YOU GET -->
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">What You Receive</div>
+          <div class="step-subtitle">Four files. Delivered to your email within 1 hour.</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="includes-preview">
+          <h4>Files Included</h4>
+          <div class="inc-row"><span><strong>system_prompt.txt</strong> — Full personality definition. His ethics code, speech patterns, the two cities he fled.</span></div>
+          <div class="inc-row"><span><strong>memories.json</strong> — 25 hand-crafted memories including his arrangement with Elva the healer and Lord Harren's after-hours visits.</span></div>
+          <div class="inc-row"><span><strong>config.yml</strong> — Merchant-optimized. Haggle responses, illegal goods deflection, threat handling all pre-built.</span></div>
+          <div class="inc-row"><span><strong>SETUP.pdf</strong> — Three steps. Under 10 minutes. Troubleshooting section included.</span></div>
+        </div>
+        <div class="shared-note">
+          <h5>⚔️ Shared World With Aldric</h5>
+          <div class="shared-who">Ask Dravek about Aldric:</div>
+          <div class="shared-quote">"Honest man. Deeply inconvenient quality in his profession. We maintain a respectful distance."</div>
+          <div class="shared-who">Ask Aldric about Dravek:</div>
+          <div class="shared-quote">"Never given me a reason to move him on. I find that mildly suspicious on its own merits."</div>
+          <div style="font-size:0.8rem;color:var(--grey);margin-top:0.5rem;">Own both packs and your city becomes a world. <a href="pay-bundle.html" style="color:var(--gold);text-decoration:none;">Bundle saves $5 →</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: YOUR EMAIL -->
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Your Email Address</div>
+          <div class="step-subtitle">Files are delivered here after payment confirmation.</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="buyer-email" class="form-input" placeholder="you@example.com">
+          <div class="form-hint">Double-check this. Files are sent automatically. Wrong email means no files until you contact me to resend.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Server Type</label>
+          <select id="server-type" class="form-select">
+            <option value="Paper">Paper</option>
+            <option value="Spigot">Spigot</option>
+            <option value="Fabric">Fabric</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">AI Provider</label>
+          <select id="ai-provider" class="form-select">
+            <option value="OpenAI">OpenAI (ChatGPT API)</option>
+            <option value="Anthropic">Anthropic (Claude API)</option>
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: PAYMENT -->
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Send Payment</div>
+          <div class="step-subtitle">Choose your cryptocurrency and send the exact amount shown.</div>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="crypto-options">
+
+          <!-- USDT -->
+          <div class="crypto-option expanded" id="opt-usdt" onclick="toggleCrypto('usdt')">
+            <div class="crypto-option-header">
+              <div class="crypto-logo usdt-logo">💵</div>
+              <div>
+                <div class="crypto-name">Tether USDT</div>
+                <div class="crypto-network">TRC20 Network — Recommended</div>
+              </div>
+              <div class="crypto-amount">
+                <div class="amount-val">15.00 USDT</div>
+                <div class="amount-usd">Stable · No rate risk</div>
+              </div>
+              <div class="crypto-expand">▼</div>
+            </div>
+            <div class="crypto-details">
+              <div class="qr-placeholder">QR<br>coming<br>soon</div>
+              <div class="address-label">Send 15.00 USDT to this address</div>
+              <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_USDT_TRC20_ADDRESS')">
+                YOUR_FAUCETPAY_USDT_TRC20_ADDRESS
+              </div>
+              <div class="usdt-note">✅ TRC20 network only. Do not send ERC20 USDT to this address — it will be lost. If you are on an exchange, select TRC20 or TRON as the network when withdrawing.</div>
+            </div>
+          </div>
+
+          <!-- BTC -->
+          <div class="crypto-option" id="opt-btc" onclick="toggleCrypto('btc')">
+            <div class="crypto-option-header">
+              <div class="crypto-logo btc-logo">₿</div>
+              <div>
+                <div class="crypto-name">Bitcoin</div>
+                <div class="crypto-network">BTC Network</div>
+              </div>
+              <div class="crypto-amount">
+                <div class="amount-val" id="btc-amt">
+                  <span class="loading"></span>
+                </div>
+                <div class="amount-usd" id="btc-rate">Loading rate...</div>
+              </div>
+              <div class="crypto-expand">▼</div>
+            </div>
+            <div class="crypto-details">
+              <div class="address-label">Send exact BTC amount to this address</div>
+              <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_BTC_ADDRESS')">
+                YOUR_FAUCETPAY_BTC_ADDRESS
+              </div>
+              <div class="form-hint" style="margin-top:0.5rem;">BTC amount updates every 60 seconds. Send within 10 minutes of checking the rate to avoid underpayment.</div>
+            </div>
+          </div>
+
+          <!-- ETH -->
+          <div class="crypto-option" id="opt-eth" onclick="toggleCrypto('eth')">
+            <div class="crypto-option-header">
+              <div class="crypto-logo eth-logo">Ξ</div>
+              <div>
+                <div class="crypto-name">Ethereum</div>
+                <div class="crypto-network">ERC20 Network</div>
+              </div>
+              <div class="crypto-amount">
+                <div class="amount-val" id="eth-amt">
+                  <span class="loading"></span>
+                </div>
+                <div class="amount-usd" id="eth-rate">Loading rate...</div>
+              </div>
+              <div class="crypto-expand">▼</div>
+            </div>
+            <div class="crypto-details">
+              <div class="address-label">Send exact ETH amount to this address</div>
+              <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_ETH_ADDRESS')">
+                YOUR_FAUCETPAY_ETH_ADDRESS
+              </div>
+              <div class="network-warning">⚠️ ETH gas fees can be high. Consider using USDT TRC20 or LTC for lower fees.</div>
+            </div>
+          </div>
+
+          <!-- LTC -->
+          <div class="crypto-option" id="opt-ltc" onclick="toggleCrypto('ltc')">
+            <div class="crypto-option-header">
+              <div class="crypto-logo ltc-logo">Ł</div>
+              <div>
+                <div class="crypto-name">Litecoin</div>
+                <div class="crypto-network">LTC Network</div>
+              </div>
+              <div class="crypto-amount">
+                <div class="amount-val" id="ltc-amt">
+                  <span class="loading"></span>
+                </div>
+                <div class="amount-usd" id="ltc-rate">Loading rate...</div>
+              </div>
+              <div class="crypto-expand">▼</div>
+            </div>
+            <div class="crypto-details">
+              <div class="address-label">Send exact LTC amount to this address</div>
+              <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_LTC_ADDRESS')">
+                YOUR_FAUCETPAY_LTC_ADDRESS
+              </div>
+            </div>
+          </div>
+
+          <!-- DOGE -->
+          <div class="crypto-option" id="opt-doge" onclick="toggleCrypto('doge')">
+            <div class="crypto-option-header">
+              <div class="crypto-logo doge-logo">Ð</div>
+              <div>
+                <div class="crypto-name">Dogecoin</div>
+                <div class="crypto-network">DOGE Network</div>
+              </div>
+              <div class="crypto-amount">
+                <div class="amount-val" id="doge-amt">
+                  <span class="loading"></span>
+                </div>
+                <div class="amount-usd" id="doge-rate">Loading rate...</div>
+              </div>
+              <div class="crypto-expand">▼</div>
+            </div>
+            <div class="crypto-details">
+              <div class="address-label">Send exact DOGE amount to this address</div>
+              <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_DOGE_ADDRESS')">
+                YOUR_FAUCETPAY_DOGE_ADDRESS
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="warning-box" style="margin-top:1.25rem;">
+          <strong>Important:</strong> Send the exact amount shown. Underpayment cannot be processed automatically. If you send less, message me on BuiltByBit with proof and I will resolve it.
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STEP 4: OPTIONAL FAUCETPAY VERIFY -->
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Verify Your Address (Optional)</div>
+          <div class="step-subtitle">FaucetPay users can verify their address for faster processing.</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="form-group">
+          <label class="form-label">Your FaucetPay Wallet Address (Optional)</label>
+          <input type="text" id="fp-address" class="form-input" placeholder="Your sending wallet address">
+          <div class="form-hint">
+            If you have a <a href="https://faucetpay.io" target="_blank">FaucetPay account</a>, entering your address lets us verify it is registered. This speeds up processing and reduces fraud checks. Not required.
+          </div>
+        </div>
+        <button class="btn-verify" onclick="verifyFaucetPay()">
+          Verify Address
+        </button>
+        <div class="verify-result" id="verify-result"></div>
+      </div>
+    </div>
+
+    <!-- STEP 5: CONFIRM -->
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Confirm Your Payment</div>
+          <div class="step-subtitle">After sending, submit this form. Files arrive within 1 hour.</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="confirm-grid">
+          <div class="form-group">
+            <label class="form-label">Which Crypto Did You Send?</label>
+            <select id="crypto-used" class="form-select">
+              <option value="">Select cryptocurrency</option>
+              <option value="USDT">USDT (TRC20)</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+              <option value="ETH">Ethereum (ETH)</option>
+              <option value="LTC">Litecoin (LTC)</option>
+              <option value="DOGE">Dogecoin (DOGE)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transaction Hash (Optional)</label>
+            <input type="text" id="tx-hash" class="form-input" placeholder="Speeds up verification">
+          </div>
+        </div>
+        <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
+          I Have Sent Payment — Deliver My Files
+        </button>
+        <div class="submit-note">
+          Your files will arrive by email within 1 hour. Usually much faster.<br>
+          Issues? Find me on BuiltByBit: <strong style="color:var(--gold);">NPCForge</strong>
+        </div>
+        <div class="warning-box">
+          <strong>Crypto payments are final.</strong> If there is any issue with your files after delivery, message me before anything else. I fix every problem personally.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-simple">
+    <p>© 2026 NPCForge</p>
+    <a href="store.html">← Back to Store</a>
+    <p>Support: BuiltByBit — NPCForge</p>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// NPCFORGE PAYMENT PAGE SCRIPT
+// Dravek — $15
+// ============================================
+
+const PRODUCT = 'dravek';
+const PRICE_USD = 15;
+const WEBHOOK_URL = 'YOUR_APPS_SCRIPT_WEBHOOK_URL';
+
+// FaucetPay Checkaddress Proxy
+// Because FaucetPay API requires server-side call
+// we route through Apps Script which holds the API key
+const FAUCETPAY_PROXY_URL = 'YOUR_APPS_SCRIPT_WEBHOOK_URL';
+
+// ---- CRYPTO PRICE LOADING ----
+let prices = {};
+
+async function loadPrices() {
+  try {
+    const r = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price' +
+      '?ids=bitcoin,ethereum,litecoin,dogecoin' +
+      '&vs_currencies=usd'
+    );
+    const d = await r.json();
+    prices = d;
+
+    if(d.bitcoin) {
+      const btc = (PRICE_USD / d.bitcoin.usd).toFixed(6);
+      document.getElementById('btc-amt').textContent = btc + ' BTC';
+      document.getElementById('btc-rate').textContent =
+        '1 BTC = $' + d.bitcoin.usd.toLocaleString();
+    }
+    if(d.ethereum) {
+      const eth = (PRICE_USD / d.ethereum.usd).toFixed(5);
+      document.getElementById('eth-amt').textContent = eth + ' ETH';
+      document.getElementById('eth-rate').textContent =
+        '1 ETH = $' + d.ethereum.usd.toLocaleString();
+    }
+    if(d.litecoin) {
+      const ltc = (PRICE_USD / d.litecoin.usd).toFixed(4);
+      document.getElementById('ltc-amt').textContent = ltc + ' LTC';
+      document.getElementById('ltc-rate').textContent =
+        '1 LTC = $' + d.litecoin.usd.toFixed(2);
+    }
+    if(d.dogecoin) {
+      const doge = (PRICE_USD / d.dogecoin.usd).toFixed(2);
+      document.getElementById('doge-amt').textContent = doge + ' DOGE';
+      document.getElementById('doge-rate').textContent =
+        '1 DOGE = $' + d.dogecoin.usd.toFixed(4);
+    }
+  } catch(e) {
+    ['btc','eth','ltc','doge'].forEach(c => {
+      const el = document.getElementById(c+'-amt');
+      if(el) el.textContent = 'Check current rate';
+    });
+  }
+}
+
+// Refresh every 60 seconds
+loadPrices();
+setInterval(loadPrices, 60000);
+
+// ---- TOGGLE CRYPTO SECTIONS ----
+function toggleCrypto(coin) {
+  const opt = document.getElementById('opt-' + coin);
+  const isExpanded = opt.classList.contains('expanded');
+  // Close all
+  document.querySelectorAll('.crypto-option').forEach(o => {
+    o.classList.remove('expanded');
+  });
+  // Open clicked if it was closed
+  if(!isExpanded) opt.classList.add('expanded');
+}
+
+// ---- COPY ADDRESS ----
+function copyAddr(el, address) {
+  event.stopPropagation();
+  navigator.clipboard.writeText(address).then(() => {
+    el.classList.add('copied');
+    setTimeout(() => el.classList.remove('copied'), 2500);
+  }).catch(() => {
+    // Fallback for older browsers
+    const range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    el.classList.add('copied');
+    setTimeout(() => el.classList.remove('copied'), 2500);
+  });
+}
+
+// ---- FAUCETPAY ADDRESS VERIFICATION ----
+// This calls our Apps Script which then calls FaucetPay checkaddress API
+// The API key never touches the frontend
+async function verifyFaucetPay() {
+  const address = document.getElementById('fp-address').value.trim();
+  const resultEl = document.getElementById('verify-result');
+
+  if(!address) {
+    resultEl.className = 'verify-result error';
+    resultEl.style.display = 'block';
+    resultEl.textContent = 'Please enter an address to verify.';
+    return;
+  }
+
+  resultEl.className = 'verify-result';
+  resultEl.style.display = 'block';
+  resultEl.textContent = 'Checking address...';
+
+  try {
+    // Call Apps Script proxy which calls FaucetPay API
+    // Apps Script endpoint handles the API key server-side
+    const response = await fetch(FAUCETPAY_PROXY_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'checkaddress',
+        address: address
+      })
+    });
+
+    // With no-cors we cannot read the response
+    // So we use a simple timeout-based UX
+    // The real check happens server-side and logs to Sheet
+    setTimeout(() => {
+      resultEl.className = 'verify-result success';
+      resultEl.textContent =
+        '✓ Address submitted for verification. ' +
+        'If registered on FaucetPay, your order will ' +
+        'be processed with priority.';
+    }, 1500);
+
+  } catch(e) {
+    resultEl.className = 'verify-result success';
+    resultEl.textContent =
+      '✓ Address noted. Proceeding with manual verification.';
+  }
+}
+
+// ---- SUBMIT ORDER ----
+async function submitOrder() {
+  const email = document.getElementById('buyer-email').value.trim();
+  const crypto = document.getElementById('crypto-used').value;
+  const txHash = document.getElementById('tx-hash').value.trim();
+  const serverType = document.getElementById('server-type').value;
+  const aiProvider = document.getElementById('ai-provider').value;
+  const fpAddress = document.getElementById('fp-address').value.trim();
+
+  // Validation
+  if(!email) {
+    alert('Please enter your email address in Step 2.');
+    document.getElementById('buyer-email').focus();
+    return;
+  }
+  if(!email.includes('@') || !email.includes('.')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  if(!crypto) {
+    alert('Please select which cryptocurrency you sent in Step 5.');
+    document.getElementById('crypto-used').focus();
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const orderData = {
+    product: PRODUCT,
+    price: PRICE_USD,
+    email: email,
+    crypto: crypto,
+    txHash: txHash || 'Not provided',
+    serverType: serverType,
+    aiProvider: aiProvider,
+    fpAddress: fpAddress || 'Not provided',
+    timestamp: new Date().toISOString(),
+    action: 'new_order'
+  };
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+
+    // Redirect to success page
+    window.location.href =
+      'success.html?product=dravek&email=' +
+      encodeURIComponent(email);
+
+  } catch(e) {
+    // Even if fetch fails with no-cors, it usually sends
+    // Redirect anyway
+    window.location.href =
+      'success.html?product=dravek&email=' +
+      encodeURIComponent(email);
+  }
+}
+</script>
+
+</body>
+</html>
