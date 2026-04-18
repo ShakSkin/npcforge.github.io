@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPCForge — Free SentiencePro Starter Packs</title>
+<meta name="description" content="Free SentiencePro personality pack, broken NPC diagnostic checklist, and the 5-line prompt guide. No email required. Just download and use.">
+<style>
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0A0A0F;--navy:#0F1021;--card:#141528;
+  --border:#1E2040;--gold:#C9A84C;--gold2:#E8C36A;
+  --white:#F0F0F0;--grey:#8A8AA0;--green:#3DBE6C;
+  --red:#E04444;--blue:#4A6CF7;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.6;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px;}
+
+nav{position:sticky;top:0;z-index:999;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#8B6914);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.logo-text{font-size:1.3rem;font-weight:800;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:0.25rem;}
+.nav-links a{color:var(--grey);text-decoration:none;padding:0.4rem 0.85rem;border-radius:6px;font-size:0.9rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);background:var(--card);}
+.nav-cta{background:var(--gold)!important;color:var(--black)!important;font-weight:700!important;}
+
+.free-hero{
+  background:linear-gradient(180deg,#041208,var(--black));
+  border-bottom:1px solid rgba(61,190,108,0.2);
+  padding:4rem 2rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.free-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(61,190,108,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(61,190,108,0.03) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.free-hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+.free-main-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(61,190,108,0.1);border:1px solid rgba(61,190,108,0.3);border-radius:50px;padding:0.4rem 1rem;font-size:0.8rem;color:var(--green);font-weight:700;letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase;}
+.free-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:1rem;}
+.free-hero h1 span{color:var(--green);}
+.free-hero p{color:var(--grey);margin-bottom:0.5rem;line-height:1.7;}
+.free-hero .honest{color:#555;font-style:italic;font-size:0.9rem;}
+
+.section{padding:5rem 2rem;}
+.section-dark{background:var(--black);}
+.section-navy{background:var(--navy);}
+.container{max-width:900px;margin:0 auto;}
+
+.section-anchor{position:relative;top:-80px;visibility:hidden;}
+
+.free-resource{
+  max-width:860px;margin:0 auto 4rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  transition:border-color 0.3s;
+}
+.free-resource:hover{border-color:rgba(61,190,108,0.3);}
+
+.free-resource-layout{display:grid;grid-template-columns:300px 1fr;}
+
+.free-visual{
+  min-height:320px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2rem;position:relative;overflow:hidden;gap:1rem;
+}
+
+/* Resource 1 visual — Starter Pack */
+.fv-starter{background:linear-gradient(160deg,#050810,#0A1505);}
+
+.file-stack{
+  display:flex;flex-direction:column;gap:0.4rem;
+  align-items:flex-start;
+}
+.file-item{
+  display:flex;align-items:center;gap:0.6rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:8px;padding:0.6rem 0.9rem;
+  font-size:0.82rem;font-family:monospace;
+  color:var(--white);width:200px;
+}
+.file-icon{font-size:1rem;flex-shrink:0;}
+.file-item.yml .file-icon::before{content:'📄';}
+.file-item.json .file-icon::before{content:'📋';}
+.file-item.txt .file-icon::before{content:'📝';}
+.file-item.md .file-icon::before{content:'📖';}
+
+.file-glow{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:150px;height:100px;
+  background:radial-gradient(circle,rgba(61,190,108,0.12) 0%,transparent 70%);
+}
+
+/* Resource 2 visual — Diagnostic */
+.fv-diagnostic{background:linear-gradient(160deg,#0A0510,#05080A);}
+
+.symptom-list-visual{
+  display:flex;flex-direction:column;gap:0.5rem;width:100%;
+}
+.symptom-vis{
+  display:flex;align-items:center;gap:0.6rem;
+  padding:0.5rem 0.75rem;border-radius:8px;
+  font-size:0.8rem;
+}
+.symptom-vis.bad{background:rgba(224,68,68,0.08);border:1px solid rgba(224,68,68,0.15);color:#CCA0A0;}
+.symptom-vis .sym-icon{font-size:1rem;flex-shrink:0;}
+
+/* Resource 3 visual — 5 Lines */
+.fv-guide{background:linear-gradient(160deg,#080510,#050A10);}
+
+.lines-visual{
+  display:flex;flex-direction:column;gap:0.4rem;width:100%;
+}
+.line-vis{
+  display:flex;align-items:center;gap:0.6rem;
+  padding:0.45rem 0.75rem;
+  background:rgba(74,108,247,0.06);
+  border:1px solid rgba(74,108,247,0.15);
+  border-radius:6px;
+}
+.line-num{
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(74,108,247,0.2);
+  border:1px solid rgba(74,108,247,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.7rem;font-weight:700;color:#8A9CF7;
+  flex-shrink:0;
+}
+.line-label{font-size:0.78rem;color:#8A9CF7;font-weight:600;}
+
+/* Info panel */
+.free-info-panel{padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;}
+.free-badge-small{display:inline-block;background:var(--green);color:var(--black);font-size:0.7rem;font-weight:800;padding:0.25rem 0.7rem;border-radius:50px;letter-spacing:1px;margin-bottom:0.75rem;text-transform:uppercase;}
+.free-name{font-size:1.6rem;font-weight:800;margin-bottom:0.5rem;}
+.free-desc{color:var(--grey);font-size:0.92rem;line-height:1.7;margin-bottom:1.5rem;}
+
+.what-this-does{margin-bottom:1.5rem;}
+.what-this-does h4{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;}
+.does-row{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.5rem;}
+.does-check{color:var(--green);font-weight:700;flex-shrink:0;}
+.does-text{font-size:0.87rem;color:var(--grey);line-height:1.5;}
+.does-text strong{color:var(--white);}
+
+.what-not-included{
+  background:rgba(201,168,76,0.04);
+  border:1px solid rgba(201,168,76,0.15);
+  border-radius:10px;padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+}
+.what-not-included h4{font-size:0.75rem;font-weight:700;color:rgba(201,168,76,0.7);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;}
+.not-row{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.4rem;}
+.not-x{color:var(--grey);font-size:0.85rem;flex-shrink:0;}
+.not-text{font-size:0.82rem;color:var(--grey);line-height:1.4;}
+.upsell-note{font-size:0.82rem;color:var(--grey);margin-top:0.6rem;padding-top:0.6rem;border-top:1px solid rgba(201,168,76,0.1);}
+.upsell-note a{color:var(--gold);text-decoration:none;font-weight:600;}
+.upsell-note a:hover{text-decoration:underline;}
+
+.free-compare{
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:10px;padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+}
+.free-compare-title{font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.compare-col-bad{background:rgba(224,68,68,0.06);border:1px solid rgba(224,68,68,0.15);border-radius:8px;padding:0.75rem;}
+.compare-col-good{background:rgba(61,190,108,0.06);border:1px solid rgba(61,190,108,0.15);border-radius:8px;padding:0.75rem;}
+.compare-col-label{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.35rem;}
+.compare-col-label.b{color:var(--red);}
+.compare-col-label.g{color:var(--green);}
+.compare-col-text{font-size:0.82rem;font-style:italic;line-height:1.5;}
+.compare-col-bad .compare-col-text{color:#CCA0A0;}
+.compare-col-good .compare-col-text{color:#A0CCA8;}
+
+.symptoms-grid{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;}
+.symptom-card{
+  display:flex;align-items:center;gap:0.75rem;
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:8px;padding:0.75rem 1rem;
+}
+.symptom-em{font-size:1.2rem;}
+.symptom-info{}
+.symptom-title{font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:0.1rem;}
+.symptom-sub{font-size:0.78rem;color:var(--grey);}
+
+.lines-breakdown{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;}
+.line-card{
+  display:flex;align-items:flex-start;gap:0.75rem;
+  background:var(--navy);border:1px solid var(--border);
+  border-radius:8px;padding:0.75rem 1rem;
+}
+.line-card-num{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(74,108,247,0.15);
+  border:1px solid rgba(74,108,247,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.8rem;font-weight:700;color:#8A9CF7;
+  flex-shrink:0;margin-top:0.1rem;
+}
+.line-card-info{}
+.line-card-name{font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:0.1rem;}
+.line-card-desc{font-size:0.78rem;color:var(--grey);}
+
+.free-dl-row{
+  padding-top:1.25rem;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.free-size-info{font-size:0.8rem;color:var(--grey);}
+.free-size-info span{color:var(--green);font-weight:700;}
+
+.btn-download{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--green);color:var(--black);
+  padding:0.85rem 1.75rem;border-radius:10px;
+  text-decoration:none;font-weight:800;font-size:0.95rem;
+  transition:all 0.2s;
+}
+.btn-download:hover{background:#55D882;transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,190,108,0.3);}
+
+.resource-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);max-width:860px;margin:0 auto 4rem;}
+
+/* Paid CTA */
+.paid-cta-section{
+  background:linear-gradient(135deg,#0A0A1A,#050510);
+  border:1px solid var(--border);border-radius:20px;
+  padding:3rem;text-align:center;
+  max-width:860px;margin:0 auto;
+  position:relative;overflow:hidden;
+}
+.paid-cta-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.paid-cta-section h2{font-size:1.8rem;font-weight:800;margin-bottom:0.75rem;}
+.paid-cta-section h2 span{color:var(--gold);}
+.paid-cta-section p{color:var(--grey);max-width:520px;margin:0 auto 2rem;line-height:1.7;}
+
+.cta-product-row{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;
+}
+.cta-product-btn{
+  display:flex;flex-direction:column;align-items:center;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.5rem;
+  text-decoration:none;transition:all 0.2s;min-width:130px;
+}
+.cta-product-btn:hover{border-color:var(--gold);transform:translateY(-3px);}
+.cta-prod-icon{font-size:1.5rem;margin-bottom:0.3rem;}
+.cta-prod-name{font-size:0.85rem;font-weight:700;color:var(--white);margin-bottom:0.2rem;}
+.cta-prod-price{font-size:1.1rem;font-weight:900;color:var(--gold);}
+
+.btn-gold{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--gold);color:var(--black);
+  padding:0.85rem 2rem;border-radius:10px;
+  text-decoration:none;font-weight:800;font-size:1rem;
+  transition:all 0.2s;
+}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.3);}
+
+footer{background:var(--navy);border-top:1px solid var(--border);padding:3rem 2rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;}
+.footer-brand p{color:var(--grey);font-size:0.85rem;margin-top:0.4rem;}
+.footer-links-col h4{color:var(--white);font-size:0.85rem;font-weight:700;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:1px;}
+.footer-links-col a{display:block;color:var(--grey);text-decoration:none;font-size:0.85rem;margin-bottom:0.4rem;transition:color 0.2s;}
+.footer-links-col a:hover{color:var(--gold);}
+.footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{color:var(--grey);font-size:0.8rem;}
+.crypto-badges{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.crypto-badge{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--grey);font-weight:600;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .free-resource-layout{grid-template-columns:1fr;}
+  .free-visual{min-height:200px;}
+  .compare-row{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;text-align:center;}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⚔️</div>
+    <span class="logo-text">NPCForge</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="store.html">Store</a>
+    <a href="free.html" class="active">Free Packs</a>
+    <a href="custom.html">Custom Order</a>
+    <a href="store.html" class="nav-cta">Buy Now</a>
+  </div>
+</nav>
+
+<div class="free-hero">
+  <div class="free-hero-inner">
+    <div class="free-main-badge">✅ 100% Free — No Email Required</div>
+    <h1>Free <span>Resources</span></h1>
+    <p>Three genuinely useful resources for SentiencePro and LlamaCraft Bridge server owners.</p>
+    <p class="honest">They are free. They will also show you exactly what the paid versions add on top.</p>
+  </div>
+</div>
+
+<section class="section section-dark">
+<div class="container">
+
+  <!-- RESOURCE 1: STARTER GUARD -->
+  <div id="starter" class="section-anchor"></div>
+  <div class="free-resource">
+    <div class="free-resource-layout">
+
+      <div class="free-visual fv-starter">
+        <div class="file-glow"></div>
+        <div class="file-stack">
+          <div class="file-item txt"><span class="file-icon"></span>system_prompt.txt</div>
+          <div class="file-item json"><span class="file-icon"></span>memories.json</div>
+          <div class="file-item yml"><span class="file-icon"></span>config.yml</div>
+          <div class="file-item md"><span class="file-icon"></span>INSTALL.md</div>
+        </div>
+        <div style="background:rgba(61,190,108,0.08);border:1px solid rgba(61,190,108,0.2);border-radius:8px;padding:0.5rem 0.85rem;font-size:0.75rem;color:var(--green);font-weight:700;text-align:center;">
+          FREE DOWNLOAD<br>
+          <span style="font-size:1.2rem;">⬇</span>
+        </div>
+      </div>
+
+      <div class="free-info-panel">
+        <div>
+          <div class="free-badge-small">Free</div>
+          <div class="free-name">Starter Guard Pack</div>
+          <div class="free-desc">
+            A working medieval guard personality for SentiencePro and LlamaCraft Bridge.
+            Includes all three core files and a three-step installation guide.
+            Your NPC stops sounding like a customer service bot. Today.
+          </div>
+
+          <div class="what-this-does">
+            <h4>What This Includes</h4>
+            <div class="does-row">
+              <span class="does-check">✓</span>
+              <span class="does-text"><strong>system_prompt.txt</strong> — A working guard personality. Stays in role, speaks in character.</span>
+            </div>
+            <div class="does-row">
+              <span class="does-check">✓</span>
+              <span class="does-text"><strong>memories.json</strong> — 10 pre-built memories. City layout, rules, basic lore.</span>
+            </div>
+            <div class="does-row">
+              <span class="does-check">✓</span>
+              <span class="does-text"><strong>config.yml</strong> — Basic SentiencePro settings. API connection, response length, cooldown.</span>
+            </div>
+            <div class="does-row">
+              <span class="does-check">✓</span>
+              <span class="does-text"><strong>INSTALL.md</strong> — Three steps. Under 10 minutes.</span>
+            </div>
+          </div>
+
+          <div class="free-compare">
+            <div class="free-compare-title">The Difference</div>
+            <div class="compare-row">
+              <div class="compare-col-bad">
+                <div class="compare-col-label b">Before</div>
+                <div class="compare-col-text">"Hello! How can I assist you today? I am happy to help!"</div>
+              </div>
+              <div class="compare-col-good">
+                <div class="compare-col-label g">After</div>
+                <div class="compare-col-text">"Nothing that concerns you. State your business or move along."</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="what-not-included">
+            <h4>What The Free Version Does Not Include</h4>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">Character name and specific backstory (generic guard only)</span>
+            </div>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">Full 25-memory system (10 memories only)</span>
+            </div>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">Advanced cost controls and token optimization</span>
+            </div>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">Pre-configured edge case responses (jailbreak protection etc)</span>
+            </div>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">Personal support guarantee</span>
+            </div>
+            <div class="upsell-note">
+              The full <a href="store.html#aldric">Aldric pack ($15)</a> adds all of this.
+            </div>
+          </div>
+        </div>
+
+        <div class="free-dl-row">
+          <div class="free-size-info">
+            Format: <span>.zip</span> · Contains 4 files · Works immediately
+          </div>
+          <a href="free/starter-guard.zip" class="btn-download" download>
+            ⬇ Download Free
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="resource-divider"></div>
+
+  <!-- RESOURCE 2: DIAGNOSTIC -->
+  <div id="diagnostic" class="section-anchor"></div>
+  <div class="free-resource">
+    <div class="free-resource-layout">
+
+      <div class="free-visual fv-diagnostic">
+        <div style="font-size:2.5rem;filter:drop-shadow(0 0 15px rgba(74,108,247,0.4));">🔍</div>
+        <div class="symptom-list-visual">
+          <div class="symptom-vis bad"><span class="sym-icon">🔇</span> NPC says nothing at all</div>
+          <div class="symptom-vis bad"><span class="sym-icon">💬</span> NPC speaks gibberish</div>
+          <div class="symptom-vis bad"><span class="sym-icon">🎭</span> NPC breaks character</div>
+          <div class="symptom-vis bad"><span class="sym-icon">💸</span> API costs too high</div>
+          <div class="symptom-vis bad"><span class="sym-icon">🤖</span> NPC sounds robotic</div>
+        </div>
+      </div>
+
+      <div class="free-info-panel">
+        <div>
+          <div class="free-badge-small">Free</div>
+          <div class="free-name">Broken NPC Diagnostic</div>
+          <div class="free-desc">
+            Your NPC is not working and you do not know why.
+            This checklist covers every common cause organized by symptom.
+            Find your symptom. Follow the checklist. Fix your NPC.
+          </div>
+
+          <div class="symptoms-grid">
+            <div class="symptom-card">
+              <div class="symptom-em">🔇</div>
+              <div class="symptom-info">
+                <div class="symptom-title">NPC Says Nothing</div>
+                <div class="symptom-sub">API key, activation, file path, restart — all covered</div>
+              </div>
+            </div>
+            <div class="symptom-card">
+              <div class="symptom-em">💬</div>
+              <div class="symptom-info">
+                <div class="symptom-title">Speaks Gibberish</div>
+                <div class="symptom-sub">Temperature, empty prompt, language settings</div>
+              </div>
+            </div>
+            <div class="symptom-card">
+              <div class="symptom-em">🎭</div>
+              <div class="symptom-info">
+                <div class="symptom-title">Breaks Character</div>
+                <div class="symptom-sub">Character protection lines, jailbreak settings</div>
+              </div>
+            </div>
+            <div class="symptom-card">
+              <div class="symptom-em">💸</div>
+              <div class="symptom-info">
+                <div class="symptom-title">API Costs Too High</div>
+                <div class="symptom-sub">Model choice, token limits, cache settings</div>
+              </div>
+            </div>
+            <div class="symptom-card">
+              <div class="symptom-em">🤖</div>
+              <div class="symptom-info">
+                <div class="symptom-title">Sounds Robotic</div>
+                <div class="symptom-sub">Personality definition depth — this one needs a rewrite</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="what-not-included">
+            <h4>Note</h4>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">The first four symptoms are fixable with settings alone</span>
+            </div>
+            <div class="not-row">
+              <span class="not-x">—</span>
+              <span class="not-text">The fifth symptom (robotic behavior) requires a proper personality definition</span>
+            </div>
+            <div class="upsell-note">
+              For the personality solution: <a href="store.html">NPCForge Character Packs from $15 →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="free-dl-row">
+          <div class="free-size-info">
+            Format: <span>PDF</span> · One page · Print or keep on screen
+          </div>
+          <a href="free/diagnostic.pdf" class="btn-download" download>
+            ⬇ Download Free
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="resource-divider"></div>
+
+  <!-- RESOURCE 3: 5 LINES -->
+  <div id="guide" class="section-anchor"></div>
+  <div class="free-resource">
+    <div class="free-resource-layout">
+
+      <div class="free-visual fv-guide">
+        <div style="font-size:2rem;filter:drop-shadow(0 0 12px rgba(201,168,76,0.4));margin-bottom:0.5rem;">📝</div>
+        <div class="lines-visual">
+          <div class="line-vis"><div class="line-num">1</div><span class="line-label">The Identity Line</span></div>
+          <div class="line-vis"><div class="line-num">2</div><span class="line-label">The Tone Line</span></div>
+          <div class="line-vis"><div class="line-num">3</div><span class="line-label">The Boundary Line</span></div>
+          <div class="line-vis"><div class="line-num">4</div><span class="line-label">The Protection Line</span></div>
+          <div class="line-vis"><div class="line-num">5</div><span class="line-label">The Memory Anchor</span></div>
+        </div>
+      </div>
+
+      <div class="free-info-panel">
+        <div>
+          <div class="free-badge-small">Free</div>
+          <div class="free-name">The 5 Lines That Fix Any AI NPC</div>
+          <div class="free-desc">
+            Most SentiencePro problems come down to five missing lines in your system_prompt.txt.
+            This guide shows you exactly what they are, why each one works, and how to add them in under 5 minutes.
+          </div>
+
+          <div class="lines-breakdown">
+            <div class="line-card">
+              <div class="line-card-num">1</div>
+              <div class="line-card-info">
+                <div class="line-card-name">The Identity Line</div>
+                <div class="line-card-desc">Tells the model who it is. Without this it defaults to generic assistant behavior.</div>
+              </div>
+            </div>
+            <div class="line-card">
+              <div class="line-card-num">2</div>
+              <div class="line-card-info">
+                <div class="line-card-name">The Tone Line</div>
+                <div class="line-card-desc">Controls how it speaks. Without this every NPC sounds helpfully cheerful.</div>
+              </div>
+            </div>
+            <div class="line-card">
+              <div class="line-card-num">3</div>
+              <div class="line-card-info">
+                <div class="line-card-name">The Boundary Line</div>
+                <div class="line-card-desc">Defines what the NPC will not do. Prevents your guard from giving quest directions.</div>
+              </div>
+            </div>
+            <div class="line-card">
+              <div class="line-card-num">4</div>
+              <div class="line-card-info">
+                <div class="line-card-name">The Character Protection Line</div>
+                <div class="line-card-desc">Stops jailbreak attempts cold. Players will try. This is how you stop them.</div>
+              </div>
+            </div>
+            <div class="line-card">
+              <div class="line-card-num">5</div>
+              <div class="line-card-info">
+                <div class="line-card-name">The Memory Anchor Line</div>
+                <div class="line-card-desc">Gives the NPC a sense of established presence. Makes behavior more consistent.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="what-not-included">
+            <h4>What This Guide Gives You</h4>
+            <div class="not-row">
+              <span class="does-check" style="color:var(--green);">✓</span>
+              <span class="not-text" style="color:var(--grey);">The exact text for each line with examples</span>
+            </div>
+            <div class="not-row">
+              <span class="does-check" style="color:var(--green);">✓</span>
+              <span class="not-text" style="color:var(--grey);">An explanation of why each line works at the model level</span>
+            </div>
+            <div class="not-row">
+              <span class="does-check" style="color:var(--green);">✓</span>
+              <span class="not-text" style="color:var(--grey);">A working combined example you can adapt immediately</span>
+            </div>
+            <div class="upsell-note">
+              For the full 600-word version with 25 memories: <a href="store.html#aldric">Aldric Pack $15 →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="free-dl-row">
+          <div class="free-size-info">
+            Format: <span>PDF</span> · 3 pages · Instant download
+          </div>
+          <a href="free/five-lines.pdf" class="btn-download" download>
+            ⬇ Download Free
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PAID CTA -->
+  <div class="paid-cta-section">
+    <h2>Ready For The <span>Full Version?</span></h2>
+    <p>
+      The free resources work. They will also show you exactly what
+      the paid packs add. The gap is noticeable.
+    </p>
+    <div class="cta-product-row">
+      <a href="pay-aldric.html" class="cta-product-btn">
+        <div class="cta-prod-icon">⚔️</div>
+        <div class="cta-prod-name">Aldric</div>
+        <div class="cta-prod-price">$15</div>
+      </a>
+      <a href="pay-dravek.html" class="cta-product-btn">
+        <div class="cta-prod-icon">🗝️</div>
+        <div class="cta-prod-name">Dravek</div>
+        <div class="cta-prod-price">$15</div>
+      </a>
+      <a href="pay-bundle.html" class="cta-product-btn">
+        <div class="cta-prod-icon">🏰</div>
+        <div class="cta-prod-name">Bundle</div>
+        <div class="cta-prod-price">$25</div>
+      </a>
+      <a href="pay-dfy.html" class="cta-product-btn">
+        <div class="cta-prod-icon">🔧</div>
+        <div class="cta-prod-name">Fix My Setup</div>
+        <div class="cta-prod-price">$35</div>
+      </a>
+    </div>
+    <a href="store.html" class="btn-gold">View Full Store →</a>
+  </div>
+
+</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚔️</div>
+        <span class="logo-text">NPCForge</span>
+      </a>
+      <p>AI NPC Character Design</p>
+      <p>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+    </div>
+    <div class="footer-links-col">
+      <h4>Store</h4>
+      <a href="store.html#aldric">Aldric — $15</a>
+      <a href="store.html#dravek">Dravek — $15</a>
+      <a href="store.html#bundle">Bundle — $25</a>
+      <a href="store.html#dfy">Fix My Setup — $35</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Free</h4>
+      <a href="#starter">Starter Guard Pack</a>
+      <a href="#diagnostic">Diagnostic Checklist</a>
+      <a href="#guide">5-Line Guide</a>
+    </div>
+    <div class="footer-links-col">
+      <h4>Support</h4>
+      <a href="https://builtbybit.com" target="_blank">BuiltByBit: NPCForge</a>
+      <a href="custom.html">Custom Commission</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 NPCForge. All rights reserved.</p>
+    <div class="crypto-badges">
+      <span class="crypto-badge">BTC</span>
+      <span class="crypto-badge">ETH</span>
+      <span class="crypto-badge">LTC</span>
+      <span class="crypto-badge">DOGE</span>
+      <span class="crypto-badge">USDT</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
