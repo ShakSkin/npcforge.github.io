@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Character Commission — NPCForge</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#0A0A0F;--navy:#0F1021;--card:#141528;--border:#1E2040;--gold:#C9A84C;--gold2:#E8C36A;--white:#F0F0F0;--grey:#8A8AA0;--green:#3DBE6C;--red:#E04444;--purple:#8B5CF6;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.6;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px;}
+nav{background:rgba(10,10,15,0.98);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),#8B6914);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-text{font-size:1.2rem;font-weight:800;color:var(--gold);}
+.nav-back{color:var(--grey);text-decoration:none;font-size:0.9rem;}
+.nav-back:hover{color:var(--white);}
+.page-wrap{max-width:780px;margin:0 auto;padding:3rem 1.5rem;}
+
+.custom-header{
+  background:linear-gradient(135deg,#05030F,#08050F);
+  border:1px solid rgba(139,92,246,0.3);border-radius:20px;
+  padding:2rem;margin-bottom:2rem;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:1.5rem;
+}
+.custom-header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.custom-header-icon{font-size:3rem;flex-shrink:0;filter:drop-shadow(0 0 15px rgba(139,92,246,0.5));}
+.custom-header-info{}
+.custom-info-type{font-size:0.75rem;font-weight:700;color:var(--purple);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.25rem;}
+.custom-info-name{font-size:1.8rem;font-weight:900;margin-bottom:0.25rem;}
+.custom-info-sub{color:var(--grey);font-size:0.9rem;line-height:1.5;}
+.custom-price-badge{margin-left:auto;flex-shrink:0;background:rgba(139,92,246,0.1);border:2px solid var(--purple);border-radius:12px;padding:0.75rem 1.25rem;text-align:center;}
+.custom-price-badge .price{font-size:2rem;font-weight:900;color:var(--purple);display:block;}
+.custom-price-badge .price-label{font-size:0.7rem;color:var(--grey);}
+
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.5rem;}
+.step-card.active{border-color:rgba(139,92,246,0.3);}
+.step-header{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
+.step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;flex-shrink:0;background:rgba(139,92,246,0.1);border:2px solid rgba(139,92,246,0.3);color:var(--purple);}
+.step-title{font-size:1rem;font-weight:700;}
+.step-subtitle{font-size:0.8rem;color:var(--grey);margin-top:0.1rem;}
+.step-body{padding:1.5rem;}
+
+.form-group{margin-bottom:1.25rem;}
+.form-label{display:block;font-size:0.8rem;font-weight:700;color:var(--grey);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:0.5rem;}
+.form-input{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1rem;color:var(--white);font-size:0.95rem;font-family:inherit;transition:border-color 0.2s;outline:none;}
+.form-input:focus{border-color:var(--purple);}
+.form-input::placeholder{color:#404060;}
+.form-select{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1rem;color:var(--white);font-size:0.95rem;font-family:inherit;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8AA0' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;}
+.form-select:focus{border-color:var(--purple);}
+.form-textarea{width:100%;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1rem;color:var(--white);font-size:0.9rem;font-family:inherit;outline:none;resize:vertical;min-height:100px;line-height:1.6;}
+.form-textarea:focus{border-color:var(--purple);}
+.form-textarea::placeholder{color:#404060;}
+.form-hint{font-size:0.78rem;color:var(--grey);margin-top:0.4rem;line-height:1.5;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+.tone-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;}
+.tone-pill{background:var(--navy);border:1px solid var(--border);border-radius:20px;padding:0.35rem 0.85rem;font-size:0.8rem;color:var(--grey);cursor:pointer;transition:all 0.2s;user-select:none;}
+.tone-pill:hover,.tone-pill.selected{background:rgba(139,92,246,0.1);border-color:var(--purple);color:var(--purple);}
+
+.includes-box{background:var(--navy);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;}
+.includes-box h4{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;}
+.inc-row{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.4rem;}
+.inc-row::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.inc-row span{font-size:0.85rem;color:var(--grey);}
+.inc-row span strong{color:var(--white);}
+
+.crypto-options{display:flex;flex-direction:column;gap:0.75rem;}
+.crypto-option{background:var(--navy);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:all 0.2s;cursor:pointer;}
+.crypto-option:hover{border-color:rgba(139,92,246,0.3);}
+.crypto-option.expanded{border-color:var(--purple);}
+.crypto-option-header{display:flex;align-items:center;gap:0.75rem;}
+.crypto-logo{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.btc-logo{background:linear-gradient(135deg,#F7931A,#E07B00);}
+.eth-logo{background:linear-gradient(135deg,#627EEA,#3455C7);}
+.ltc-logo{background:linear-gradient(135deg,#A6A9AA,#808080);}
+.doge-logo{background:linear-gradient(135deg,#C2A633,#9A7F10);}
+.usdt-logo{background:linear-gradient(135deg,#26A17B,#1A7A5C);}
+.crypto-name{font-weight:700;font-size:0.95rem;}
+.crypto-network{font-size:0.75rem;color:var(--grey);margin-top:0.1rem;}
+.crypto-amount{margin-left:auto;text-align:right;}
+.crypto-amount .amount-val{font-size:1.1rem;font-weight:800;color:var(--purple);}
+.crypto-amount .amount-usd{font-size:0.75rem;color:var(--grey);}
+.crypto-expand{margin-left:0.5rem;color:var(--grey);font-size:0.8rem;transition:transform 0.2s;}
+.crypto-option.expanded .crypto-expand{transform:rotate(180deg);}
+.crypto-details{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.crypto-option.expanded .crypto-details{display:block;}
+.address-label{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.4rem;}
+.address-box{background:var(--black);border:1px solid var(--border);border-radius:8px;padding:0.85rem 1rem;font-family:'Courier New',monospace;font-size:0.82rem;color:var(--white);word-break:break-all;cursor:pointer;transition:border-color 0.2s;position:relative;user-select:all;}
+.address-box:hover{border-color:var(--purple);}
+.address-box::after{content:'Click to copy';position:absolute;top:-24px;right:0;font-size:0.7rem;color:var(--grey);font-family:'Segoe UI',sans-serif;}
+.address-box.copied{border-color:var(--green);}
+.address-box.copied::after{content:'Copied! ✓';color:var(--green);}
+.usdt-note{background:rgba(38,161,123,0.08);border:1px solid rgba(38,161,123,0.2);border-radius:8px;padding:0.6rem 0.9rem;font-size:0.78rem;color:#80C4B0;margin-top:0.75rem;}
+.network-warning{background:rgba(224,68,68,0.08);border:1px solid rgba(224,68,68,0.2);border-radius:8px;padding:0.6rem 0.9rem;font-size:0.78rem;color:#CCA0A0;margin-top:0.75rem;line-height:1.5;}
+.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-submit{width:100%;background:var(--purple);color:var(--white);padding:1rem;border:none;border-radius:12px;font-size:1.05rem;font-weight:800;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;font-family:inherit;}
+.btn-submit:hover{background:#A070F8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,92,246,0.3);}
+.btn-submit:disabled{background:#444;color:#666;cursor:not-allowed;transform:none;box-shadow:none;}
+.submit-note{font-size:0.78rem;color:var(--grey);text-align:center;margin-top:0.6rem;line-height:1.5;}
+.revision-box{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:1rem 1.25rem;font-size:0.85rem;color:#B090F7;line-height:1.6;margin-top:1rem;}
+.loading{display:inline-block;width:12px;height:12px;border:2px solid rgba(139,92,246,0.3);border-top-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;margin-left:0.4rem;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+footer{background:var(--navy);border-top:1px solid var(--border);padding:1.5rem 2rem;margin-top:3rem;}
+.footer-simple{max-width:780px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-simple p{color:var(--grey);font-size:0.82rem;}
+.footer-simple a{color:var(--gold);text-decoration:none;font-size:0.82rem;}
+@media(max-width:600px){.custom-header{flex-wrap:wrap;}.custom-price-badge{width:100%;margin-left:0;}.form-grid{grid-template-columns:1fr;}.confirm-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⚔️</div>
+    <span class="logo-text">NPCForge</span>
+  </a>
+  <a href="custom.html" class="nav-back">← Back to Custom Orders</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="custom-header">
+    <div class="custom-header-icon">✨</div>
+    <div class="custom-header-info">
+      <div class="custom-info-type">Bespoke Commission</div>
+      <div class="custom-info-name">Single Custom Character</div>
+      <div class="custom-info-sub">Built specifically for your server world. Any theme. Any role. Any personality.</div>
+    </div>
+    <div class="custom-price-badge">
+      <span class="price">$25</span>
+      <span class="price-label">6hr delivery</span>
+    </div>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="step-card active">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">What You Receive</div>
+        <div class="step-subtitle">A complete character built from scratch for your world.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="includes-box">
+        <h4>Files Included</h4>
+        <div class="inc-row"><span><strong>system_prompt.txt</strong> — 600+ word personality built for your server theme and NPC role.</span></div>
+        <div class="inc-row"><span><strong>memories.json</strong> — 20-25 custom memories referencing your specific server lore, locations, and characters.</span></div>
+        <div class="inc-row"><span><strong>config.yml</strong> — Optimized for your character type. Guard settings for guards, merchant settings for merchants.</span></div>
+        <div class="inc-row"><span><strong>SETUP.pdf</strong> — Installation guide adapted to your character.</span></div>
+        <div class="inc-row"><span><strong>7-day revision window</strong> — If anything feels off I adjust it at no extra charge.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUR CHARACTER BRIEF -->
+  <div class="step-card active">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Tell Me About Your Character</div>
+        <div class="step-subtitle">The more detail you give, the better the result.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="buyer-email" class="form-input" placeholder="you@example.com">
+        <div class="form-hint">Finished files are delivered here within 6 hours.</div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Server Theme</label>
+          <select id="theme" class="form-select">
+            <option value="Medieval Fantasy">Medieval Fantasy</option>
+            <option value="High Fantasy">High Fantasy</option>
+            <option value="Sci-Fi">Sci-Fi / Space</option>
+            <option value="Post-Apocalyptic">Post-Apocalyptic</option>
+            <option value="Pirate">Pirate / Nautical</option>
+            <option value="Modern City">Modern City</option>
+            <option value="Horror">Horror</option>
+            <option value="Steampunk">Steampunk</option>
+            <option value="Other">Other (describe below)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">NPC Role</label>
+          <select id="role" class="form-select">
+            <option value="Guard">Guard / Security</option>
+            <option value="Merchant">Merchant / Trader</option>
+            <option value="Quest Giver">Quest Giver</option>
+            <option value="Oracle">Oracle / Prophet</option>
+            <option value="Innkeeper">Innkeeper / Host</option>
+            <option value="Villain">Villain / Antagonist</option>
+            <option value="Ally">Ally / Companion</option>
+            <option value="Informant">Informant / Spy</option>
+            <option value="Healer">Healer / Doctor</option>
+            <option value="Scholar">Scholar / Librarian</option>
+            <option value="Other">Other (describe below)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Moral Alignment</label>
+          <select id="moral" class="form-select">
+            <option value="Lawful Good">Lawful Good (Honest, follows rules)</option>
+            <option value="Neutral Good">Neutral Good (Helpful, flexible)</option>
+            <option value="Chaotic Good">Chaotic Good (Good intentions, own rules)</option>
+            <option value="Lawful Neutral">Lawful Neutral (Follows rules, no bias)</option>
+            <option value="True Neutral">True Neutral (Balanced, pragmatic)</option>
+            <option value="Chaotic Neutral">Chaotic Neutral (Unpredictable, self-serving)</option>
+            <option value="Morally Grey">Morally Grey (Complex, situational)</option>
+            <option value="Lawful Evil">Lawful Evil (Evil but structured)</option>
+            <option value="Chaotic Evil">Chaotic Evil (Dangerous, unpredictable)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Plugin</label>
+          <select id="plugin" class="form-select">
+            <option value="SentiencePro">SentiencePro</option>
+            <option value="LlamaCraft">LlamaCraft Bridge</option>
+            <option value="Other">Other (specify below)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tone (Select all that apply)</label>
+        <div class="tone-pills" id="tone-pills">
+          <div class="tone-pill selected" onclick="toggleTone(this)">Serious</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Humorous</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Mysterious</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Threatening</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Wise</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Sarcastic</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Formal</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Gruff</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Warm</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Cryptic</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Naive</div>
+          <div class="tone-pill" onclick="toggleTone(this)">Paranoid</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Character Background & Lore</label>
+        <textarea id="lore" class="form-textarea" placeholder="Tell me about your server world and this character. 
+
+Examples:
+- My server is a dark fantasy RPG. The NPC is a blind seer who lives in a tower. She knows the names of everyone who enters the city but pretends not to.
+- Post-apocalyptic server. Scavenger who trades in the ruins. Survived the collapse fifteen years ago. Never talks about what she had to do to survive.
+- Medieval pirate port. Harbormaster who is secretly skimming the import fees. Very friendly on the surface. Gets defensive if asked about the accounts.
+
+The more specific you are, the more alive the character will be."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Other NPCs This Character Knows (Optional)</label>
+        <textarea id="relationships" class="form-textarea" style="min-height:70px;" placeholder="If you want this NPC to reference other characters on your server, name them and describe the relationship briefly. Example: 'Knows the guard captain personally. They served together. Has complicated feelings about it.'"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Hard Rules — Things This Character Would Never Do</label>
+        <textarea id="rules" class="form-textarea" style="min-height:70px;" placeholder="Example: Never gives quest directions. Only speaks in riddles. Refuses to discuss the war. Always denies being an informant even when confronted."></textarea>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Server Type</label>
+          <select id="server-type" class="form-select">
+            <option value="Paper">Paper</option>
+            <option value="Spigot">Spigot</option>
+            <option value="Fabric">Fabric</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">AI Provider</label>
+          <select id="ai-provider" class="form-select">
+            <option value="OpenAI">OpenAI (ChatGPT API)</option>
+            <option value="Anthropic">Anthropic (Claude)</option>
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="step-card active">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Send $25 Payment</div>
+        <div class="step-subtitle">I begin building your character within 2 hours of payment.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="crypto-options">
+
+        <div class="crypto-option expanded" id="opt-usdt" onclick="toggleCrypto('usdt')">
+          <div class="crypto-option-header">
+            <div class="crypto-logo usdt-logo">💵</div>
+            <div><div class="crypto-name">Tether USDT</div><div class="crypto-network">TRC20 — Recommended</div></div>
+            <div class="crypto-amount"><div class="amount-val">25.00 USDT</div><div class="amount-usd">Stable price</div></div>
+            <div class="crypto-expand">▼</div>
+          </div>
+          <div class="crypto-details">
+            <div class="address-label">Send 25.00 USDT (TRC20) to</div>
+            <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_USDT_TRC20_ADDRESS')">YOUR_FAUCETPAY_USDT_TRC20_ADDRESS</div>
+            <div class="usdt-note">✅ TRC20 network only. Not ERC20.</div>
+          </div>
+        </div>
+
+        <div class="crypto-option" id="opt-btc" onclick="toggleCrypto('btc')">
+          <div class="crypto-option-header">
+            <div class="crypto-logo btc-logo">₿</div>
+            <div><div class="crypto-name">Bitcoin</div><div class="crypto-network">BTC Network</div></div>
+            <div class="crypto-amount"><div class="amount-val" id="btc-amt"><span class="loading"></span></div><div class="amount-usd" id="btc-rate">Loading...</div></div>
+            <div class="crypto-expand">▼</div>
+          </div>
+          <div class="crypto-details">
+            <div class="address-label">Send exact BTC to</div>
+            <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_BTC_ADDRESS')">YOUR_FAUCETPAY_BTC_ADDRESS</div>
+          </div>
+        </div>
+
+        <div class="crypto-option" id="opt-eth" onclick="toggleCrypto('eth')">
+          <div class="crypto-option-header">
+            <div class="crypto-logo eth-logo">Ξ</div>
+            <div><div class="crypto-name">Ethereum</div><div class="crypto-network">ERC20 Network</div></div>
+            <div class="crypto-amount"><div class="amount-val" id="eth-amt"><span class="loading"></span></div><div class="amount-usd" id="eth-rate">Loading...</div></div>
+            <div class="crypto-expand">▼</div>
+          </div>
+          <div class="crypto-details">
+            <div class="address-label">Send exact ETH to</div>
+            <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_ETH_ADDRESS')">YOUR_FAUCETPAY_ETH_ADDRESS</div>
+            <div class="network-warning">⚠️ High gas fees possible. USDT TRC20 recommended.</div>
+          </div>
+        </div>
+
+        <div class="crypto-option" id="opt-ltc" onclick="toggleCrypto('ltc')">
+          <div class="crypto-option-header">
+            <div class="crypto-logo ltc-logo">Ł</div>
+            <div><div class="crypto-name">Litecoin</div><div class="crypto-network">LTC Network</div></div>
+            <div class="crypto-amount"><div class="amount-val" id="ltc-amt"><span class="loading"></span></div><div class="amount-usd" id="ltc-rate">Loading...</div></div>
+            <div class="crypto-expand">▼</div>
+          </div>
+          <div class="crypto-details">
+            <div class="address-label">Send exact LTC to</div>
+            <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_LTC_ADDRESS')">YOUR_FAUCETPAY_LTC_ADDRESS</div>
+          </div>
+        </div>
+
+        <div class="crypto-option" id="opt-doge" onclick="toggleCrypto('doge')">
+          <div class="crypto-option-header">
+            <div class="crypto-logo doge-logo">Ð</div>
+            <div><div class="crypto-name">Dogecoin</div><div class="crypto-network">DOGE Network</div></div>
+            <div class="crypto-amount"><div class="amount-val" id="doge-amt"><span class="loading"></span></div><div class="amount-usd" id="doge-rate">Loading...</div></div>
+            <div class="crypto-expand">▼</div>
+          </div>
+          <div class="crypto-details">
+            <div class="address-label">Send exact DOGE to</div>
+            <div class="address-box" onclick="copyAddr(this,'YOUR_FAUCETPAY_DOGE_ADDRESS')">YOUR_FAUCETPAY_DOGE_ADDRESS</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM -->
+  <div class="step-card active">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Submit Your Commission</div>
+        <div class="step-subtitle">I receive your brief and begin building within 2 hours.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="confirm-grid">
+        <div class="form-group">
+          <label class="form-label">Cryptocurrency Sent</label>
+          <select id="crypto-used" class="form-select">
+            <option value="">Select...</option>
+            <option value="USDT">USDT (TRC20)</option>
+            <option value="BTC">Bitcoin</option>
+            <option value="ETH">Ethereum</option>
+            <option value="LTC">Litecoin</option>
+            <option value="DOGE">Dogecoin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Transaction Hash (Optional)</label>
+          <input type="text" id="tx-hash" class="form-input" placeholder="Speeds up verification">
+        </div>
+      </div>
+      <button class="btn-submit" id="submit-btn" onclick="submitOrder()">
+        Submit Commission — Build My Character ✨
+      </button>
+      <div class="submit-note">
+        Character files delivered within 6 hours.<br>
+        I may message you on BuiltByBit (NPCForge) if I need clarification.
+      </div>
+      <div class="revision-box">
+        <strong>7-day revision window included.</strong> If anything feels off after delivery — the personality is not quite right, the memories do not match your lore, the tone is slightly off — tell me specifically. I revise within 24 hours at no charge. Usually one round of small tweaks is all it takes.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-simple">
+    <p>© 2026 NPCForge</p>
+    <a href="custom.html">← Back to Custom Orders</a>
+    <p>Support: BuiltByBit — NPCForge</p>
+  </div>
+</footer>
+
+<script>
+const PRODUCT='custom-single';
+const PRICE_USD=25;
+const WEBHOOK_URL='YOUR_APPS_SCRIPT_WEBHOOK_URL';
+let selectedTones=new Set(['Serious']);
+
+function toggleTone(el){
+  const tone=el.textContent;
+  if(selectedTones.has(tone)){
+    if(selectedTones.size>1){selectedTones.delete(tone);el.classList.remove('selected');}
+  } else {
+    selectedTones.add(tone);el.classList.add('selected');
+  }
+}
+
+async function loadPrices(){
+  try{
+    const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin,dogecoin&vs_currencies=usd');
+    const d=await r.json();
+    if(d.bitcoin){const v=(PRICE_USD/d.bitcoin.usd).toFixed(6);document.getElementById('btc-amt').textContent=v+' BTC';document.getElementById('btc-rate').textContent='1 BTC = $'+d.bitcoin.usd.toLocaleString();}
+    if(d.ethereum){const v=(PRICE_USD/d.ethereum.usd).toFixed(5);document.getElementById('eth-amt').textContent=v+' ETH';document.getElementById('eth-rate').textContent='1 ETH = $'+d.ethereum.usd.toLocaleString();}
+    if(d.litecoin){const v=(PRICE_USD/d.litecoin.usd).toFixed(4);document.getElementById('ltc-amt').textContent=v+' LTC';document.getElementById('ltc-rate').textContent='1 LTC = $'+d.litecoin.usd.toFixed(2);}
+    if(d.dogecoin){const v=(PRICE_USD/d.dogecoin.usd).toFixed(2);document.getElementById('doge-amt').textContent=v+' DOGE';document.getElementById('doge-rate').textContent='1 DOGE = $'+d.dogecoin.usd.toFixed(4);}
+  }catch(e){['btc','eth','ltc','doge'].forEach(c=>{const el=document.getElementById(c+'-amt');if(el)el.textContent='Check current rate';});}
+}
+loadPrices();
+setInterval(loadPrices,60000);
+
+function toggleCrypto(coin){
+  const opt=document.getElementById('opt-'+coin);
+  const was=opt.classList.contains('expanded');
+  document.querySelectorAll('.crypto-option').forEach(o=>o.classList.remove('expanded'));
+  if(!was)opt.classList.add('expanded');
+}
+
+function copyAddr(el,address){
+  event.stopPropagation();
+  navigator.clipboard.writeText(address).then(()=>{el.classList.add('copied');setTimeout(()=>el.classList.remove('copied'),2500);});
+}
+
+async function submitOrder(){
+  const email=document.getElementById('buyer-email').value.trim();
+  const crypto=document.getElementById('crypto-used').value;
+  const txHash=document.getElementById('tx-hash').value.trim();
+  const theme=document.getElementById('theme').value;
+  const role=document.getElementById('role').value;
+  const moral=document.getElementById('moral').value;
+  const plugin=document.getElementById('plugin').value;
+  const lore=document.getElementById('lore').value.trim();
+  const relationships=document.getElementById('relationships').value.trim();
+  const rules=document.getElementById('rules').value.trim();
+  const serverType=document.getElementById('server-type').value;
+  const aiProvider=document.getElementById('ai-provider').value;
+  const tones=Array.from(selectedTones).join(', ');
+
+  if(!email||!email.includes('@')){alert('Please enter a valid email address.');return;}
+  if(!crypto){alert('Please select which cryptocurrency you sent in Step 4.');return;}
+  if(!lore||lore.length<30){alert('Please add more detail to the character background in Step 2. The more you tell me, the better the character.');return;}
+
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Submitting commission...';
+
+  try{
+    await fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:PRODUCT,price:PRICE_USD,email,crypto,txHash:txHash||'Not provided',theme,role,moral,plugin,tones,lore,relationships:relationships||'None specified',rules:rules||'None specified',serverType,aiProvider,timestamp:new Date().toISOString(),action:'new_order'})});
+  }catch(e){}
+  window.location.href='success.html?product=custom-single&email='+encodeURIComponent(email);
+}
+</script>
+</body>
+</html>
