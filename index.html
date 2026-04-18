@@ -2,60 +2,246 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" 
+          content="width=device-width, 
+                   initial-scale=1.0">
+    <title>NPCForge — AI NPC Characters 
+           That Actually Feel Human</title>
+    <meta name="description" 
+          content="SentiencePro and LlamaCraft 
+                   Bridge personality packs. 
+                   Stop your AI NPC sounding 
+                   like a customer service bot.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/logo.png">
 </head>
 <body>
-    <header>
-        <div class="hero">
-            <h1>Welcome to Our Product</h1>
-            <p>Your solution for all your needs</p>
-            <a href="#" class="cta">Get Started</a>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <img src="assets/images/logo.png" 
+             alt="NPCForge" class="nav-logo">
+        <span>NPCForge</span>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="free.html">Free Packs</a>
+        <a href="custom.html">Custom Order</a>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Your AI NPC Sounds Like<br>
+            A Customer Service Bot.</h1>
+        <p class="hero-sub">
+            SentiencePro and LlamaCraft Bridge 
+            are powerful engines.<br>
+            The default settings give them 
+            nothing to work with.<br>
+            NPCForge builds the personality layer.
+        </p>
+        
+        <!-- BEFORE/AFTER -->
+        <div class="comparison-box">
+            <div class="before">
+                <span class="label-before">BEFORE</span>
+                <div class="chat-bubble generic">
+                    "Hello! How can I assist 
+                     you today?"
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="after">
+                <span class="label-after">AFTER</span>
+                <div class="chat-bubble character">
+                    "State your business.<br>
+                     I won't ask again."
+                </div>
+            </div>
         </div>
-    </header>
-    <main>
-        <section class="problems">
-            <h2>Problems We Solve</h2>
-            <div class="card">
-                <h3>Problem 1</h3>
-                <p>Description of problem 1.</p>
+
+        <div class="hero-buttons">
+            <a href="store.html" 
+               class="btn-primary">
+                Browse Characters
+            </a>
+            <a href="free.html" 
+               class="btn-secondary">
+                Get Free Pack
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT WE FIX -->
+<section class="section-dark">
+    <h2>The Problem You Bought SentiencePro To Solve</h2>
+    <div class="problem-grid">
+        <div class="problem-card">
+            <span class="problem-icon">💬</span>
+            <h3>Gibberish Responses</h3>
+            <p>The model has no direction. 
+               It improvises. 
+               It improvises badly.</p>
+        </div>
+        <div class="problem-card">
+            <span class="problem-icon">🤖</span>
+            <h3>Broken Character</h3>
+            <p>Players ask one weird question 
+               and your medieval guard starts 
+               sounding like ChatGPT.</p>
+        </div>
+        <div class="problem-card">
+            <span class="problem-icon">💸</span>
+            <h3>High API Costs</h3>
+            <p>Wrong token settings burn through 
+               your API credit on responses 
+               that do not even work.</p>
+        </div>
+        <div class="problem-card">
+            <span class="problem-icon">📄</span>
+            <h3>Empty Personality</h3>
+            <p>Default system prompts give 
+               the AI nothing. 
+               So it gives you nothing back.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS PREVIEW -->
+<section class="section-light">
+    <h2>Current Characters</h2>
+    <div class="product-grid">
+    
+        <div class="product-card">
+            <img src="assets/images/aldric-thumb.png" 
+                 alt="Aldric">
+            <h3>Aldric</h3>
+            <p class="product-type">
+                Grizzled Guard
+            </p>
+            <p class="product-desc">
+                Thirty-one years on the gate. 
+                Suspicious of everyone. 
+                Bribed by no one.
+            </p>
+            <p class="product-price">$15</p>
+            <a href="store.html#aldric" 
+               class="btn-primary">
+                View Character
+            </a>
+        </div>
+
+        <div class="product-card">
+            <img src="assets/images/dravek-thumb.png" 
+                 alt="Dravek">
+            <h3>Dravek</h3>
+            <p class="product-type">
+                Corrupt Merchant
+            </p>
+            <p class="product-desc">
+                Twenty-six years in business. 
+                Has never once sold only 
+                what his stall displays.
+            </p>
+            <p class="product-price">$15</p>
+            <a href="store.html#dravek" 
+               class="btn-primary">
+                View Character
+            </a>
+        </div>
+
+        <div class="product-card featured">
+            <div class="featured-badge">
+                BEST VALUE
             </div>
-            <div class="card">
-                <h3>Problem 2</h3>
-                <p>Description of problem 2.</p>
+            <img src="assets/images/bundle-thumb.png" 
+                 alt="Bundle">
+            <h3>City Bundle</h3>
+            <p class="product-type">
+                Aldric + Dravek
+            </p>
+            <p class="product-desc">
+                They exist in the same city. 
+                They know each other. 
+                They have opinions about each other.
+            </p>
+            <div class="price-row">
+                <span class="price-old">$30</span>
+                <span class="product-price">$25</span>
             </div>
-            <div class="card">
-                <h3>Problem 3</h3>
-                <p>Description of problem 3.</p>
-            </div>
-        </section>
-        <section class="product-showcase">
-            <h2>Product Showcase</h2>
-            <div class="product">
-                <h3>Product 1</h3>
-                <p>Details about product 1.</p>
-            </div>
-            <div class="product">
-                <h3>Product 2</h3>
-                <p>Details about product 2.</p>
-            </div>
-        </section>
-        <section class="free">
-            <h2>Try for Free</h2>
-            <p>Free trial information.</p>
-        </section>
-        <section class="compatibility">
-            <h2>Compatibility</h2>
-            <p>Information about compatibility.</p>
-        </section>
-        <section class="guarantee">
-            <h2>Guarantee</h2>
-            <p>Details about our guarantee.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Our Company. All rights reserved.</p>
-    </footer>
+            <a href="store.html#bundle" 
+               class="btn-primary">
+                View Bundle
+            </a>
+        </div>
+        
+    </div>
+</section>
+
+<!-- FREE SECTION -->
+<section class="section-dark">
+    <div class="free-banner">
+        <h2>Not Ready To Buy?</h2>
+        <p>Download the free Starter Guard pack. 
+           It works. It will also show you exactly 
+           what the difference between free and paid 
+           looks like in practice.</p>
+        <a href="free.html" class="btn-secondary">
+            Get Free Pack — No Email Required
+        </a>
+    </div>
+</section>
+
+<!-- COMPATIBILITY -->
+<section class="section-light">
+    <h2>Compatible With</h2>
+    <div class="compat-grid">
+        <div class="compat-item">✅ SentiencePro 
+                                    (all versions)</div>
+        <div class="compat-item">✅ LlamaCraft Bridge</div>
+        <div class="compat-item">✅ OpenAI API</div>
+        <div class="compat-item">✅ Anthropic API</div>
+        <div class="compat-item">✅ Paper Servers</div>
+        <div class="compat-item">✅ Spigot Servers</div>
+        <div class="compat-item">✅ Fabric Servers</div>
+    </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="section-dark">
+    <div class="guarantee-box">
+        <h2>The Guarantee</h2>
+        <p>If any paid pack does not work 
+           with your setup, message me before 
+           anything else.</p>
+        <p>I fix it personally within 24 hours. 
+           Every purchase. Every time.</p>
+        <p>If I cannot fix it, you get a 
+           full refund in crypto. No questions.</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <p>NPCForge | AI NPC Character Design</p>
+        <p>SentiencePro & LlamaCraft Bridge Specialist</p>
+        <div class="footer-links">
+            <a href="store.html">Store</a>
+            <a href="free.html">Free Packs</a>
+            <a href="custom.html">Custom Orders</a>
+        </div>
+        <p class="footer-payment">
+            Payments accepted via cryptocurrency.<br>
+            BTC · ETH · LTC · DOGE · USDT
+        </p>
+    </div>
+</footer>
+
 </body>
 </html>
