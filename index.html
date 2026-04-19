@@ -6,7 +6,7 @@
     <title>NPCForge — AI NPC Personality Engine</title>
     <meta name="description" content="Stop your AI NPCs from sounding like customer service bots. Deep personality packs for SentiencePro and LlamaCraft Bridge.">
     <meta name="keywords" content="NPCForge, SentiencePro, LlamaCraft, Minecraft NPC, AI NPC, personality engine">
-    <meta property="og:title" content="NPCForge — AI NPC Personality Engine">
+    <meta property="og:title" content="NPCForge — AI NPC Characters That Actually Feel Human">
     <meta property="og:description" content="Your AI NPC sounds like a customer service bot. We fix that.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://npcforge.github.io">
@@ -35,9 +35,7 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -47,12 +45,12 @@
             overflow-x: hidden;
         }
 
-        /* ── NAV ── */
+        /* ══════════════════════════════════
+           NAV — SINGLE INSTANCE
+        ══════════════════════════════════ */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             background: rgba(10, 10, 15, 0.95);
             backdrop-filter: blur(12px);
@@ -75,11 +73,12 @@
             color: var(--gold);
             text-decoration: none;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        .nav-logo span {
-            color: var(--text-primary);
-        }
+        .nav-logo span { color: var(--text-primary); }
 
         .nav-links {
             display: flex;
@@ -96,9 +95,7 @@
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a:hover { color: var(--gold); }
 
         .nav-links .nav-cta {
             background: var(--gold);
@@ -123,7 +120,9 @@
             cursor: pointer;
         }
 
-        /* ── HERO ── */
+        /* ══════════════════════════════════
+           HERO
+        ══════════════════════════════════ */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -137,12 +136,10 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
+            top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 165, 55, 0.08) 0%, transparent 70%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(212,165,55,0.08) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -154,14 +151,14 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(212, 165, 55, 0.1);
-            border: 1px solid rgba(212, 165, 55, 0.3);
+            background: rgba(212,165,55,0.1);
+            border: 1px solid rgba(212,165,55,0.3);
             color: var(--gold);
             padding: 0.4rem 1rem;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
         }
@@ -173,12 +170,10 @@
             margin-bottom: 1.5rem;
         }
 
-        .hero h1 .highlight {
-            color: var(--gold);
-        }
+        .hero h1 .highlight { color: var(--gold); }
 
         .hero-sub {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto 2.5rem;
@@ -214,7 +209,7 @@
         .btn-primary:hover {
             background: var(--gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+            box-shadow: 0 8px 25px rgba(212,165,55,0.25);
         }
 
         .btn-secondary {
@@ -229,7 +224,42 @@
             transform: translateY(-2px);
         }
 
-        /* ── PROBLEM / SOLUTION ── */
+        /* ══════════════════════════════════
+           STATS BAR
+        ══════════════════════════════════ */
+        .stats-bar {
+            max-width: 900px;
+            margin: -2rem auto 0;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            padding: 1rem 0;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ══════════════════════════════════
+           BEFORE / AFTER
+        ══════════════════════════════════ */
         .section {
             padding: 6rem 2rem;
         }
@@ -263,10 +293,7 @@
             margin-bottom: 3rem;
         }
 
-        /* ── COMPARISON ── */
-        .comparison {
-            background: var(--bg-secondary);
-        }
+        .comparison { background: var(--bg-secondary); }
 
         .compare-grid {
             display: grid;
@@ -279,16 +306,10 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
-            position: relative;
         }
 
-        .compare-card.bad {
-            border-color: rgba(231, 76, 60, 0.3);
-        }
-
-        .compare-card.good {
-            border-color: rgba(212, 165, 55, 0.3);
-        }
+        .compare-card.bad { border-color: rgba(231,76,60,0.3); }
+        .compare-card.good { border-color: rgba(212,165,55,0.3); }
 
         .compare-label {
             font-size: 0.75rem;
@@ -296,48 +317,96 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .compare-card.bad .compare-label {
-            color: var(--red);
+        .compare-card.bad .compare-label { color: var(--red); }
+        .compare-card.good .compare-label { color: var(--gold); }
+
+        .compare-card.bad .compare-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: rgba(231,76,60,0.1);
+            border: 1px solid rgba(231,76,60,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
         }
 
-        .compare-card.good .compare-label {
-            color: var(--gold);
+        .compare-card.good .compare-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: rgba(212,165,55,0.1);
+            border: 1px solid rgba(212,165,55,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
         }
 
-        .chat-line {
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+        .chat-line { margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6; }
+        .chat-line .speaker { font-weight: 700; margin-right: 0.25rem; }
+        .chat-line .speaker.player { color: var(--blue); }
+        .chat-line .speaker.npc { color: var(--text-muted); }
+        .compare-card.good .chat-line .speaker.npc { color: var(--gold); }
+        .chat-line .dialogue { color: var(--text-secondary); }
+        .compare-card.good .chat-line .dialogue { color: var(--text-primary); }
+
+        .compare-verdict {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .compare-card.bad .compare-verdict { color: var(--red); }
+        .compare-card.good .compare-verdict { color: var(--green); }
+
+        /* ══════════════════════════════════
+           PROBLEMS
+        ══════════════════════════════════ */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        .problem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .problem-card:hover {
+            border-color: rgba(212,165,55,0.3);
+            transform: translateY(-3px);
+        }
+
+        .problem-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        .chat-line .speaker {
-            font-weight: 700;
-            margin-right: 0.25rem;
-        }
-
-        .chat-line .speaker.player {
-            color: var(--blue);
-        }
-
-        .chat-line .speaker.npc {
-            color: var(--text-muted);
-        }
-
-        .compare-card.good .chat-line .speaker.npc {
-            color: var(--gold);
-        }
-
-        .chat-line .dialogue {
-            color: var(--text-secondary);
-        }
-
-        .compare-card.good .chat-line .dialogue {
-            color: var(--text-primary);
-        }
-
-        /* ── FEATURES ── */
+        /* ══════════════════════════════════
+           FEATURES
+        ══════════════════════════════════ */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -353,28 +422,17 @@
         }
 
         .feature-card:hover {
-            border-color: rgba(212, 165, 55, 0.3);
+            border-color: rgba(212,165,55,0.3);
             transform: translateY(-3px);
         }
 
-        .feature-icon {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-        }
+        .feature-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
 
-        .feature-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* ── CHARACTERS PREVIEW ── */
+        /* ══════════════════════════════════
+           CHARACTERS
+        ══════════════════════════════════ */
         .characters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -387,11 +445,18 @@
             border-radius: 12px;
             padding: 2rem;
             transition: border-color 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
         .char-card:hover {
-            border-color: rgba(212, 165, 55, 0.3);
+            border-color: rgba(212,165,55,0.3);
             transform: translateY(-3px);
+        }
+
+        .char-card.featured-char {
+            border-color: rgba(212,165,55,0.25);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,165,55,0.03) 100%);
         }
 
         .char-header {
@@ -402,27 +467,17 @@
         }
 
         .char-avatar {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 10px;
-            background: rgba(212, 165, 55, 0.1);
-            border: 1px solid rgba(212, 165, 55, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(212,165,55,0.1);
+            border: 1px solid rgba(212,165,55,0.2);
+            display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem;
             flex-shrink: 0;
         }
 
-        .char-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        .char-role {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .char-name { font-size: 1.15rem; font-weight: 700; }
+        .char-role { font-size: 0.8rem; color: var(--text-muted); }
 
         .char-quote {
             color: var(--text-secondary);
@@ -431,34 +486,217 @@
             line-height: 1.6;
             margin-bottom: 1.25rem;
             padding-left: 1rem;
-            border-left: 2px solid rgba(212, 165, 55, 0.3);
+            border-left: 2px solid rgba(212,165,55,0.3);
+            flex: 1;
+        }
+
+        .char-includes {
+            list-style: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .char-includes li {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 0.25rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        .char-includes li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .char-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .char-price { font-size: 1.35rem; font-weight: 800; }
+        .char-price.free { color: var(--green); }
+        .char-price .original {
+            font-size: 0.85rem; color: var(--text-muted);
+            text-decoration: line-through; margin-left: 0.4rem; font-weight: 400;
         }
 
         .char-meta {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
         .char-tag {
-            font-size: 0.75rem;
-            padding: 0.3rem 0.75rem;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 50px;
-            background: rgba(212, 165, 55, 0.08);
+            background: rgba(212,165,55,0.08);
             color: var(--gold);
-            border: 1px solid rgba(212, 165, 55, 0.15);
+            border: 1px solid rgba(212,165,55,0.15);
         }
 
         .char-tag.free-tag {
-            background: rgba(76, 175, 80, 0.08);
+            background: rgba(76,175,80,0.08);
             color: var(--green);
-            border-color: rgba(76, 175, 80, 0.15);
+            border-color: rgba(76,175,80,0.15);
         }
 
-        /* ── COMPATIBILITY ── */
+        .char-tag.soon-tag {
+            background: rgba(102,102,119,0.08);
+            color: var(--text-muted);
+            border-color: rgba(102,102,119,0.15);
+        }
+
+        .char-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.55rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .char-btn-gold { background: var(--gold); color: #000; }
+        .char-btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .char-btn-green { background: var(--green); color: #fff; }
+        .char-btn-green:hover { background: #5cc760; transform: translateY(-1px); }
+        .char-btn-disabled { background: var(--bg-card-hover); color: var(--text-muted); cursor: not-allowed; border: 1px solid var(--border); }
+
+        /* Bundle Card — full width */
+        .bundle-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(155,89,182,0.3);
+            border-radius: 14px;
+            padding: 2.5rem;
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bundle-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(155,89,182,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .bundle-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: rgba(231,76,60,0.1);
+            color: var(--red);
+            border: 1px solid rgba(231,76,60,0.25);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        .bundle-left h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .bundle-left .bundle-role {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .bundle-left .bundle-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            max-width: 550px;
+        }
+
+        .bundle-left .bundle-includes {
+            list-style: none;
+            margin-bottom: 0;
+        }
+
+        .bundle-left .bundle-includes li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            padding: 0.2rem 0;
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .bundle-left .bundle-includes li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .bundle-right {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bundle-right .bundle-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #9B59B6;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .bundle-right .bundle-original {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-bottom: 1rem;
+        }
+
+        .bundle-right .bundle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 2rem;
+            background: #9B59B6;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .bundle-right .bundle-btn:hover {
+            background: #a96bc4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(155,89,182,0.25);
+        }
+
+        /* ══════════════════════════════════
+           COMPATIBILITY
+        ══════════════════════════════════ */
         .compat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
         }
 
@@ -469,21 +707,49 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 1.25rem 1.5rem;
+            padding: 1.1rem 1.25rem;
         }
 
-        .compat-check {
-            color: var(--green);
-            font-size: 1.1rem;
+        .compat-check { color: var(--green); font-size: 1.1rem; font-weight: 700; }
+        .compat-item span { font-size: 0.9rem; font-weight: 500; }
+
+        /* ══════════════════════════════════
+           GUARANTEE
+        ══════════════════════════════════ */
+        .guarantee {
+            background: var(--bg-card);
+            border: 1px solid rgba(212,165,55,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+
+        .guarantee-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .guarantee h3 {
+            font-size: 1.15rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
         }
 
-        .compat-item span {
+        .guarantee p {
+            color: var(--text-secondary);
             font-size: 0.95rem;
-            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
         }
 
-        /* ── CTA FINAL ── */
+        .guarantee p:last-child { margin-bottom: 0; }
+
+        /* ══════════════════════════════════
+           CTA
+        ══════════════════════════════════ */
         .cta-section {
             text-align: center;
             background: var(--bg-secondary);
@@ -499,11 +765,12 @@
             text-align: center;
         }
 
-        /* ── FOOTER ── */
+        /* ══════════════════════════════════
+           FOOTER — SINGLE INSTANCE
+        ══════════════════════════════════ */
         footer {
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 3rem;
             border-top: 1px solid var(--border);
-            text-align: center;
         }
 
         .footer-inner {
@@ -511,125 +778,190 @@
             margin: 0 auto;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
         }
 
-        .footer-links a {
+        .footer-brand .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand .footer-logo span { color: var(--text-primary); }
+
+        .footer-brand p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-brand .footer-specialist {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
             transition: color 0.2s;
         }
 
-        .footer-links a:hover {
-            color: var(--gold);
+        .footer-col a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-copy {
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .compare-grid {
-                grid-template-columns: 1fr;
-            }
+        .footer-bbb {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
 
-            .features-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .footer-bbb:hover { color: var(--gold); }
+
+        /* ══════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════ */
+        @media (max-width: 900px) {
+            .compare-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .problems-grid { grid-template-columns: 1fr 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .bundle-card { grid-template-columns: 1fr; text-align: center; }
+            .bundle-right { margin-top: 1rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 650px) {
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 15, 0.98);
+                top: 64px; left: 0; right: 0;
+                background: rgba(10,10,15,0.98);
                 flex-direction: column;
                 padding: 1.5rem 2rem;
                 gap: 1rem;
                 border-bottom: 1px solid var(--border);
             }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-sub {
-                font-size: 1rem;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .features-grid { grid-template-columns: 1fr; }
+            .problems-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero-sub { font-size: 1rem; }
+            .btn { width: 100%; justify-content: center; }
+            .hero-buttons { flex-direction: column; }
+            .char-footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+            .guarantee { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAVIGATION ── -->
+<!-- ══════════════════════════════════
+     SINGLE NAV
+══════════════════════════════════ -->
 <nav>
     <div class="nav-inner">
-        <a href="index.html" class="nav-logo">NPC<span>Forge</span></a>
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
         <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
         <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
             <li><a href="store.html">Store</a></li>
-            <li><a href="free.html">Free Pack</a></li>
-            <li><a href="custom.html">Custom Orders</a></li>
-            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+            <li><a href="free.html">Free Packs</a></li>
+            <li><a href="custom.html">Custom Order</a></li>
+            <li><a href="store.html" class="nav-cta">Buy Now</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
 <section class="hero">
     <div class="hero-content">
-        <div class="hero-badge">AI NPC Personality Engine</div>
-        <h1>Your AI NPC sounds like a <span class="highlight">customer service bot.</span><br>We fix that.</h1>
-        <p class="hero-sub">Deep personality packs for SentiencePro &amp; LlamaCraft Bridge. Hand-crafted system prompts, layered memories, and real character voice — not generic AI filler.</p>
+        <div class="hero-badge">SentiencePro &amp; LlamaCraft Bridge Specialist</div>
+        <h1>Your AI NPC Sounds Like<br>A <span class="highlight">Customer Service Bot.</span></h1>
+        <p class="hero-sub">SentiencePro and LlamaCraft Bridge are powerful engines. The default settings give them nothing to work with. NPCForge builds the personality layer that makes the difference.</p>
         <div class="hero-buttons">
-            <a href="store.html" class="btn btn-primary">⚔ Browse Character Packs</a>
-            <a href="free.html" class="btn btn-secondary">↓ Free Starter Pack</a>
+            <a href="store.html" class="btn btn-primary">⚔ Browse Characters</a>
+            <a href="free.html" class="btn btn-secondary">⬇ Free Starter Pack</a>
         </div>
     </div>
 </section>
 
-<!-- ── COMPARISON ── -->
+<!-- ══════════════════════════════════
+     STATS
+══════════════════════════════════ -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-number">600+</div>
+        <div class="stat-label">Word Personality Definitions</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">25</div>
+        <div class="stat-label">Hand-Crafted Memories Per Character</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">7+</div>
+        <div class="stat-label">Edge Case Responses Pre-Built</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">24hr</div>
+        <div class="stat-label">Personal Support Guarantee</div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BEFORE / AFTER
+══════════════════════════════════ -->
 <section class="section comparison">
     <div class="section-inner">
-        <div class="section-label">The Problem</div>
-        <h2 class="section-title">Same plugin. Completely different result.</h2>
-        <p class="section-desc">The default configuration gives the language model almost no direction. It falls back to generic assistant behavior. Here's what changes with a real personality pack.</p>
+        <div class="section-label">The Difference</div>
+        <h2 class="section-title">Same Plugin. Completely Different Result.</h2>
+        <p class="section-desc">The default configuration gives the language model almost no direction. Here's what changes with a real personality pack.</p>
 
         <div class="compare-grid">
             <div class="compare-card bad">
-                <div class="compare-label">✕ Without Personality Pack</div>
+                <div class="compare-label">
+                    <div class="compare-icon">🤖</div>
+                    <div>
+                        <div>Generic NPC</div>
+                        <div style="font-size:0.65rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted);">Default SentiencePro</div>
+                    </div>
+                </div>
                 <div class="chat-line">
                     <span class="speaker player">Player:</span>
                     <span class="dialogue">"Have you always been a guard?"</span>
@@ -638,18 +970,25 @@
                     <span class="speaker npc">NPC:</span>
                     <span class="dialogue">"Yes. It is my job."</span>
                 </div>
-                <div class="chat-line" style="margin-top:1.5rem;">
+                <div class="chat-line" style="margin-top:1.25rem;">
                     <span class="speaker player">Player:</span>
                     <span class="dialogue">"What happened to the old king?"</span>
                 </div>
                 <div class="chat-line">
                     <span class="speaker npc">NPC:</span>
-                    <span class="dialogue">"I don't have information about that."</span>
+                    <span class="dialogue">"I don't have information about that. Is there anything else I can help you with?"</span>
                 </div>
+                <div class="compare-verdict">❌ Immersion destroyed</div>
             </div>
 
             <div class="compare-card good">
-                <div class="compare-label">✓ With NPCForge — Aldric Pack</div>
+                <div class="compare-label">
+                    <div class="compare-icon">🛡️</div>
+                    <div>
+                        <div>Aldric</div>
+                        <div style="font-size:0.65rem;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted);">NPCForge Character Pack</div>
+                    </div>
+                </div>
                 <div class="chat-line">
                     <span class="speaker player">Player:</span>
                     <span class="dialogue">"Have you always been a guard?"</span>
@@ -658,7 +997,7 @@
                     <span class="speaker npc">Aldric:</span>
                     <span class="dialogue">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen. Too young to know that some fires don't go out just because you stop seeing the smoke."</span>
                 </div>
-                <div class="chat-line" style="margin-top:1.5rem;">
+                <div class="chat-line" style="margin-top:1.25rem;">
                     <span class="speaker player">Player:</span>
                     <span class="dialogue">"What happened to the old king?"</span>
                 </div>
@@ -666,13 +1005,50 @@
                     <span class="speaker npc">Aldric:</span>
                     <span class="dialogue">"We don't say his name at the gate. Not anymore. You want stories, find a tavern. You want through, state your business."</span>
                 </div>
+                <div class="compare-verdict">✅ Players actually remember him</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── FEATURES ── -->
+<!-- ══════════════════════════════════
+     THE PROBLEMS
+══════════════════════════════════ -->
 <section class="section">
+    <div class="section-inner">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Why Your NPC Feels Wrong</h2>
+        <p class="section-desc">Four problems every SentiencePro server owner faces within the first week.</p>
+
+        <div class="problems-grid">
+            <div class="problem-card">
+                <div class="problem-icon">🤖</div>
+                <h3>No Personality</h3>
+                <p>Default prompts give the AI nothing. Generic assistant behavior. Players forget it exists.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🎭</div>
+                <h3>Breaks Character</h3>
+                <p>One weird question and your medieval guard starts sounding like a tech support agent.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">💬</div>
+                <h3>Speaks Gibberish</h3>
+                <p>The model has no direction. It improvises. Improvisation without context produces chaos.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">💸</div>
+                <h3>API Costs Too High</h3>
+                <p>Wrong token settings burn through your API credit producing responses that don't even work.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FEATURES
+══════════════════════════════════ -->
+<section class="section" style="background: var(--bg-secondary);">
     <div class="section-inner">
         <div class="section-label">What You Get</div>
         <h2 class="section-title">Everything the default config is missing.</h2>
@@ -713,14 +1089,18 @@
     </div>
 </section>
 
-<!-- ── CHARACTERS PREVIEW ── -->
-<section class="section" style="background: var(--bg-secondary);">
+<!-- ══════════════════════════════════
+     CHARACTERS
+══════════════════════════════════ -->
+<section class="section">
     <div class="section-inner">
         <div class="section-label">Characters</div>
-        <h2 class="section-title">Built to feel real.</h2>
-        <p class="section-desc">Each character has a distinct voice, history, and way of refusing questions. They don't just answer — they react.</p>
+        <h2 class="section-title">Available Now</h2>
+        <p class="section-desc">Every character includes a full personality definition, 25 memories, advanced config, and a setup guide.</p>
 
         <div class="characters-grid">
+
+            <!-- STARTER GUARD -->
             <div class="char-card">
                 <div class="char-header">
                     <div class="char-avatar">🛡️</div>
@@ -729,15 +1109,21 @@
                         <div class="char-role">Basic Gate Guard</div>
                     </div>
                 </div>
-                <div class="char-quote">"State your business or move along."</div>
-                <div class="char-meta">
-                    <span class="char-tag free-tag">Free</span>
-                    <span class="char-tag">10 memories</span>
-                    <span class="char-tag">Basic config</span>
+                <div class="char-quote">"State your business or move along. I haven't got all day."</div>
+                <ul class="char-includes">
+                    <li>Basic system prompt (~200 words)</li>
+                    <li>10 pre-built memories</li>
+                    <li>Standard config.yml</li>
+                    <li>Three-step install guide</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price free">Free</span>
+                    <a href="free.html" class="char-btn char-btn-green">↓ Download</a>
                 </div>
             </div>
 
-            <div class="char-card">
+            <!-- ALDRIC -->
+            <div class="char-card featured-char">
                 <div class="char-header">
                     <div class="char-avatar">⚔️</div>
                     <div>
@@ -745,14 +1131,21 @@
                         <div class="char-role">Grizzled Gate Captain</div>
                     </div>
                 </div>
-                <div class="char-quote">"Thirty-one years on this gate. Some fires don't go out just because you stop seeing the smoke."</div>
-                <div class="char-meta">
-                    <span class="char-tag">$6.99</span>
-                    <span class="char-tag">25 memories</span>
-                    <span class="char-tag">Full config</span>
+                <div class="char-quote">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen."</div>
+                <ul class="char-includes">
+                    <li>system_prompt.txt — 600-word personality definition</li>
+                    <li>memories.json — 25 hand-crafted memories</li>
+                    <li>config.yml — advanced settings + edge cases</li>
+                    <li>SETUP guide — 3-step installation</li>
+                    <li>24hr personal support guarantee</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price">$6.99</span>
+                    <a href="pay-aldric.html" class="char-btn char-btn-gold">Buy Now →</a>
                 </div>
             </div>
 
+            <!-- DRAVEK -->
             <div class="char-card">
                 <div class="char-header">
                     <div class="char-avatar">💰</div>
@@ -762,14 +1155,21 @@
                     </div>
                 </div>
                 <div class="char-quote">"Everything has a price, friend. The trick is knowing who's paying it."</div>
-                <div class="char-meta">
-                    <span class="char-tag">$6.99</span>
-                    <span class="char-tag">25 memories</span>
-                    <span class="char-tag">Full config</span>
+                <ul class="char-includes">
+                    <li>system_prompt.txt — full personality with ethics code</li>
+                    <li>memories.json — 25 memories including contacts</li>
+                    <li>config.yml — merchant-optimized, negotiation built-in</li>
+                    <li>SETUP guide — 3-step installation</li>
+                    <li>24hr personal support guarantee</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price">$6.99</span>
+                    <a href="pay-dravek.html" class="char-btn char-btn-gold">Buy Now →</a>
                 </div>
             </div>
 
-            <div class="char-card">
+            <!-- SENNA -->
+            <div class="char-card" style="opacity:0.7;">
                 <div class="char-header">
                     <div class="char-avatar">🔮</div>
                     <div>
@@ -777,79 +1177,142 @@
                         <div class="char-role">Broken Oracle</div>
                     </div>
                 </div>
-                <div class="char-quote">"I saw the end of your road. I wish I hadn't."</div>
-                <div class="char-meta">
-                    <span class="char-tag">Coming Soon</span>
-                    <span class="char-tag">25 memories</span>
+                <div class="char-quote">"I saw the end of your road. I wish I hadn't. The visions don't ask permission."</div>
+                <ul class="char-includes">
+                    <li>600+ word deep personality prompt</li>
+                    <li>25 hand-crafted memories</li>
+                    <li>Cryptic speech patterns</li>
+                    <li>Vision trigger system</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price" style="color:var(--text-muted);">$6.99</span>
+                    <span class="char-btn char-btn-disabled">Coming Soon</span>
                 </div>
             </div>
+
         </div>
 
-        <div style="text-align:center; margin-top: 2.5rem;">
-            <a href="store.html" class="btn btn-primary">View All in Store →</a>
+        <!-- CITY BUNDLE -->
+        <div class="bundle-card">
+            <span class="bundle-badge">Best Value — Save $2</span>
+            <div class="bundle-left">
+                <h3>🏰 City Bundle — Aldric + Dravek</h3>
+                <div class="bundle-role">Two characters. One world. They know each other.</div>
+                <div class="bundle-desc">They have watched each other for twenty years. Aldric suspects Dravek. Dravek respects Aldric. Neither trusts the other. Both reference the same city, the same fire, the same history — from completely different windows.</div>
+                <ul class="bundle-includes">
+                    <li>Complete Aldric pack — all files included</li>
+                    <li>Complete Dravek pack — all files included</li>
+                    <li>Shared world lore document</li>
+                    <li>Cross-reference memories — they mention each other</li>
+                    <li>50 total hand-crafted memories</li>
+                    <li>Priority personal support</li>
+                </ul>
+            </div>
+            <div class="bundle-right">
+                <div class="bundle-price">$11.99</div>
+                <div class="bundle-original">$13.98</div>
+                <a href="pay-city-bundle.html" class="bundle-btn">Buy Bundle →</a>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ── COMPATIBILITY ── -->
-<section class="section">
+<!-- ══════════════════════════════════
+     COMPATIBILITY
+══════════════════════════════════ -->
+<section class="section" style="background: var(--bg-secondary);">
     <div class="section-inner">
         <div class="section-label">Compatibility</div>
-        <h2 class="section-title">Works with your stack.</h2>
+        <h2 class="section-title">Works with your setup.</h2>
         <p class="section-desc">Tested and compatible across all current versions.</p>
 
         <div class="compat-grid">
-            <div class="compat-item">
-                <span class="compat-check">✓</span>
-                <span>SentiencePro — All versions</span>
-            </div>
-            <div class="compat-item">
-                <span class="compat-check">✓</span>
-                <span>LlamaCraft Bridge — Full support</span>
-            </div>
-            <div class="compat-item">
-                <span class="compat-check">✓</span>
-                <span>OpenAI API — gpt-4o-mini recommended</span>
-            </div>
-            <div class="compat-item">
-                <span class="compat-check">✓</span>
-                <span>Anthropic API — Claude compatible</span>
-            </div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>SentiencePro — All Versions</span></div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>LlamaCraft Bridge</span></div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>OpenAI API (gpt-4o-mini)</span></div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>Anthropic API (Claude)</span></div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>Paper Servers</span></div>
+            <div class="compat-item"><span class="compat-check">✓</span><span>Spigot Servers</span></div>
         </div>
     </div>
 </section>
 
-<!-- ── FINAL CTA ── -->
-<section class="section cta-section">
+<!-- ══════════════════════════════════
+     GUARANTEE
+══════════════════════════════════ -->
+<section class="section">
     <div class="section-inner">
-        <div class="section-label">Get Started</div>
-        <h2 class="section-title">Stop shipping generic NPCs.</h2>
-        <p class="section-desc">Grab the free starter pack and see the difference in five minutes. Or go straight to the full character packs.</p>
-        <div class="hero-buttons" style="justify-content:center;">
-            <a href="free.html" class="btn btn-secondary">↓ Free Starter Pack</a>
-            <a href="store.html" class="btn btn-primary">⚔ Full Character Packs</a>
+        <div class="guarantee">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h3>The NPCForge Guarantee</h3>
+                <p>If any paid pack does not work with your setup, message me before anything else.</p>
+                <p>I fix it personally within 24 hours. Every purchase. Every time.</p>
+                <p>If I cannot fix it, you receive a full refund in crypto. No questions asked. This has not happened yet. The offer stands regardless.</p>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ══════════════════════════════════
+     FREE CTA
+══════════════════════════════════ -->
+<section class="section cta-section">
+    <div class="section-inner" style="text-align:center;">
+        <div class="section-label">100% Free</div>
+        <h2 class="section-title">Not ready to buy?</h2>
+        <p class="section-desc" style="text-align:center;margin:0 auto 2.5rem;">Download the free Starter Guard pack. It works. It will also show you exactly what the difference between free and paid looks like in practice. No email required. No signup.</p>
+        <div class="hero-buttons" style="justify-content:center;">
+            <a href="free.html" class="btn btn-secondary">⬇ Download Free Starter Pack</a>
+            <a href="custom.html" class="btn btn-primary">🛠 Custom Character — $12+</a>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SINGLE FOOTER
+══════════════════════════════════ -->
 <footer>
     <div class="footer-inner">
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="store.html">Store</a>
-            <a href="free.html">Free Pack</a>
-            <a href="custom.html">Custom Orders</a>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
+                <p>AI NPC Character Design</p>
+                <div class="footer-specialist">SentiencePro &amp; LlamaCraft Bridge Specialist</div>
+            </div>
+            <div class="footer-col">
+                <h4>Store</h4>
+                <a href="pay-aldric.html">Aldric — $6.99</a>
+                <a href="pay-dravek.html">Dravek — $6.99</a>
+                <a href="pay-city-bundle.html">Bundle — $11.99</a>
+                <a href="custom.html">Custom — $12+</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="free.html">Free Starter Pack</a>
+                <a href="free/diagnostic.pdf">Diagnostic Checklist</a>
+                <a href="free/five-lines.pdf">5-Line Guide</a>
+                <a href="custom.html">Custom Commission</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="custom.html">Contact</a>
+                <a href="store.html">All Products</a>
+            </div>
         </div>
-        <p class="footer-copy">© 2025 NPCForge. All rights reserved. Paid packs are proprietary. Free starter pack is MIT licensed.</p>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 NPCForge. All rights reserved. Paid packs are proprietary. Free starter pack is MIT licensed.</span>
+        </div>
     </div>
 </footer>
 
-<!-- ── MOBILE NAV JS ── -->
+<!-- ══════════════════════════════════
+     MOBILE NAV JS
+══════════════════════════════════ -->
 <script>
     document.addEventListener('click', function(e) {
-        const nav = document.querySelector('.nav-links');
-        const toggle = document.querySelector('.nav-toggle');
+        var nav = document.querySelector('.nav-links');
+        var toggle = document.querySelector('.nav-toggle');
         if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
             nav.classList.remove('open');
         }
