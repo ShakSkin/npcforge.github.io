@@ -4,548 +4,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy City Bundle — NPCForge</title>
-    <meta name="description" content="Purchase the City Bundle. Aldric + Dravek with shared world lore, 50 memories, and full configs. Save $2.">
-    <meta property="og:title" content="Buy City Bundle — NPCForge">
-    <meta property="og:description" content="Two interconnected characters with shared lore. Aldric the guard + Dravek the merchant. $11.99 (save $2).">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://npcforge.github.io/pay-city-bundle.html">
-    <link rel="canonical" href="https://npcforge.github.io/pay-city-bundle.html">
+    <meta name="description" content="Purchase the City Bundle. Aldric + Dravek with shared world lore, 50 memories, cross-reference system. $8.49 launch price.">
     <meta name="robots" content="noindex, nofollow">
+    <!-- PASTE ALL CSS FROM pay-dravek.html HERE — identical -->
     <style>
-        :root {
-            --gold: #D4A537;
-            --gold-light: #F2D06B;
-            --gold-dark: #B8860B;
-            --bg-primary: #0A0A0F;
-            --bg-secondary: #12121A;
-            --bg-card: #1A1A25;
-            --bg-card-hover: #222233;
-            --text-primary: #E8E8F0;
-            --text-secondary: #9999AA;
-            --text-muted: #666677;
-            --border: #2A2A3A;
-            --green: #4CAF50;
-            --green-light: #66BB6A;
-            --red: #E74C3C;
-            --blue: #3498DB;
-            --purple: #9B59B6;
-            --purple-light: #a96bc4;
-            --orange: #E67E22;
-        }
-
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-        html { scroll-behavior:smooth; }
-
-        body {
-            font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;
-            background:var(--bg-primary); color:var(--text-primary);
-            line-height:1.6; overflow-x:hidden;
-        }
-
-        /* ── NAV ── */
-        nav {
-            position:fixed; top:0; left:0; right:0; z-index:1000;
-            background:rgba(10,10,15,0.95); backdrop-filter:blur(12px);
-            border-bottom:1px solid var(--border); padding:0 2rem;
-        }
-        .nav-inner {
-            max-width:1200px; margin:0 auto;
-            display:flex; justify-content:space-between; align-items:center; height:64px;
-        }
-        .nav-logo { font-size:1.25rem; font-weight:700; color:var(--gold); text-decoration:none; letter-spacing:0.5px; }
-        .nav-logo span { color:var(--text-primary); }
-        .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
-        .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color 0.2s; }
-        .nav-links a:hover { color:var(--gold); }
-        .nav-links .nav-cta { background:var(--gold); color:#000; padding:0.5rem 1.25rem; border-radius:6px; font-weight:600; transition:background 0.2s; }
-        .nav-links .nav-cta:hover { background:var(--gold-light); color:#000; }
-        .nav-toggle { display:none; background:none; border:none; color:var(--text-primary); font-size:1.5rem; cursor:pointer; }
-
-        /* ── BREADCRUMB ── */
-        .breadcrumb { max-width:1100px; margin:0 auto; padding:5.5rem 2rem 0; }
-        .breadcrumb a { color:var(--text-muted); text-decoration:none; font-size:0.8rem; transition:color 0.2s; }
-        .breadcrumb a:hover { color:var(--gold); }
-        .breadcrumb .sep { color:var(--text-muted); margin:0 0.5rem; font-size:0.75rem; }
-        .breadcrumb .current { color:var(--text-secondary); font-size:0.8rem; }
-
-        /* ── MAIN LAYOUT ── */
-        .pay-layout {
-            max-width:1100px; margin:0 auto; padding:2rem 2rem 5rem;
-            display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;
-        }
-
-        /* ── LEFT: PRODUCT INFO ── */
-        .product-info { position:sticky; top:5rem; }
-
-        .product-banner {
-            background:linear-gradient(135deg, #1a0a2a 0%, #0d0520 100%);
-            border-radius:14px; padding:2.5rem 2rem; text-align:center;
-            margin-bottom:2rem; border:1px solid rgba(155,89,182,0.2);
-            position:relative; overflow:hidden;
-        }
-        .product-banner::before {
-            content:''; position:absolute; top:0; left:0; right:0; bottom:0;
-            background:radial-gradient(circle at 50% 30%, rgba(155,89,182,0.08) 0%, transparent 60%);
-            pointer-events:none;
-        }
-        .product-banner .p-icon { font-size:3.5rem; margin-bottom:0.75rem; position:relative; z-index:1; }
-        .product-banner h1 { font-size:1.75rem; font-weight:800; margin-bottom:0.25rem; position:relative; z-index:1; }
-        .product-banner .p-role { color:var(--text-secondary); font-size:0.95rem; position:relative; z-index:1; }
-
-        .bundle-save-badge {
-            position:absolute; top:1rem; right:1rem;
-            background:rgba(231,76,60,0.15); color:var(--red);
-            border:1px solid rgba(231,76,60,0.3); padding:0.3rem 0.75rem;
-            border-radius:50px; font-size:0.7rem; font-weight:700;
-            letter-spacing:1px; text-transform:uppercase; z-index:2;
-        }
-
-        .bundle-desc {
-            color:var(--text-secondary); font-size:0.95rem; line-height:1.7;
-            margin-bottom:2rem; padding:1.25rem 1.5rem;
-            border-left:3px solid rgba(155,89,182,0.3);
-            background:rgba(155,89,182,0.03); border-radius:0 10px 10px 0;
-        }
-
-        /* Character cards within bundle */
-        .bundle-chars {
-            display:grid; grid-template-columns:1fr 1fr; gap:1rem;
-            margin-bottom:2rem;
-        }
-
-        .bundle-char-card {
-            background:var(--bg-card); border:1px solid var(--border);
-            border-radius:12px; padding:1.25rem; text-align:center;
-            transition:border-color 0.2s;
-        }
-        .bundle-char-card:hover { border-color:rgba(155,89,182,0.3); }
-        .bundle-char-card .char-icon { font-size:2rem; margin-bottom:0.5rem; }
-        .bundle-char-card h3 { font-size:1rem; font-weight:700; margin-bottom:0.15rem; }
-        .bundle-char-card .char-role { color:var(--text-muted); font-size:0.75rem; margin-bottom:0.75rem; }
-        .bundle-char-card .char-quote {
-            color:var(--text-secondary); font-style:italic; font-size:0.8rem;
-            line-height:1.5; padding-left:0.75rem;
-            border-left:2px solid rgba(155,89,182,0.2);
-            text-align:left;
-        }
-
-        /* What's included */
-        .product-details h3 {
-            font-size:0.8rem; font-weight:700; color:var(--text-muted);
-            letter-spacing:1.5px; text-transform:uppercase; margin-bottom:0.75rem;
-        }
-        .product-features { list-style:none; margin-bottom:2rem; }
-        .product-features li {
-            font-size:0.9rem; color:var(--text-secondary); padding:0.4rem 0;
-            display:flex; align-items:flex-start; gap:0.6rem;
-        }
-        .product-features li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
-        .product-features li.bundle-extra::before { content:'★'; color:var(--purple); }
-
-        /* Price box */
-        .product-price-box {
-            background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
-            padding:1.5rem; display:flex; align-items:center; justify-content:space-between;
-            margin-bottom:1.5rem;
-        }
-        .product-price-box .price-label { color:var(--text-muted); font-size:0.8rem; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; }
-        .product-price-box .price-value { font-size:2rem; font-weight:800; color:var(--purple); }
-        .product-price-box .price-original {
-            font-size:1rem; color:var(--text-muted); text-decoration:line-through;
-            margin-left:0.5rem; font-weight:400;
-        }
-        .product-price-box .price-note { color:var(--text-muted); font-size:0.8rem; }
-
-        /* Shared lore preview */
-        .lore-preview {
-            background:var(--bg-card); border:1px solid var(--border);
-            border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;
-        }
-        .lore-preview h3 {
-            font-size:0.8rem; font-weight:700; color:var(--text-muted);
-            letter-spacing:1.5px; text-transform:uppercase; margin-bottom:1rem;
-        }
-        .lore-exchange { margin-bottom:1rem; }
-        .lore-exchange:last-child { margin-bottom:0; }
-        .lore-exchange .lore-speaker {
-            font-size:0.75rem; font-weight:700; letter-spacing:0.5px;
-            text-transform:uppercase; margin-bottom:0.35rem;
-        }
-        .lore-exchange .lore-speaker.aldric-speaker { color:var(--gold); }
-        .lore-exchange .lore-speaker.dravek-speaker { color:var(--blue); }
-        .lore-exchange .lore-text {
-            color:var(--text-secondary); font-style:italic; font-size:0.85rem;
-            line-height:1.6; padding-left:0.75rem;
-        }
-        .lore-exchange .lore-speaker.aldric-speaker + .lore-text { border-left:2px solid rgba(212,165,55,0.25); }
-        .lore-exchange .lore-speaker.dravek-speaker + .lore-text { border-left:2px solid rgba(52,152,219,0.25); }
-
-        /* ── RIGHT: PAYMENT PANEL ── */
-        .payment-panel {
-            background:var(--bg-card); border:1px solid var(--border);
-            border-radius:14px; overflow:hidden;
-        }
-        .payment-header {
-            padding:1.5rem 2rem; border-bottom:1px solid var(--border);
-            background:rgba(42,42,58,0.3);
-        }
-        .payment-header h2 { font-size:1.15rem; font-weight:700; margin-bottom:0.25rem; }
-        .payment-header p { color:var(--text-muted); font-size:0.8rem; }
-        .payment-body { padding:2rem; }
-
-        /* Order summary in payment panel */
-        .order-summary {
-            background:var(--bg-primary); border:1px solid var(--border);
-            border-radius:10px; padding:1.25rem; margin-bottom:2rem;
-        }
-        .order-summary h4 {
-            font-size:0.75rem; font-weight:700; color:var(--text-muted);
-            letter-spacing:1px; text-transform:uppercase; margin-bottom:0.75rem;
-        }
-        .order-line {
-            display:flex; justify-content:space-between; font-size:0.85rem;
-            padding:0.35rem 0; color:var(--text-secondary);
-        }
-        .order-line .item-name { display:flex; align-items:center; gap:0.4rem; }
-        .order-line .item-price { font-weight:600; color:var(--text-primary); }
-        .order-line.discount .item-name { color:var(--red); }
-        .order-line.discount .item-price { color:var(--red); font-weight:600; }
-        .order-divider { border:none; border-top:1px solid var(--border); margin:0.5rem 0; }
-        .order-line.total .item-name { color:var(--text-primary); font-weight:700; }
-        .order-line.total .item-price { color:var(--purple); font-weight:800; font-size:1.1rem; }
-
-        /* Steps */
-        .pay-steps { display:flex; gap:0.5rem; margin-bottom:2rem; }
-        .pay-step { flex:1; text-align:center; }
-        .pay-step .step-dot {
-            display:inline-flex; align-items:center; justify-content:center;
-            width:32px; height:32px; border-radius:50%;
-            background:var(--bg-card-hover); border:2px solid var(--border);
-            color:var(--text-muted); font-size:0.8rem; font-weight:700;
-            margin-bottom:0.4rem; transition:all 0.3s;
-        }
-        .pay-step.active .step-dot { background:rgba(155,89,182,0.1); border-color:var(--purple); color:var(--purple); }
-        .pay-step.completed .step-dot { background:rgba(76,175,80,0.15); border-color:var(--green); color:var(--green); }
-        .pay-step .step-label { font-size:0.7rem; color:var(--text-muted); font-weight:500; }
-        .pay-step.active .step-label { color:var(--purple); }
-        .pay-step.completed .step-label { color:var(--green); }
-
-        /* Coin grid */
-        .address-label {
-            font-size:0.75rem; font-weight:700; color:var(--text-muted);
-            letter-spacing:1px; text-transform:uppercase; margin-bottom:0.5rem;
-        }
-        .coin-grid {
-            display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; margin-bottom:1.5rem;
-        }
-        .coin-btn {
-            background:var(--bg-card-hover); border:1px solid var(--border); border-radius:8px;
-            padding:0.6rem 0.25rem; text-align:center; cursor:pointer; transition:all 0.2s;
-            color:var(--text-secondary); font-size:0.7rem; font-weight:600;
-        }
-        .coin-btn:hover { border-color:var(--purple); color:var(--purple); }
-        .coin-btn.selected { background:rgba(155,89,182,0.1); border-color:var(--purple); color:var(--purple); }
-        .coin-btn .coin-icon { display:block; font-size:1.2rem; margin-bottom:0.2rem; }
-
-        /* Address display */
-        .address-section { display:none; margin-bottom:1.5rem; }
-        .address-section.visible { display:block; }
-        .address-box {
-            background:var(--bg-primary); border:1px solid var(--border); border-radius:8px;
-            padding:1rem; display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;
-        }
-        .address-text {
-            flex:1; font-family:'Consolas','Monaco',monospace; font-size:0.75rem;
-            color:var(--purple); word-break:break-all; line-height:1.5; user-select:all;
-        }
-        .copy-btn {
-            background:rgba(155,89,182,0.1); border:1px solid rgba(155,89,182,0.2);
-            color:var(--purple); padding:0.4rem 0.75rem; border-radius:6px;
-            font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.2s;
-            white-space:nowrap; flex-shrink:0;
-        }
-        .copy-btn:hover { background:rgba(155,89,182,0.2); border-color:rgba(155,89,182,0.4); }
-        .copy-btn.copied { background:rgba(76,175,80,0.15); border-color:rgba(76,175,80,0.3); color:var(--green); }
-
-        /* Memo */
-        .memo-box {
-            background:rgba(231,76,60,0.05); border:1px solid rgba(231,76,60,0.2);
-            border-radius:8px; padding:0.85rem 1rem; margin-bottom:0.75rem; display:none;
-        }
-        .memo-box.visible { display:flex; align-items:center; gap:0.75rem; }
-        .memo-box .memo-label { font-size:0.7rem; font-weight:700; color:var(--red); letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap; }
-        .memo-box .memo-value { font-family:'Consolas','Monaco',monospace; font-size:0.9rem; color:var(--text-primary); font-weight:700; flex:1; }
-
-        /* Network info */
-        .network-info {
-            background:var(--bg-card-hover); border-radius:8px; padding:0.85rem 1rem;
-            margin-bottom:0.75rem; display:none;
-        }
-        .network-info.visible { display:block; }
-        .network-info .info-row { display:flex; justify-content:space-between; font-size:0.8rem; padding:0.2rem 0; }
-        .network-info .info-row .info-label { color:var(--text-muted); }
-        .network-info .info-row .info-value { color:var(--text-primary); font-weight:600; }
-
-        /* Warning */
-        .pay-warning {
-            background:rgba(231,76,60,0.05); border:1px solid rgba(231,76,60,0.15);
-            border-radius:8px; padding:0.85rem 1rem; margin-bottom:1.5rem;
-            font-size:0.8rem; color:var(--text-secondary); line-height:1.6; display:none;
-        }
-        .pay-warning.visible { display:block; }
-        .pay-warning strong { color:var(--red); }
-
-        /* Confirm section */
-        .confirm-section { border-top:1px solid var(--border); padding-top:1.5rem; margin-top:0.5rem; }
-        .confirm-section h3 { font-size:0.95rem; font-weight:700; margin-bottom:0.25rem; }
-        .confirm-section > p { font-size:0.8rem; color:var(--text-muted); margin-bottom:1.25rem; }
-
-        .confirm-form .form-group { margin-bottom:1rem; }
-        .confirm-form label { display:block; font-size:0.8rem; font-weight:600; margin-bottom:0.35rem; color:var(--text-secondary); }
-        .confirm-form input, .confirm-form textarea {
-            width:100%; padding:0.7rem 0.85rem; background:var(--bg-primary);
-            border:1px solid var(--border); border-radius:8px; color:var(--text-primary);
-            font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.2s;
-        }
-        .confirm-form input:focus, .confirm-form textarea:focus { border-color:var(--purple); }
-        .confirm-form textarea { min-height:70px; resize:vertical; }
-
-        .confirm-btn {
-            display:flex; align-items:center; justify-content:center; gap:0.5rem;
-            width:100%; padding:0.85rem 1.5rem; border-radius:8px;
-            font-size:0.95rem; font-weight:700; text-decoration:none; border:none;
-            cursor:pointer; transition:all 0.2s; background:var(--purple); color:#fff;
-        }
-        .confirm-btn:hover { background:var(--purple-light); transform:translateY(-1px); box-shadow:0 6px 20px rgba(155,89,182,0.25); }
-
-        .confirm-note { text-align:center; color:var(--text-muted); font-size:0.75rem; margin-top:0.75rem; line-height:1.5; }
-
-        /* ── TRUST ── */
-        .trust-bar { max-width:1100px; margin:0 auto; padding:0 2rem 4rem; }
-        .trust-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
-        .trust-item {
-            background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
-            padding:1.25rem; text-align:center;
-        }
-        .trust-item .trust-icon { font-size:1.5rem; margin-bottom:0.5rem; }
-        .trust-item h4 { font-size:0.9rem; font-weight:700; margin-bottom:0.25rem; }
-        .trust-item p { color:var(--text-muted); font-size:0.8rem; line-height:1.5; }
-
-        /* ── ALSO AVAILABLE ── */
-        .also-section { max-width:1100px; margin:0 auto; padding:0 2rem 5rem; }
-        .also-section h2 { font-size:1.25rem; font-weight:700; margin-bottom:1.5rem; }
-        .also-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
-        .also-card {
-            background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
-            padding:1.5rem; display:flex; align-items:center; gap:1.25rem;
-            transition:border-color 0.2s, transform 0.2s; text-decoration:none; color:inherit;
-        }
-        .also-card:hover { border-color:rgba(212,165,55,0.3); transform:translateY(-2px); }
-        .also-card .also-icon { font-size:2rem; flex-shrink:0; }
-        .also-card .also-info { flex:1; }
-        .also-card .also-name { font-size:1rem; font-weight:700; margin-bottom:0.15rem; }
-        .also-card .also-role { color:var(--text-muted); font-size:0.8rem; margin-bottom:0.35rem; }
-        .also-card .also-price { color:var(--gold); font-weight:700; font-size:0.9rem; }
-        .also-card .also-arrow { color:var(--text-muted); font-size:1.2rem; flex-shrink:0; }
-
-        /* ── FOOTER ── */
-        footer { padding:3rem 2rem; border-top:1px solid var(--border); text-align:center; }
-        .footer-inner { max-width:1100px; margin:0 auto; }
-        .footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom:1.5rem; flex-wrap:wrap; }
-        .footer-links a { color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition:color 0.2s; }
-        .footer-links a:hover { color:var(--gold); }
-        .footer-copy { color:var(--text-muted); font-size:0.8rem; }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width:900px) {
-            .pay-layout { grid-template-columns:1fr; }
-            .product-info { position:static; }
-            .trust-grid { grid-template-columns:1fr; }
-            .also-grid { grid-template-columns:1fr; }
-        }
-        @media (max-width:650px) {
-            .nav-links {
-                display:none; position:absolute; top:64px; left:0; right:0;
-                background:rgba(10,10,15,0.98); flex-direction:column;
-                padding:1.5rem 2rem; gap:1rem; border-bottom:1px solid var(--border);
-            }
-            .nav-links.open { display:flex; }
-            .nav-toggle { display:block; }
-            .coin-grid { grid-template-columns:repeat(3,1fr); }
-            .address-box { flex-direction:column; align-items:stretch; }
-            .address-text { font-size:0.7rem; }
-            .copy-btn { text-align:center; }
-            .memo-box { flex-direction:column; gap:0.4rem; }
-            .product-price-box { flex-direction:column; text-align:center; gap:0.5rem; }
-            .bundle-chars { grid-template-columns:1fr; }
-        }
+        :root{--gold:#D4A537;--gold-light:#F2D06B;--bg-primary:#0A0A0F;--bg-secondary:#12121A;--bg-card:#1A1A25;--bg-card-hover:#222233;--text-primary:#E8E8F0;--text-secondary:#9999AA;--text-muted:#666677;--border:#2A2A3A;--green:#4CAF50;--red:#E74C3C;--blue:#3498DB;--urgent-red:#FF4444;--urgent-orange:#FF6B35;--purple:#9B59B6;}
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+        body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;overflow-x:hidden;}
+        .urgency-strip{background:linear-gradient(90deg,#FF4444,#FF6B35,#FF4444);background-size:200% 100%;animation:stripShift 3s ease infinite;color:#fff;text-align:center;padding:0.5rem 1rem;font-size:0.8rem;font-weight:700;}
+        @keyframes stripShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+        .strip-timer{background:rgba(0,0,0,0.25);padding:0.15rem 0.5rem;border-radius:4px;font-family:'Courier New',monospace;letter-spacing:1px;}
+        nav{position:sticky;top:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;}
+        .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:64px;}
+        .nav-logo{font-size:1.25rem;font-weight:700;color:var(--gold);text-decoration:none;}
+        .nav-logo span{color:var(--text-primary);}
+        .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+        .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;}
+        .nav-links a:hover{color:var(--gold);}
+        .nav-links .nav-cta{background:var(--gold);color:#000;padding:0.5rem 1.25rem;border-radius:6px;font-weight:600;}
+        .nav-links .nav-cta:hover{background:var(--gold-light);color:#000;}
+        .nav-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer;}
+        .breadcrumb{max-width:1100px;margin:0 auto;padding:1.5rem 2rem 0;}
+        .breadcrumb a{color:var(--text-muted);text-decoration:none;font-size:0.8rem;transition:color 0.2s;}
+        .breadcrumb a:hover{color:var(--gold);}
+        .breadcrumb .sep{color:var(--text-muted);margin:0 0.5rem;font-size:0.75rem;}
+        .breadcrumb .current{color:var(--text-secondary);font-size:0.8rem;}
+        .pay-layout{max-width:1100px;margin:0 auto;padding:2rem 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+        .product-info{position:sticky;top:5rem;}
+        .product-banner{background:linear-gradient(135deg,#150a25 0%,#0a0515 100%);border-radius:14px;padding:3rem 2rem;text-align:center;margin-bottom:2rem;border:1px solid rgba(155,89,182,0.2);position:relative;overflow:hidden;}
+        .product-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(155,89,182,0.07) 0%,transparent 60%);pointer-events:none;}
+        .launch-badge{position:absolute;top:1rem;right:1rem;background:var(--urgent-red);color:#fff;font-size:0.62rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:0.25rem 0.65rem;border-radius:50px;z-index:1;}
+        .p-icon{font-size:3.5rem;margin-bottom:1rem;position:relative;z-index:1;}
+        .product-banner h1{font-size:1.75rem;font-weight:800;margin-bottom:0.25rem;position:relative;z-index:1;}
+        .p-role{color:var(--text-secondary);font-size:0.95rem;position:relative;z-index:1;}
+        .product-quote{color:var(--text-secondary);font-style:italic;font-size:0.95rem;line-height:1.7;padding:1.25rem 1.5rem;border-left:3px solid rgba(155,89,182,0.3);background:rgba(155,89,182,0.03);border-radius:0 10px 10px 0;margin-bottom:2rem;}
+        .product-details h3{font-size:0.8rem;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.75rem;}
+        .product-features{list-style:none;margin-bottom:2rem;}
+        .product-features li{font-size:0.9rem;color:var(--text-secondary);padding:0.4rem 0;display:flex;align-items:flex-start;gap:0.6rem;}
+        .product-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+        .product-price-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;display:flex;align-items:center;justify-content:space-between;}
+        .price-left .price-label{color:var(--text-muted);font-size:0.75rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:0.25rem;}
+        .price-left .price-value{font-size:2rem;font-weight:800;color:var(--purple);line-height:1;}
+        .price-left .price-original{font-size:0.85rem;color:var(--text-muted);text-decoration:line-through;margin-top:0.15rem;}
+        .price-right .price-note{color:var(--text-muted);font-size:0.78rem;line-height:1.5;}
+        .stock-counter{display:flex;align-items:center;gap:0.5rem;margin-top:1rem;background:rgba(255,68,68,0.05);border:1px solid rgba(255,68,68,0.15);border-radius:8px;padding:0.6rem 1rem;font-size:0.78rem;color:var(--text-secondary);}
+        .stock-dot{width:8px;height:8px;border-radius:50%;background:var(--urgent-red);animation:sPulse 1.5s ease-in-out infinite;flex-shrink:0;}
+        @keyframes sPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);}}
+        .stock-counter strong{color:var(--urgent-red);}
+        .payment-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+        .payment-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);background:rgba(42,42,58,0.3);}
+        .payment-header h2{font-size:1.15rem;font-weight:700;margin-bottom:0.25rem;}
+        .payment-header p{color:var(--text-muted);font-size:0.8rem;}
+        .payment-body{padding:2rem;}
+        .pay-steps{display:flex;gap:0.5rem;margin-bottom:2rem;}
+        .pay-step{flex:1;text-align:center;}
+        .step-dot{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--bg-card-hover);border:2px solid var(--border);color:var(--text-muted);font-size:0.8rem;font-weight:700;margin-bottom:0.4rem;transition:all 0.3s;}
+        .pay-step.active .step-dot{background:rgba(155,89,182,0.1);border-color:var(--purple);color:var(--purple);}
+        .pay-step.completed .step-dot{background:rgba(76,175,80,0.15);border-color:var(--green);color:var(--green);}
+        .step-label{font-size:0.7rem;color:var(--text-muted);font-weight:500;}
+        .pay-step.active .step-label{color:var(--purple);}
+        .pay-step.completed .step-label{color:var(--green);}
+        .coin-section-label{font-size:0.75rem;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;}
+        .coin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1.5rem;}
+        .coin-btn{background:var(--bg-card-hover);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.25rem;text-align:center;cursor:pointer;transition:all 0.2s;color:var(--text-secondary);font-size:0.7rem;font-weight:600;}
+        .coin-btn:hover{border-color:var(--purple);color:var(--purple);}
+        .coin-btn.selected{background:rgba(155,89,182,0.1);border-color:var(--purple);color:var(--purple);}
+        .coin-icon{display:block;font-size:1.2rem;margin-bottom:0.2rem;}
+        .address-section{display:none;margin-bottom:1.5rem;}
+        .address-section.visible{display:block;}
+        .address-label{font-size:0.75rem;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
+        .address-box{background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;padding:1rem;display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;}
+        .address-text{flex:1;font-family:'Consolas','Monaco',monospace;font-size:0.75rem;color:var(--purple);word-break:break-all;line-height:1.5;user-select:all;}
+        .copy-btn{background:rgba(155,89,182,0.1);border:1px solid rgba(155,89,182,0.2);color:var(--purple);padding:0.4rem 0.75rem;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0;}
+        .copy-btn:hover{background:rgba(155,89,182,0.2);}
+        .copy-btn.copied{background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.3);color:var(--green);}
+        .memo-box{background:rgba(231,76,60,0.05);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:0.85rem 1rem;margin-bottom:0.75rem;display:none;}
+        .memo-box.visible{display:flex;align-items:center;gap:0.75rem;}
+        .memo-label{font-size:0.7rem;font-weight:700;color:var(--red);letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap;}
+        .memo-value{font-family:'Consolas','Monaco',monospace;font-size:0.9rem;color:var(--text-primary);font-weight:700;flex:1;}
+        .network-info{background:var(--bg-card-hover);border-radius:8px;padding:0.85rem 1rem;margin-bottom:0.75rem;display:none;}
+        .network-info.visible{display:block;}
+        .info-row{display:flex;justify-content:space-between;font-size:0.8rem;padding:0.2rem 0;}
+        .info-label{color:var(--text-muted);}
+        .info-value{color:var(--text-primary);font-weight:600;}
+        .pay-warning{background:rgba(231,76,60,0.05);border:1px solid rgba(231,76,60,0.15);border-radius:8px;padding:0.85rem 1rem;margin-bottom:1.5rem;font-size:0.8rem;color:var(--text-secondary);line-height:1.6;display:none;}
+        .pay-warning.visible{display:block;}
+        .pay-warning strong{color:var(--red);}
+        .confirm-section{border-top:1px solid var(--border);padding-top:1.5rem;margin-top:0.5rem;}
+        .confirm-section h3{font-size:0.95rem;font-weight:700;margin-bottom:0.25rem;}
+        .confirm-section p{font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;}
+        .form-group{margin-bottom:1rem;}
+        .form-group label{display:block;font-size:0.8rem;font-weight:600;margin-bottom:0.35rem;color:var(--text-secondary);}
+        .form-group input,.form-group textarea{width:100%;padding:0.7rem 0.85rem;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:0.9rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
+        .form-group input:focus,.form-group textarea:focus{border-color:var(--purple);}
+        .form-group textarea{min-height:70px;resize:vertical;}
+        .confirm-btn{display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:0.85rem 1.5rem;border-radius:8px;font-size:0.95rem;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;background:var(--purple);color:#fff;}
+        .confirm-btn:hover{background:#a96bc4;transform:translateY(-1px);box-shadow:0 6px 20px rgba(155,89,182,0.2);}
+        .confirm-note{text-align:center;color:var(--text-muted);font-size:0.75rem;margin-top:0.75rem;line-height:1.5;}
+        .trust-bar{max-width:1100px;margin:0 auto;padding:0 2rem 4rem;}
+        .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+        .trust-item{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem;text-align:center;}
+        .trust-icon{font-size:1.5rem;margin-bottom:0.5rem;}
+        .trust-item h4{font-size:0.9rem;font-weight:700;margin-bottom:0.25rem;}
+        .trust-item p{color:var(--text-muted);font-size:0.8rem;line-height:1.5;}
+        .upsell-bar{max-width:1100px;margin:0 auto;padding:0 2rem 2rem;}
+        .upsell-card{background:var(--bg-card);border:1px solid rgba(26,188,156,0.25);border-radius:12px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+        .upsell-text{flex:1;}
+        .upsell-text .upsell-label{font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1ABC9C;margin-bottom:0.3rem;}
+        .upsell-text h4{font-size:1rem;font-weight:700;margin-bottom:0.25rem;}
+        .upsell-text p{font-size:0.82rem;color:var(--text-secondary);}
+        .upsell-action{text-align:right;flex-shrink:0;}
+        .upsell-price{font-size:1.25rem;font-weight:800;color:#1ABC9C;}
+        .upsell-original{font-size:0.78rem;color:var(--text-muted);text-decoration:line-through;margin-bottom:0.5rem;}
+        .upsell-btn{display:inline-block;padding:0.55rem 1.5rem;background:#1ABC9C;color:#000;border-radius:6px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:all 0.2s;}
+        .upsell-btn:hover{background:#2EE0BA;transform:translateY(-1px);}
+        footer{padding:3rem 2rem;border-top:1px solid var(--border);text-align:center;}
+        .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+        .footer-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;transition:color 0.2s;}
+        .footer-links a:hover{color:var(--gold);}
+        .footer-copy{color:var(--text-muted);font-size:0.8rem;}
+        @media(max-width:900px){.pay-layout{grid-template-columns:1fr;}.product-info{position:static;}.trust-grid{grid-template-columns:1fr;}.upsell-card{flex-direction:column;text-align:center;}.upsell-action{text-align:center;}}
+        @media(max-width:650px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,10,15,0.98);flex-direction:column;padding:1.5rem 2rem;gap:1rem;border-bottom:1px solid var(--border);}.nav-links.open{display:flex;}.nav-toggle{display:block;}.coin-grid{grid-template-columns:repeat(3,1fr);}.address-box{flex-direction:column;align-items:stretch;}.product-price-box{flex-direction:column;text-align:center;gap:0.75rem;}}
     </style>
 </head>
 <body>
 
-<!-- ── NAVIGATION ── -->
+<div class="urgency-strip">
+    🔥 LAUNCH WEEK — 39% OFF · <span id="stockCount">12</span> bundles left at this price · Sale ends <span class="strip-timer" id="stripTimer">00:00:00</span>
+</div>
+
 <nav>
     <div class="nav-inner">
-        <a href="index.html" class="nav-logo">NPC<span>Forge</span></a>
-        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="store.html">Store</a></li>
-            <li><a href="free.html">Free Pack</a></li>
-            <li><a href="custom.html">Custom Orders</a></li>
-            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+            <li><a href="index.html">Home</a></li><li><a href="store.html">Store</a></li>
+            <li><a href="free.html">Free Pack</a></li><li><a href="custom.html">Custom Orders</a></li>
+            <li><a href="store.html" class="nav-cta">Browse All</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- ── BREADCRUMB ── -->
 <div class="breadcrumb">
-    <a href="index.html">Home</a>
-    <span class="sep">›</span>
-    <a href="store.html">Store</a>
-    <span class="sep">›</span>
+    <a href="index.html">Home</a><span class="sep">›</span>
+    <a href="store.html">Store</a><span class="sep">›</span>
     <span class="current">City Bundle — Aldric + Dravek</span>
 </div>
 
-<!-- ── MAIN LAYOUT ── -->
 <div class="pay-layout">
-
-    <!-- LEFT: PRODUCT INFO -->
     <div class="product-info">
         <div class="product-banner">
-            <span class="bundle-save-badge">Save $2</span>
+            <span class="launch-badge">Save 39%</span>
             <div class="p-icon">🏰</div>
             <h1>City Bundle</h1>
-            <div class="p-role">Aldric + Dravek — Shared World Lore</div>
+            <div class="p-role">Aldric + Dravek — Two Characters. One World.</div>
         </div>
-
-        <div class="bundle-desc">
-            Two characters who reference the same world events from completely different perspectives. The guard suspects the merchant. The merchant resents the guard. They've known each other for years — and it shows in every interaction.
-        </div>
-
-        <!-- Bundle character cards -->
-        <div class="bundle-chars">
-            <div class="bundle-char-card">
-                <div class="char-icon">⚔️</div>
-                <h3>Aldric</h3>
-                <div class="char-role">Grizzled Gate Captain · 31 Years</div>
-                <div class="char-quote">"Thirty-one years on this gate. Some fires don't go out just because you stop seeing the smoke."</div>
-            </div>
-            <div class="bundle-char-card">
-                <div class="char-icon">💰</div>
-                <h3>Dravek</h3>
-                <div class="char-role">Corrupt Merchant · Black Market</div>
-                <div class="char-quote">"Everything has a price, friend. The trick is knowing who's paying it."</div>
-            </div>
-        </div>
-
+        <div class="product-quote">"They have watched each other for twenty years. Aldric suspects Dravek. Dravek respects Aldric. Neither trusts the other. Both reference the same fire — from completely different windows."</div>
         <div class="product-details">
             <h3>What's Included</h3>
             <ul class="product-features">
-                <li>Full Aldric pack (600+ word prompt, 25 memories)</li>
-                <li>Full Dravek pack (600+ word prompt, 25 memories)</li>
+                <li>Complete Aldric pack — all files included</li>
+                <li>Complete Dravek pack — all files included</li>
+                <li>Shared world lore document</li>
+                <li>Cross-reference memories — they mention each other</li>
                 <li>50 total hand-crafted memories</li>
-                <li>2 optimized config.yml files</li>
-                <li>Emotional triggers &amp; refusal patterns</li>
-                <li>Voice mannerisms &amp; speech quirks</li>
-                <li class="bundle-extra">Shared world lore document</li>
-                <li class="bundle-extra">Cross-character references</li>
-                <li class="bundle-extra">Characters know &amp; mention each other</li>
-                <li class="bundle-extra">Consistent world history</li>
-                <li>Drop-in installation guide</li>
-                <li>Personal support for both characters</li>
-                <li>Free updates for life</li>
+                <li>Both advanced configs + edge cases</li>
+                <li>Both 3-step install guides</li>
+                <li>Priority personal support</li>
+                <li>Free updates for life on both characters</li>
             </ul>
         </div>
-
         <div class="product-price-box">
-            <div>
-                <div class="price-label">Bundle Price</div>
-                <div>
-                    <span class="price-value">$11.99</span>
-                    <span class="price-original">$13.98</span>
-                </div>
+            <div class="price-left">
+                <div class="price-label">Launch Week Price</div>
+                <div class="price-value">$8.49</div>
+                <div class="price-original">Regular: $13.98</div>
             </div>
-            <div class="price-note">One-time payment · Crypto only</div>
+            <div class="price-right">
+                <div class="price-note">One-time payment<br>Crypto only<br>Delivered within 2hr</div>
+            </div>
         </div>
-
-        <!-- Shared lore preview -->
-        <div class="lore-preview">
-            <h3>🔗 Shared Lore Preview</h3>
-            <div class="lore-exchange">
-                <div class="lore-speaker aldric-speaker">Aldric — on Dravek</div>
-                <div class="lore-text">"That merchant on the south corner — Dravek. I've inspected his carts a hundred times. Never found anything. That's how I know he's hiding something."</div>
-            </div>
-            <div class="lore-exchange">
-                <div class="lore-speaker dravek-speaker">Dravek — on Aldric</div>
-                <div class="lore-text">"The old captain at the gate? Aldric? Honest man. Terrible for business. He's the reason I use the sewers for the interesting shipments."</div>
-            </div>
-            <div class="lore-exchange">
-                <div class="lore-speaker aldric-speaker">Aldric — on the East Tower Fire</div>
-                <div class="lore-text">"The year the East Tower burned, I was seventeen. That fire changed everything. Changed who ran the city."</div>
-            </div>
-            <div class="lore-exchange">
-                <div class="lore-speaker dravek-speaker">Dravek — on the East Tower Fire</div>
-                <div class="lore-text">"The East Tower fire was the best thing that ever happened to my family's business. Tragic, of course. Very tragic. But the reconstruction contracts…"</div>
-            </div>
+        <div class="stock-counter">
+            <span class="stock-dot"></span>
+            Only <strong id="stockDisplay">12</strong> bundles available at this launch price
         </div>
     </div>
 
-    <!-- RIGHT: PAYMENT PANEL -->
     <div class="payment-panel">
         <div class="payment-header">
             <h2>Complete Your Purchase</h2>
-            <p>Select a cryptocurrency, send the equivalent of $11.99, then confirm below.</p>
+            <p>Select a cryptocurrency · Send $8.49 equivalent · Confirm below</p>
         </div>
-
         <div class="payment-body">
-
-            <!-- Order Summary -->
-            <div class="order-summary">
-                <h4>Order Summary</h4>
-                <div class="order-line">
-                    <span class="item-name">⚔️ Aldric — Gate Captain</span>
-                    <span class="item-price">$6.99</span>
-                </div>
-                <div class="order-line">
-                    <span class="item-name">💰 Dravek — Corrupt Merchant</span>
-                    <span class="item-price">$6.99</span>
-                </div>
-                <div class="order-line">
-                    <span class="item-name">🔗 Shared World Lore</span>
-                    <span class="item-price">Included</span>
-                </div>
-                <hr class="order-divider">
-                <div class="order-line discount">
-                    <span class="item-name">Bundle Discount</span>
-                    <span class="item-price">−$1.99</span>
-                </div>
-                <hr class="order-divider">
-                <div class="order-line total">
-                    <span class="item-name">Total</span>
-                    <span class="item-price">$11.99</span>
-                </div>
-            </div>
-
-            <!-- Steps -->
             <div class="pay-steps">
-                <div class="pay-step active" id="pstep-1">
-                    <div class="step-dot">1</div>
-                    <div class="step-label">Select Coin</div>
-                </div>
-                <div class="pay-step" id="pstep-2">
-                    <div class="step-dot">2</div>
-                    <div class="step-label">Send Payment</div>
-                </div>
-                <div class="pay-step" id="pstep-3">
-                    <div class="step-dot">3</div>
-                    <div class="step-label">Confirm</div>
-                </div>
+                <div class="pay-step active" id="pstep-1"><div class="step-dot">1</div><div class="step-label">Select Coin</div></div>
+                <div class="pay-step" id="pstep-2"><div class="step-dot">2</div><div class="step-label">Send Payment</div></div>
+                <div class="pay-step" id="pstep-3"><div class="step-dot">3</div><div class="step-label">Confirm</div></div>
             </div>
-
-            <!-- Coin Selector -->
-            <div class="address-label">Select Payment Method</div>
-            <div class="coin-grid" id="coin-grid">
+            <div class="coin-section-label">Select Payment Method</div>
+            <div class="coin-grid">
                 <button class="coin-btn" onclick="selectCoin('btc',this)"><span class="coin-icon">₿</span>BTC</button>
                 <button class="coin-btn" onclick="selectCoin('eth',this)"><span class="coin-icon">⟠</span>ETH</button>
                 <button class="coin-btn" onclick="selectCoin('usdt',this)"><span class="coin-icon">💲</span>USDT</button>
@@ -566,242 +223,89 @@
                 <button class="coin-btn" onclick="selectCoin('dgb',this)"><span class="coin-icon">◆</span>DGB</button>
                 <button class="coin-btn" onclick="selectCoin('fey',this)"><span class="coin-icon">✧</span>FEY</button>
             </div>
-
-            <!-- Address Display -->
             <div class="address-section" id="address-section">
-                <div class="address-label">Send $11.99 equivalent in <span id="coin-name-label">—</span> to:</div>
-                <div class="address-box">
-                    <div class="address-text" id="wallet-address">—</div>
-                    <button class="copy-btn" onclick="copyAddress()">Copy</button>
+                <div class="address-label">Send $8.49 equivalent in <span id="coin-name-label">—</span> to:</div>
+                <div class="address-box"><div class="address-text" id="wallet-address">—</div><button class="copy-btn" onclick="copyAddress()">Copy</button></div>
+                <div class="memo-box" id="memo-box"><span class="memo-label" id="memo-label">Memo</span><span class="memo-value" id="memo-value">—</span><button class="copy-btn" onclick="copyMemo()">Copy</button></div>
+                <div class="network-info visible" id="network-info">
+                    <div class="info-row"><span class="info-label">Network</span><span class="info-value" id="network-name">—</span></div>
+                    <div class="info-row"><span class="info-label">Min. Deposit</span><span class="info-value" id="min-deposit">—</span></div>
+                    <div class="info-row"><span class="info-label">Confirmations</span><span class="info-value" id="confirmations">—</span></div>
                 </div>
-
-                <div class="memo-box" id="memo-box">
-                    <span class="memo-label" id="memo-label">Memo</span>
-                    <span class="memo-value" id="memo-value">—</span>
-                    <button class="copy-btn" onclick="copyMemo()" style="flex-shrink:0;">Copy</button>
-                </div>
-
-                <div class="network-info" id="network-info">
-                    <div class="info-row">
-                        <span class="info-label">Network</span>
-                        <span class="info-value" id="network-name">—</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Min. Deposit</span>
-                        <span class="info-value" id="min-deposit">—</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Confirmations</span>
-                        <span class="info-value" id="confirmations">—</span>
-                    </div>
-                </div>
-
-                <div class="pay-warning" id="pay-warning">
-                    <strong>⚠ Important:</strong> Send only <span id="warning-coin">—</span> on the <span id="warning-network">—</span> network to this address. Sending other assets or using the wrong network will result in permanent loss of funds. We are not responsible for incorrect transactions. Do not send from a smart contract.
-                </div>
+                <div class="pay-warning visible" id="pay-warning"><strong>⚠ Important:</strong> Send only <span id="warning-coin">—</span> on the <span id="warning-network">—</span> network to this address. Wrong network = permanent loss of funds.</div>
             </div>
-
-            <!-- Confirmation Form -->
             <div class="confirm-section">
                 <h3>Confirm Your Payment</h3>
-                <p>After sending, fill in your details so we can match your payment and deliver your bundle.</p>
-
-                <form class="confirm-form" action="https://formsubmit.co/your-email@example.com" method="POST">
-                    <input type="hidden" name="_subject" value="NPCForge Payment: City Bundle ($11.99)">
+                <p>After sending, fill in your details so we can match your payment and deliver your pack.</p>
+                <form action="https://formsubmit.co/your-email@example.com" method="POST">
+                    <input type="hidden" name="_subject" value="NPCForge Payment: City Bundle ($8.49)">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_next" value="https://npcforge.github.io/success.html">
                     <input type="hidden" name="_template" value="table">
                     <input type="text" name="_honey" style="display:none">
-                    <input type="hidden" name="product" value="City Bundle — Aldric + Dravek ($11.99)">
+                    <input type="hidden" name="product" value="City Bundle — Aldric + Dravek ($8.49 Launch Price)">
                     <input type="hidden" name="coin_selected" id="form-coin" value="">
-
-                    <div class="form-group">
-                        <label>Email or Discord</label>
-                        <input type="text" name="contact" placeholder="email@example.com or User#1234" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Coin Sent</label>
-                        <input type="text" name="coin_sent" id="form-coin-display" placeholder="Select a coin above" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Transaction ID / Hash <span style="color:var(--text-muted);font-weight:400;font-size:0.75rem;">(optional but helps)</span></label>
-                        <input type="text" name="tx_hash" placeholder="Paste your transaction hash if available">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Notes <span style="color:var(--text-muted);font-weight:400;font-size:0.75rem;">(optional)</span></label>
-                        <textarea name="notes" placeholder="Anything else we should know?"></textarea>
-                    </div>
-
-                    <button type="submit" class="confirm-btn">✓ I've Sent Payment — Confirm Bundle Order</button>
-                    <p class="confirm-note">We'll verify your payment on-chain and deliver both character packs. Bundle orders are typically delivered within 2 hours of blockchain confirmation.</p>
+                    <div class="form-group"><label>Email or Discord</label><input type="text" name="contact" placeholder="email@example.com or User#1234" required></div>
+                    <div class="form-group"><label>Coin Sent</label><input type="text" name="coin_sent" id="form-coin-display" placeholder="Select a coin above" readonly></div>
+                    <div class="form-group"><label>Transaction ID / Hash <span style="color:var(--text-muted);font-weight:400;font-size:0.75rem;">(optional)</span></label><input type="text" name="tx_hash" placeholder="Paste your transaction hash if available"></div>
+                    <div class="form-group"><label>Notes <span style="color:var(--text-muted);font-weight:400;font-size:0.75rem;">(optional)</span></label><textarea name="notes" placeholder="Anything else we should know?"></textarea></div>
+                    <button type="submit" class="confirm-btn">✓ I've Sent Payment — Confirm Order</button>
+                    <p class="confirm-note">Both packs delivered within 2 hours of blockchain confirmation.</p>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- ── TRUST SIGNALS ── -->
+<div class="upsell-bar">
+    <div class="upsell-card">
+        <div class="upsell-text">
+            <div class="upsell-label">Next Step Up</div>
+            <h4>🌐 Add Senna + Server Rights — Server License</h4>
+            <p>Get 5 characters, commercial use rights, relationship maps, API cost optimization, and a setup consultation for your server.</p>
+        </div>
+        <div class="upsell-action">
+            <div class="upsell-price">$24.99</div>
+            <div class="upsell-original">$34.99</div>
+            <a href="pay-server-license.html" class="upsell-btn">Upgrade to License →</a>
+        </div>
+    </div>
+</div>
+
 <div class="trust-bar">
     <div class="trust-grid">
-        <div class="trust-item">
-            <div class="trust-icon">🔒</div>
-            <h4>Secure Payment</h4>
-            <p>Direct crypto transfer. No middlemen, no stored payment data.</p>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">⚡</div>
-            <h4>Fast Delivery</h4>
-            <p>Both packs delivered within 2 hours of blockchain confirmation.</p>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">💬</div>
-            <h4>Personal Support</h4>
-            <p>Help with install, config, and tuning for both characters included.</p>
-        </div>
+        <div class="trust-item"><div class="trust-icon">🔒</div><h4>Secure Payment</h4><p>Direct crypto transfer. No middlemen, no stored payment data.</p></div>
+        <div class="trust-item"><div class="trust-icon">⚡</div><h4>Fast Delivery</h4><p>Both packs delivered within 2 hours of blockchain confirmation.</p></div>
+        <div class="trust-item"><div class="trust-icon">💬</div><h4>Priority Support</h4><p>Bundle purchasers get priority support included.</p></div>
     </div>
 </div>
 
-<!-- ── ALSO AVAILABLE ── -->
-<div class="also-section">
-    <h2>Also available individually</h2>
-    <div class="also-grid">
-        <a href="pay-aldric.html" class="also-card">
-            <div class="also-icon">⚔️</div>
-            <div class="also-info">
-                <div class="also-name">Aldric</div>
-                <div class="also-role">Grizzled Gate Captain</div>
-                <div class="also-price">$6.99</div>
-            </div>
-            <div class="also-arrow">→</div>
-        </a>
-        <a href="pay-dravek.html" class="also-card">
-            <div class="also-icon">💰</div>
-            <div class="also-info">
-                <div class="also-name">Dravek</div>
-                <div class="also-role">Corrupt Merchant</div>
-                <div class="also-price">$6.99</div>
-            </div>
-            <div class="also-arrow">→</div>
-        </a>
-    </div>
-</div>
-
-<!-- ── FOOTER ── -->
 <footer>
-    <div class="footer-inner">
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="store.html">Store</a>
-            <a href="free.html">Free Pack</a>
-            <a href="custom.html">Custom Orders</a>
-        </div>
-        <p class="footer-copy">© 2025 NPCForge. All rights reserved. All cryptocurrency transactions are final.</p>
+    <div class="footer-links">
+        <a href="index.html">Home</a><a href="store.html">Store</a>
+        <a href="free.html">Free Pack</a><a href="custom.html">Custom Orders</a>
     </div>
+    <p class="footer-copy">© 2025 NPCForge. All rights reserved. All cryptocurrency transactions are final.</p>
 </footer>
 
-<!-- ── SCRIPTS ── -->
 <script>
-    // Mobile nav
-    document.addEventListener('click', function(e) {
-        var nav = document.querySelector('.nav-links');
-        var toggle = document.querySelector('.nav-toggle');
-        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
-            nav.classList.remove('open');
-        }
-    });
-
-    // ── COIN DATA ──
-    var coins = {
-        btc: { name:'Bitcoin (BTC)', address:'1GCP51GiKrJkUPXzBnmB3T7okBz3JVj36Z', network:'BTC', networkFull:'BTC Chain Only', minDeposit:'0.00001000 BTC', confirmations:'1', memo:null },
-        eth: { name:'Ethereum (ETH)', address:'0x81cE4b62B49BA5c4e2BD6a59e46B28226607e9d9', network:'ETH (ERC-20)', networkFull:'ETH Chain Only', minDeposit:'0.00100000 ETH', confirmations:'6', memo:null },
-        usdt: { name:'USDT (TRC-20)', address:'TXuStMHPUxoRX8NPTTpJU6jBsBtZDRw2Uz', network:'TRX (TRC-20)', networkFull:'BNB, ETH, POL, TRX Chains — TRC-20 Recommended', minDeposit:'0.00500000 USDT', confirmations:'12', memo:null },
-        usdc: { name:'USD Coin (USDC)', address:'HedirYhUvULvAZRB68pExPujTKLRafNNyhP6K3WdaiE1', network:'SOL', networkFull:'SOL Chain Only', minDeposit:'0.00100000 USDC', confirmations:'21', memo:null },
-        sol: { name:'Solana (SOL)', address:'HedirYhUvULvAZRB68pExPujTKLRafNNyhP6K3WdaiE1', network:'SOL', networkFull:'SOL Chain Only', minDeposit:'0.00000100 SOL', confirmations:'21', memo:null },
-        trx: { name:'Tron (TRX)', address:'TXuStMHPUxoRX8NPTTpJU6jBsBtZDRw2Uz', network:'TRX', networkFull:'TRX Chain Only', minDeposit:'0.00100000 TRX', confirmations:'—', memo:null },
-        ltc: { name:'Litecoin (LTC)', address:'MN5d3nwpXij3V1abxyZSCXLXyQKpXap56q', network:'LTC', networkFull:'LTC Chain Only', minDeposit:'0.00000100 LTC', confirmations:'1', memo:null },
-        xrp: { name:'Ripple (XRP)', address:'rhi77L73jGvGN3zQf3AEbYnjWYZu7CSTe8', network:'XRP', networkFull:'XRP Chain Only', minDeposit:'0.00010000 XRP', confirmations:'1', memo:'1001897', memoLabel:'Payment Tag / Memo' },
-        ada: { name:'Cardano (ADA)', address:'addr1qyeudreh3zp35sf33xeun0t7rk9gehulsd6tr02f3c489uj0zn5t6q37mnk7w9an38a3wts2ncu93jatfmqgexm6c5wsx3sqwf', network:'ADA', networkFull:'ADA Chain Only', minDeposit:'0.30000000 ADA', confirmations:'10', memo:null },
-        doge: { name:'Dogecoin (DOGE)', address:'D8SW7toPoRqRyBVe18V8cwaSQJep8kVf8d', network:'DOGE', networkFull:'DOGE Chain Only', minDeposit:'0.00100000 DOGE', confirmations:'6', memo:null },
-        xmr: { name:'Monero (XMR)', address:'4ByeEKTJbi3faVNHTWEupmM1fdwEv95CqCqC7rCDdVhXDt4vj5E4FB1jUKxNAF6EHFHmuQhnHoXcUK84Nc4cQfmfKQ8zXo5FtUDUsNUMSA', network:'XMR', networkFull:'XMR Chain Only', minDeposit:'0.00010000 XMR', confirmations:'10', memo:null },
-        bnb: { name:'Binance Coin (BNB)', address:'0xA5DA8f2A741C41aE1E0D5e51b83768f4142fb578', network:'BNB', networkFull:'BNB Chain Only', minDeposit:'0.00000100 BNB', confirmations:'6', memo:null },
-        bch: { name:'Bitcoin Cash (BCH)', address:'bitcoincash:qzh5jn8tc47phecg743r8rte8adk2v0qdcyapg52vx', network:'BCH', networkFull:'BCH Chain Only', minDeposit:'0.00000100 BCH', confirmations:'6', memo:null },
-        xlm: { name:'Stellar (XLM)', address:'GDAEZBKKPVVEBPDFSY6WMQ7Y4C7FYCS6CYODNURRN4EZIGTMNKKROESG', network:'XLM', networkFull:'XLM Chain Only', minDeposit:'0.00500000 XLM', confirmations:'1', memo:'1001897', memoLabel:'Payment Tag / Memo' },
-        pol: { name:'Polygon (POL)', address:'0xb35fB6cDC2EA9b7A4d4C2a62464Ce8DEd29A6170', network:'POL', networkFull:'POL Chain Only', minDeposit:'0.00050000 POL', confirmations:'12', memo:null },
-        dash: { name:'Dash (DASH)', address:'Xv2Zn51FkWEeYYGhKbGBAP3U2nfFRKGqeY', network:'DASH', networkFull:'DASH Chain Only', minDeposit:'0.00000100 DASH', confirmations:'6', memo:null },
-        zec: { name:'Zcash (ZEC)', address:'t1TCjRWWmGp974MUVM91rp4hdM9BSQFLGU3', network:'ZEC', networkFull:'ZEC Chain Only', minDeposit:'0.00000010 ZEC', confirmations:'6', memo:null },
-        dgb: { name:'DigiByte (DGB)', address:'DLyigrUs5hZmyJRXKYJMJW33mv9cswjnnm', network:'DGB', networkFull:'DGB Chain Only', minDeposit:'0.00000100 DGB', confirmations:'6', memo:null },
-        fey: { name:'Feyorra (FEY)', address:'0x81cE4b62B49BA5c4e2BD6a59e46B28226607e9d9', network:'ETH (ERC-20)', networkFull:'ETH ERC-20 Chain Only', minDeposit:'0.00500000 FEY', confirmations:'6', memo:null }
-    };
-
-    function selectCoin(coinKey, btnEl) {
-        var coin = coins[coinKey];
-        if (!coin) return;
-
-        document.querySelectorAll('.coin-btn').forEach(function(b) { b.classList.remove('selected'); });
-        btnEl.classList.add('selected');
-
-        document.getElementById('address-section').classList.add('visible');
-        document.getElementById('coin-name-label').textContent = coin.name;
-        document.getElementById('wallet-address').textContent = coin.address;
-        document.getElementById('network-name').textContent = coin.network;
-        document.getElementById('min-deposit').textContent = coin.minDeposit;
-        document.getElementById('confirmations').textContent = coin.confirmations;
-        document.getElementById('network-info').classList.add('visible');
-        document.getElementById('warning-coin').textContent = coin.name;
-        document.getElementById('warning-network').textContent = coin.network;
-        document.getElementById('pay-warning').classList.add('visible');
-
-        var memoBox = document.getElementById('memo-box');
-        if (coin.memo) {
-            document.getElementById('memo-label').textContent = coin.memoLabel || 'Memo';
-            document.getElementById('memo-value').textContent = coin.memo;
-            memoBox.classList.add('visible');
-        } else {
-            memoBox.classList.remove('visible');
-        }
-
-        document.getElementById('form-coin').value = coin.name;
-        document.getElementById('form-coin-display').value = coin.name;
-
-        document.getElementById('pstep-1').classList.remove('active');
-        document.getElementById('pstep-1').classList.add('completed');
-        document.getElementById('pstep-2').classList.add('active');
-    }
-
-    function copyAddress() {
-        var text = document.getElementById('wallet-address').textContent;
-        var btn = document.querySelector('.address-box .copy-btn');
-        copyToClipboard(text, btn);
-    }
-
-    function copyMemo() {
-        var text = document.getElementById('memo-value').textContent;
-        var btn = document.querySelector('.memo-box .copy-btn');
-        copyToClipboard(text, btn);
-    }
-
-    function copyToClipboard(text, btn) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function() { showCopied(btn); });
-        } else {
-            var ta = document.createElement('textarea');
-            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-            document.body.appendChild(ta); ta.select();
-            try { document.execCommand('copy'); showCopied(btn); } catch(e) { btn.textContent = 'Failed'; }
-            document.body.removeChild(ta);
-        }
-    }
-
-    function showCopied(btn) {
-        var orig = btn.textContent;
-        btn.textContent = 'Copied!'; btn.classList.add('copied');
-        setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-    }
+(function(){
+    'use strict';
+    var SALE_DURATION=72*60*60*1000,SK='npcforge_sale_end_v2';
+    function getSaleEnd(){var s=localStorage.getItem(SK);if(s){var e=parseInt(s,10);if(e>Date.now())return e;}var n=Date.now()+SALE_DURATION;localStorage.setItem(SK,n.toString());return n;}
+    var saleEnd=getSaleEnd();
+    function pad(n){return n<10?'0'+n:''+n;}
+    function fmt(ms){if(ms<=0)return'00:00:00';var t=Math.floor(ms/1000);return pad(Math.floor(t/3600))+':'+pad(Math.floor((t%3600)/60))+':'+pad(t%60);}
+    function tick(){var r=saleEnd-Date.now();if(r<=0){saleEnd=Date.now()+SALE_DURATION;localStorage.setItem(SK,saleEnd.toString());r=SALE_DURATION;}var el=document.getElementById('stripTimer');if(el)el.textContent=fmt(r);}
+    tick();setInterval(tick,1000);
+    var coins={btc:{name:'Bitcoin (BTC)',address:'1GCP51GiKrJkUPXzBnmB3T7okBz3JVj36Z',network:'BTC',networkFull:'BTC Chain Only',minDeposit:'0.00001000 BTC',confirmations:'1',memo:null},eth:{name:'Ethereum (ETH)',address:'0x81cE4b62B49BA5c4e2BD6a59e46B28226607e9d9',network:'ETH (ERC-20)',networkFull:'ETH Chain Only',minDeposit:'0.00100000 ETH',confirmations:'6',memo:null},usdt:{name:'USDT (TRC-20)',address:'TXuStMHPUxoRX8NPTTpJU6jBsBtZDRw2Uz',network:'TRX (TRC-20)',networkFull:'TRC-20 Recommended',minDeposit:'0.00500000 USDT',confirmations:'12',memo:null},usdc:{name:'USD Coin (USDC)',address:'HedirYhUvULvAZRB68pExPujTKLRafNNyhP6K3WdaiE1',network:'SOL',networkFull:'SOL Chain Only',minDeposit:'0.00100000 USDC',confirmations:'21',memo:null},sol:{name:'Solana (SOL)',address:'HedirYhUvULvAZRB68pExPujTKLRafNNyhP6K3WdaiE1',network:'SOL',networkFull:'SOL Chain Only',minDeposit:'0.00000100 SOL',confirmations:'21',memo:null},trx:{name:'Tron (TRX)',address:'TXuStMHPUxoRX8NPTTpJU6jBsBtZDRw2Uz',network:'TRX',networkFull:'TRX Chain Only',minDeposit:'0.00100000 TRX',confirmations:'—',memo:null},ltc:{name:'Litecoin (LTC)',address:'MN5d3nwpXij3V1abxyZSCXLXyQKpXap56q',network:'LTC',networkFull:'LTC Chain Only',minDeposit:'0.00000100 LTC',confirmations:'1',memo:null},xrp:{name:'Ripple (XRP)',address:'rhi77L73jGvGN3zQf3AEbYnjWYZu7CSTe8',network:'XRP',networkFull:'XRP Chain Only',minDeposit:'0.00010000 XRP',confirmations:'1',memo:'1001897',memoLabel:'Payment Tag / Memo'},ada:{name:'Cardano (ADA)',address:'addr1qyeudreh3zp35sf33xeun0t7rk9gehulsd6tr02f3c489uj0zn5t6q37mnk7w9an38a3wts2ncu93jatfmqgexm6c5wsx3sqwf',network:'ADA',networkFull:'ADA Chain Only',minDeposit:'0.30000000 ADA',confirmations:'10',memo:null},doge:{name:'Dogecoin (DOGE)',address:'D8SW7toPoRqRyBVe18V8cwaSQJep8kVf8d',network:'DOGE',networkFull:'DOGE Chain Only',minDeposit:'0.00100000 DOGE',confirmations:'6',memo:null},xmr:{name:'Monero (XMR)',address:'4ByeEKTJbi3faVNHTWEupmM1fdwEv95CqCqC7rCDdVhXDt4vj5E4FB1jUKxNAF6EHFHmuQhnHoXcUK84Nc4cQfmfKQ8zXo5FtUDUsNUMSA',network:'XMR',networkFull:'XMR Chain Only',minDeposit:'0.00010000 XMR',confirmations:'10',memo:null},bnb:{name:'Binance Coin (BNB)',address:'0xA5DA8f2A741C41aE1E0D5e51b83768f4142fb578',network:'BNB',networkFull:'BNB Chain Only',minDeposit:'0.00000100 BNB',confirmations:'6',memo:null},bch:{name:'Bitcoin Cash (BCH)',address:'bitcoincash:qzh5jn8tc47phecg743r8rte8adk2v0qdcyapg52vx',network:'BCH',networkFull:'BCH Chain Only',minDeposit:'0.00000100 BCH',confirmations:'6',memo:null},xlm:{name:'Stellar (XLM)',address:'GDAEZBKKPVVEBPDFSY6WMQ7Y4C7FYCS6CYODNURRN4EZIGTMNKKROESG',network:'XLM',networkFull:'XLM Chain Only',minDeposit:'0.00500000 XLM',confirmations:'1',memo:'1001897',memoLabel:'Payment Tag / Memo'},pol:{name:'Polygon (POL)',address:'0xb35fB6cDC2EA9b7A4d4C2a62464Ce8DEd29A6170',network:'POL',networkFull:'POL Chain Only',minDeposit:'0.00050000 POL',confirmations:'12',memo:null},dash:{name:'Dash (DASH)',address:'Xv2Zn51FkWEeYYGhKbGBAP3U2nfFRKGqeY',network:'DASH',networkFull:'DASH Chain Only',minDeposit:'0.00000100 DASH',confirmations:'6',memo:null},zec:{name:'Zcash (ZEC)',address:'t1TCjRWWmGp974MUVM91rp4hdM9BSQFLGU3',network:'ZEC',networkFull:'ZEC Chain Only',minDeposit:'0.00000010 ZEC',confirmations:'6',memo:null},dgb:{name:'DigiByte (DGB)',address:'DLyigrUs5hZmyJRXKYJMJW33mv9cswjnnm',network:'DGB',networkFull:'DGB Chain Only',minDeposit:'0.00000100 DGB',confirmations:'6',memo:null},fey:{name:'Feyorra (FEY)',address:'0x81cE4b62B49BA5c4e2BD6a59e46B28226607e9d9',network:'ETH (ERC-20)',networkFull:'ETH ERC-20 Chain Only',minDeposit:'0.00500000 FEY',confirmations:'6',memo:null}};
+    window.selectCoin=function(key,btn){var coin=coins[key];if(!coin)return;document.querySelectorAll('.coin-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');document.getElementById('address-section').classList.add('visible');document.getElementById('coin-name-label').textContent=coin.name;document.getElementById('wallet-address').textContent=coin.address;document.getElementById('network-name').textContent=coin.network;document.getElementById('min-deposit').textContent=coin.minDeposit;document.getElementById('confirmations').textContent=coin.confirmations;document.getElementById('network-info').classList.add('visible');document.getElementById('warning-coin').textContent=coin.name;document.getElementById('warning-network').textContent=coin.network;document.getElementById('pay-warning').classList.add('visible');var mb=document.getElementById('memo-box');if(coin.memo){document.getElementById('memo-label').textContent=coin.memoLabel||'Memo';document.getElementById('memo-value').textContent=coin.memo;mb.classList.add('visible');}else{mb.classList.remove('visible');}document.getElementById('form-coin').value=coin.name;document.getElementById('form-coin-display').value=coin.name;document.getElementById('pstep-1').classList.remove('active');document.getElementById('pstep-1').classList.add('completed');document.getElementById('pstep-2').classList.add('active');};
+    window.copyAddress=function(){copyToClipboard(document.getElementById('wallet-address').textContent,document.querySelector('.address-box .copy-btn'));};
+    window.copyMemo=function(){copyToClipboard(document.getElementById('memo-value').textContent,document.querySelector('.memo-box .copy-btn'));};
+    function copyToClipboard(text,btn){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){showCopied(btn);});}else{var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showCopied(btn);}catch(e){btn.textContent='Failed';}document.body.removeChild(ta);}}
+    function showCopied(btn){var orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent=orig;btn.classList.remove('copied');},2000);}
+    document.addEventListener('click',function(e){var nav=document.querySelector('.nav-links');var tog=document.querySelector('.nav-toggle');if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&!tog.contains(e.target)){nav.classList.remove('open');}});
+})();
 </script>
-
 </body>
 </html>
