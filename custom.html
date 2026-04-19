@@ -1,598 +1,1292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NPCForge — Custom AI NPC Commission</title>
-<meta name="description" content="Order a custom AI NPC character built specifically for your server. Any theme, any role, any personality. Crypto payment. Delivered within 6 hours.">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Character Orders — NPCForge</title>
+    <meta name="description" content="Commission a custom AI NPC personality pack built to your specifications. Your world, your character, our expertise.">
+    <meta property="og:title" content="Custom Character Orders — NPCForge">
+    <meta property="og:description" content="We build custom AI NPC personality packs for your Minecraft server. Describe your character, we deliver a full pack.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://npcforge.github.io/custom.html">
+    <link rel="canonical" href="https://npcforge.github.io/custom.html">
+    <style>
+        :root {
+            --gold: #D4A537;
+            --gold-light: #F2D06B;
+            --gold-dark: #B8860B;
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: #1A1A25;
+            --bg-card-hover: #222233;
+            --text-primary: #E8E8F0;
+            --text-secondary: #9999AA;
+            --text-muted: #666677;
+            --border: #2A2A3A;
+            --green: #4CAF50;
+            --red: #E74C3C;
+            --blue: #3498DB;
+            --purple: #9B59B6;
+            --orange: #E67E22;
+        }
 
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --black:#0A0A0F;--navy:#0F1021;--card:#141528;
-  --border:#1E2040;--gold:#C9A84C;--gold2:#E8C36A;
-  --white:#F0F0F0;--grey:#8A8AA0;--green:#3DBE6C;
-  --red:#E04444;--blue:#4A6CF7;--purple:#8B5CF6;
-}
-html{scroll-behavior:smooth;}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--black);color:var(--white);line-height:1.6;}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--navy);}
-::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px;}
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-nav{position:sticky;top:0;z-index:999;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
-.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#8B6914);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
-.logo-text{font-size:1.3rem;font-weight:800;color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:0.25rem;}
-.nav-links a{color:var(--grey);text-decoration:none;padding:0.4rem 0.85rem;border-radius:6px;font-size:0.9rem;font-weight:500;transition:all 0.2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--white);background:var(--card);}
-.nav-cta{background:var(--gold)!important;color:var(--black)!important;font-weight:700!important;}
+        html {
+            scroll-behavior: smooth;
+        }
 
-.custom-hero{
-  min-height:50vh;
-  display:flex;align-items:center;justify-content:center;
-  padding:4rem 2rem;text-align:center;
-  background:linear-gradient(180deg,#050510,var(--black));
-  position:relative;overflow:hidden;
-}
-.custom-hero::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle at 30% 50%,rgba(139,92,246,0.05) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(201,168,76,0.05) 0%,transparent 50%);
-}
-.custom-hero-inner{position:relative;z-index:1;max-width:700px;}
-.custom-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:50px;padding:0.4rem 1rem;font-size:0.8rem;color:var(--purple);font-weight:700;letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase;}
-.custom-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:1rem;}
-.custom-hero h1 span{color:var(--purple);}
-.custom-hero p{color:var(--grey);max-width:560px;margin:0 auto;line-height:1.7;}
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.section{padding:5rem 2rem;}
-.section-dark{background:var(--black);}
-.section-navy{background:var(--navy);}
-.container{max-width:1000px;margin:0 auto;}
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
 
-/* Examples grid */
-.examples-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:1rem;margin-bottom:3rem;
-}
-.example-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:1.5rem;text-align:center;
-  transition:all 0.3s;
-}
-.example-card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,0.3);}
-.example-em{font-size:2.5rem;margin-bottom:0.75rem;display:block;}
-.example-theme{font-size:0.75rem;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.3rem;}
-.example-name{font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;}
-.example-desc{font-size:0.8rem;color:var(--grey);line-height:1.5;}
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
 
-/* Pricing tiers */
-.tiers-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:1.25rem;margin-bottom:4rem;
-}
-.tier-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:2rem;
-  transition:all 0.3s;position:relative;overflow:hidden;
-}
-.tier-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--border);transition:background 0.3s;
-}
-.tier-card:hover::before{background:var(--gold);}
-.tier-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.3);}
-.tier-card.popular{border-color:var(--gold);}
-.tier-card.popular::before{background:var(--gold);}
-.tier-pop-badge{
-  position:absolute;top:16px;right:16px;
-  background:var(--gold);color:var(--black);
-  font-size:0.65rem;font-weight:800;
-  padding:0.2rem 0.6rem;border-radius:20px;
-  letter-spacing:1px;text-transform:uppercase;
-}
-.tier-name{font-size:0.8rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
-.tier-price{font-size:2.2rem;font-weight:900;color:var(--gold);margin-bottom:0.25rem;}
-.tier-sub{font-size:0.8rem;color:var(--grey);margin-bottom:1.5rem;}
-.tier-features{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;}
-.tier-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.87rem;color:var(--grey);}
-.tier-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
-.tier-features li strong{color:var(--white);}
-.btn-tier{
-  display:block;text-align:center;
-  background:var(--gold);color:var(--black);
-  padding:0.85rem;border-radius:10px;
-  text-decoration:none;font-weight:800;
-  transition:all 0.2s;
-}
-.btn-tier:hover{background:var(--gold2);transform:translateY(-1px);}
-.btn-tier-outline{
-  display:block;text-align:center;
-  background:transparent;color:var(--gold);
-  padding:0.85rem;border-radius:10px;
-  text-decoration:none;font-weight:700;
-  border:2px solid var(--gold);
-  transition:all 0.2s;
-}
-.btn-tier-outline:hover{background:rgba(201,168,76,0.08);}
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
 
-/* Process */
-.process-steps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:1.5rem;position:relative;
-}
-.process-step{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:1.75rem;text-align:center;
-}
-.step-number{
-  width:48px;height:48px;border-radius:50%;
-  background:rgba(201,168,76,0.1);
-  border:2px solid rgba(201,168,76,0.3);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;font-weight:900;color:var(--gold);
-  margin:0 auto 1rem;
-}
-.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.5rem;}
-.process-step p{font-size:0.85rem;color:var(--grey);line-height:1.6;}
+        .nav-logo span {
+            color: var(--text-primary);
+        }
 
-/* Character builder */
-.char-builder{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:2.5rem;
-  max-width:800px;margin:0 auto;
-}
-.char-builder h3{font-size:1.3rem;font-weight:800;margin-bottom:0.5rem;}
-.char-builder p{color:var(--grey);font-size:0.9rem;margin-bottom:2rem;line-height:1.6;}
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
 
-.builder-options{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
-.option-group{}
-.option-label{font-size:0.75rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.6rem;display:block;}
-.option-pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
-.option-pill{
-  background:var(--navy);border:1px solid var(--border);
-  border-radius:20px;padding:0.35rem 0.85rem;
-  font-size:0.8rem;color:var(--grey);cursor:pointer;
-  transition:all 0.2s;user-select:none;
-}
-.option-pill:hover,.option-pill.selected{
-  background:rgba(201,168,76,0.1);
-  border-color:var(--gold);color:var(--gold);
-}
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-.char-preview{
-  background:var(--navy);border:1px solid var(--border);
-  border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;
-}
-.char-preview-title{font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
-.preview-line{font-size:0.88rem;color:var(--grey);margin-bottom:0.4rem;}
-.preview-line strong{color:var(--gold);}
-.preview-line .preview-val{color:var(--white);}
+        .nav-links a:hover {
+            color: var(--gold);
+        }
 
-/* Payment info */
-.payment-block{
-  background:var(--navy);border:1px solid var(--border);
-  border-radius:14px;padding:1.5rem;
-  max-width:800px;margin:0 auto 3rem;
-  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
-}
-.payment-block .pay-icon{font-size:2rem;flex-shrink:0;}
-.payment-block-info h4{font-size:1rem;font-weight:700;margin-bottom:0.35rem;}
-.payment-block-info p{font-size:0.87rem;color:var(--grey);line-height:1.6;}
-.crypto-accepted-row{display:flex;gap:0.5rem;margin-top:0.6rem;flex-wrap:wrap;}
-.crypto-pill{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--grey);font-weight:600;}
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-/* Guarantee */
-.custom-guarantee{
-  background:linear-gradient(135deg,#0A0A1A,#050510);
-  border:1px solid var(--border);border-radius:20px;
-  padding:3rem;text-align:center;max-width:700px;margin:0 auto;
-  position:relative;overflow:hidden;
-}
-.custom-guarantee::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),transparent);}
-.custom-guarantee h2{font-size:1.8rem;font-weight:800;margin-bottom:1rem;}
-.custom-guarantee p{color:var(--grey);margin-bottom:0.75rem;line-height:1.7;}
+        .nav-links .nav-cta:hover {
+            background: var(--gold-light);
+            color: #000;
+        }
 
-.section-header{text-align:center;margin-bottom:3rem;}
-.section-tag{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;}
-.section-header h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;}
-.section-header p{color:var(--grey);max-width:560px;margin:0 auto;line-height:1.7;}
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
 
-footer{background:var(--navy);border-top:1px solid var(--border);padding:3rem 2rem;}
-.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;}
-.footer-brand p{color:var(--grey);font-size:0.85rem;margin-top:0.4rem;}
-.footer-links-col h4{color:var(--white);font-size:0.85rem;font-weight:700;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:1px;}
-.footer-links-col a{display:block;color:var(--grey);text-decoration:none;font-size:0.85rem;margin-bottom:0.4rem;transition:color 0.2s;}
-.footer-links-col a:hover{color:var(--gold);}
-.footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.footer-bottom p{color:var(--grey);font-size:0.8rem;}
-.crypto-badges{display:flex;gap:0.5rem;flex-wrap:wrap;}
-.crypto-badge{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--grey);font-weight:600;}
+        /* ── PAGE HEADER ── */
+        .page-header {
+            padding: 7rem 2rem 2rem;
+            text-align: center;
+        }
 
-@media(max-width:768px){
-  .nav-links{display:none;}
-  .builder-options{grid-template-columns:1fr;}
-  .footer-inner{flex-direction:column;text-align:center;}
-  .payment-block{flex-direction:column;text-align:center;}
-}
+        .page-badge {
+            display: inline-block;
+            background: rgba(212, 165, 55, 0.1);
+            border: 1px solid rgba(212, 165, 55, 0.3);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
 
-</style>
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 .highlight {
+            color: var(--gold);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── SECTION UTILITIES ── */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 2.5rem;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border) 0%, var(--gold-dark) 50%, var(--border) 100%);
+            z-index: 0;
+        }
+
+        .process-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .process-step:hover {
+            border-color: rgba(212, 165, 55, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(212, 165, 55, 0.1);
+            border: 2px solid rgba(212, 165, 55, 0.3);
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ── PRICING TIERS ── */
+        .pricing-section {
+            background: var(--bg-secondary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color 0.25s, transform 0.25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(212, 165, 55, 0.4);
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 12px 40px rgba(212, 165, 55, 0.1);
+        }
+
+        .pricing-header {
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-card.featured .pricing-header {
+            background: rgba(212, 165, 55, 0.03);
+            border-bottom-color: rgba(212, 165, 55, 0.15);
+        }
+
+        .pricing-tier-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .tier-standard {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--blue);
+            border: 1px solid rgba(52, 152, 219, 0.25);
+        }
+
+        .tier-premium {
+            background: rgba(212, 165, 55, 0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212, 165, 55, 0.3);
+        }
+
+        .tier-elite {
+            background: rgba(155, 89, 182, 0.1);
+            color: var(--purple);
+            border: 1px solid rgba(155, 89, 182, 0.25);
+        }
+
+        .pricing-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-header .price {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-header .price-note {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .pricing-body {
+            padding: 1.5rem 2rem 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex: 1;
+        }
+
+        .pricing-features li {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li.extra::before {
+            content: '★';
+            color: var(--gold);
+        }
+
+        .pricing-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .pricing-btn-standard {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        .pricing-btn-standard:hover {
+            background: #5dade2;
+            transform: translateY(-2px);
+        }
+
+        .pricing-btn-premium {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .pricing-btn-premium:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+        }
+
+        .pricing-btn-elite {
+            background: var(--purple);
+            color: #fff;
+        }
+
+        .pricing-btn-elite:hover {
+            background: #a96bc4;
+            transform: translateY(-2px);
+        }
+
+        /* ── WHAT YOU PROVIDE ── */
+        .provide-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .provide-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .provide-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .provide-list {
+            list-style: none;
+        }
+
+        .provide-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            line-height: 1.6;
+        }
+
+        .provide-list li .icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .provide-list li.required .icon {
+            color: var(--gold);
+        }
+
+        .provide-list li.optional .icon {
+            color: var(--text-muted);
+        }
+
+        .provide-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            margin-left: 0.25rem;
+            vertical-align: middle;
+        }
+
+        .tag-required {
+            background: rgba(212, 165, 55, 0.1);
+            color: var(--gold);
+        }
+
+        .tag-optional {
+            background: rgba(102, 102, 119, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* ── EXAMPLES ── */
+        .examples-section {
+            background: var(--bg-secondary);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .example-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s;
+        }
+
+        .example-card:hover {
+            border-color: rgba(212, 165, 55, 0.25);
+        }
+
+        .example-card .example-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .example-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .example-card .example-type {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .example-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-style: italic;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(212, 165, 55, 0.2);
+        }
+
+        /* ── FAQ ── */
+        .faq-section {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .faq-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 0;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-q .toggle {
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        .faq-a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            display: none;
+            padding-top: 0.25rem;
+        }
+
+        .faq-item.open .faq-a {
+            display: block;
+        }
+
+        .faq-item.open .faq-q .toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-a a {
+            color: var(--gold);
+        }
+
+        /* ── CONTACT FORM ── */
+        .contact-section {
+            background: var(--bg-secondary);
+            padding: 5rem 2rem;
+        }
+
+        .contact-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-inner h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .contact-inner > p {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group label .label-optional {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239999AA' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            line-height: 1.5;
+        }
+
+        .form-submit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--gold);
+            color: #000;
+            margin-top: 0.5rem;
+        }
+
+        .form-submit-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+        }
+
+        .form-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 1.25rem;
+            line-height: 1.6;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .process-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-grid::before {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .provide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
+<!-- ── NAVIGATION ── -->
 <nav>
-  <a href="index.html" class="nav-logo">
-    <div class="logo-icon">⚔️</div>
-    <span class="logo-text">NPCForge</span>
-  </a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="store.html">Store</a>
-    <a href="free.html">Free Packs</a>
-    <a href="custom.html" class="active">Custom Order</a>
-    <a href="store.html" class="nav-cta">Buy Now</a>
-  </div>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="free.html">Free Pack</a></li>
+            <li><a href="custom.html" style="color:var(--gold);">Custom Orders</a></li>
+            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+        </ul>
+    </div>
 </nav>
 
-<div class="custom-hero">
-  <div class="custom-hero-inner">
-    <div class="custom-badge">✨ Bespoke Character Design</div>
-    <h1>A Character Built For <span>Your World</span></h1>
-    <p>
-      Aldric and Dravek are built for a medieval fantasy setting.
-      Your server might be something completely different.
-      I build custom characters for any theme, any role, any personality.
-    </p>
-  </div>
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+    <div class="page-badge">Commission Service</div>
+    <h1>Custom <span class="highlight">Character</span> Orders</h1>
+    <p>Your world. Your character. Our expertise. We build fully realized AI NPC personality packs to your exact specifications — ready to drop into your server.</p>
 </div>
 
-<section class="section section-dark">
-<div class="container">
+<!-- ── HOW IT WORKS ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">Process</div>
+        <h2 class="section-title">How it works</h2>
+        <p class="section-desc">Four steps from your idea to a working NPC personality. Most orders are delivered within 48 hours.</p>
 
-  <!-- EXAMPLES -->
-  <div class="section-header">
-    <div class="section-tag">Examples</div>
-    <h2>Any Server. Any Character.</h2>
-    <p>These are the types of custom characters I have built. Your server's theme is the starting point, not a limitation.</p>
-  </div>
-
-  <div class="examples-grid">
-    <div class="example-card">
-      <span class="example-em">🏰</span>
-      <div class="example-theme">Medieval</div>
-      <div class="example-name">Court Spy</div>
-      <div class="example-desc">Loyal to three different lords. Certain only one of them knows about the other two.</div>
-    </div>
-    <div class="example-card">
-      <span class="example-em">🚀</span>
-      <div class="example-theme">Sci-Fi</div>
-      <div class="example-name">Station AI</div>
-      <div class="example-desc">Helpful. Slightly too helpful. Knows things it should not about the crew.</div>
-    </div>
-    <div class="example-card">
-      <span class="example-em">☠️</span>
-      <div class="example-theme">Post-Apocalyptic</div>
-      <div class="example-name">Scavenger Chief</div>
-      <div class="example-desc">Survived the collapse. Has opinions about why. Most of them are wrong in interesting ways.</div>
-    </div>
-    <div class="example-card">
-      <span class="example-em">🏴‍☠️</span>
-      <div class="example-theme">Pirate</div>
-      <div class="example-name">The Quartermaster</div>
-      <div class="example-desc">Manages the crew with iron efficiency. The captain thinks he is in charge. He is not.</div>
-    </div>
-    <div class="example-card">
-      <span class="example-em">🌲</span>
-      <div class="example-theme">Fantasy</div>
-      <div class="example-name">Forest Elder</div>
-      <div class="example-desc">Ancient. Patient. Has watched seventeen human civilizations rise and collapse. Unimpressed by this one.</div>
-    </div>
-    <div class="example-card">
-      <span class="example-em">🏙️</span>
-      <div class="example-theme">Modern</div>
-      <div class="example-name">City Fixer</div>
-      <div class="example-desc">Knows every backroom deal in the city. Never made one he regrets. A few he prefers not to discuss.</div>
-    </div>
-  </div>
-
-  <!-- PRICING TIERS -->
-  <div class="section-header">
-    <div class="section-tag">Pricing</div>
-    <h2>Commission Options</h2>
-    <p>Three tiers depending on how deep you want to go.</p>
-  </div>
-
-  <div class="tiers-grid">
-
-    <div class="tier-card">
-      <div class="tier-name">Single Character</div>
-      <div class="tier-price">$25</div>
-      <div class="tier-sub">One complete character for your server</div>
-      <ul class="tier-features">
-        <li><strong>system_prompt.txt</strong> — 600+ words, built for your world</li>
-        <li><strong>memories.json</strong> — 20-25 custom memories based on your lore</li>
-        <li><strong>config.yml</strong> — Optimized for your character type</li>
-        <li><strong>SETUP.pdf</strong> — Installation guide</li>
-        <li>7-day revision window</li>
-        <li>Delivered within 6 hours</li>
-      </ul>
-      <a href="pay-custom-single.html" class="btn-tier-outline">Commission — $25</a>
-    </div>
-
-    <div class="tier-card popular">
-      <div class="tier-pop-badge">Popular</div>
-      <div class="tier-name">Two Connected Characters</div>
-      <div class="tier-price">$40</div>
-      <div class="tier-sub">Two characters who know each other</div>
-      <ul class="tier-features">
-        <li>Two complete character packs</li>
-        <li>Cross-reference memories — they know each other</li>
-        <li>Consistent relationship encoding in both files</li>
-        <li>Shared world document connecting them</li>
-        <li>7-day revision window</li>
-        <li>Delivered within 12 hours</li>
-      </ul>
-      <a href="pay-custom-duo.html" class="btn-tier">Commission — $40</a>
-    </div>
-
-    <div class="tier-card">
-      <div class="tier-name">Full World Build</div>
-      <div class="tier-price">$80</div>
-      <div class="tier-sub">Five characters. One cohesive world.</div>
-      <ul class="tier-features">
-        <li>Five complete character packs</li>
-        <li>All characters reference each other</li>
-        <li>Full world lore document</li>
-        <li>Mystery or tension woven through all five</li>
-        <li>14-day revision window</li>
-        <li>Delivered within 48 hours</li>
-        <li>Priority support for 30 days</li>
-      </ul>
-      <a href="pay-custom-world.html" class="btn-tier-outline">Commission — $80</a>
-    </div>
-
-  </div>
-
-  <!-- PROCESS -->
-  <div class="section-header">
-    <div class="section-tag">How It Works</div>
-    <h2>The Commission Process</h2>
-    <p>Simple. Fast. No server access needed.</p>
-  </div>
-
-  <div class="process-steps" style="margin-bottom:4rem;">
-    <div class="process-step">
-      <div class="step-number">1</div>
-      <h4>You Purchase</h4>
-      <p>Select your tier and pay via crypto. I receive notification immediately.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-number">2</div>
-      <h4>You Brief Me</h4>
-      <p>I message you within 2 hours. You tell me about your server, the character's role, tone, and any lore I should know.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-number">3</div>
-      <h4>I Build</h4>
-      <p>I write the personality definition, craft the memories, and configure the settings for your specific character type.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-number">4</div>
-      <h4>You Receive</h4>
-      <p>Files delivered to your email. Install in under 10 minutes using the included PDF guide.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-number">5</div>
-      <h4>You Revise</h4>
-      <p>7-day revision window. If anything feels off I adjust it at no extra charge. Usually one round of small tweaks is all it takes.</p>
-    </div>
-  </div>
-
-  <!-- INTERACTIVE BUILDER PREVIEW -->
-  <div class="section-header">
-    <div class="section-tag">Character Builder</div>
-    <h2>Preview Your Character</h2>
-    <p>Select options below to see what I will build for you. This is not a form. It is a preview tool.</p>
-  </div>
-
-  <div class="char-builder">
-    <div class="builder-options">
-      <div class="option-group">
-        <span class="option-label">Server Theme</span>
-        <div class="option-pills" id="theme-pills">
-          <div class="option-pill selected" onclick="selectPill(this,'theme','Medieval')">Medieval</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Sci-Fi')">Sci-Fi</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Post-Apoc')">Post-Apocalyptic</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Pirate')">Pirate</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Fantasy')">High Fantasy</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Modern')">Modern City</div>
-          <div class="option-pill" onclick="selectPill(this,'theme','Horror')">Horror</div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Describe</h3>
+                <p>Tell us about your character, your world, and what role this NPC fills. As much or as little detail as you want.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Pay</h3>
+                <p>Choose your tier and pay via cryptocurrency. We start building immediately after confirmation.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Build</h3>
+                <p>We craft the full personality pack — system prompt, memories, config — tailored to your character and world.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Deliver</h3>
+                <p>You receive the complete pack. Install, test, and we'll help you tune it until it's perfect.</p>
+            </div>
         </div>
-      </div>
-      <div class="option-group">
-        <span class="option-label">NPC Role</span>
-        <div class="option-pills" id="role-pills">
-          <div class="option-pill selected" onclick="selectPill(this,'role','Guard')">Guard</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Merchant')">Merchant</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Oracle')">Oracle / Prophet</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Quest Giver')">Quest Giver</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Villain')">Villain</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Ally')">Ally / Companion</div>
-          <div class="option-pill" onclick="selectPill(this,'role','Informant')">Informant</div>
-        </div>
-      </div>
-      <div class="option-group">
-        <span class="option-label">Tone</span>
-        <div class="option-pills" id="tone-pills">
-          <div class="option-pill selected" onclick="selectPill(this,'tone','Serious')">Serious</div>
-          <div class="option-pill" onclick="selectPill(this,'tone','Humorous')">Humorous</div>
-          <div class="option-pill" onclick="selectPill(this,'tone','Mysterious')">Mysterious</div>
-          <div class="option-pill" onclick="selectPill(this,'tone','Threatening')">Threatening</div>
-          <div class="option-pill" onclick="selectPill(this,'tone','Wise')">Wise / Ancient</div>
-          <div class="option-pill" onclick="selectPill(this,'tone','Naive')">Naive / Young</div>
-        </div>
-      </div>
-      <div class="option-group">
-        <span class="option-label">Moral Alignment</span>
-        <div class="option-pills" id="moral-pills">
-          <div class="option-pill selected" onclick="selectPill(this,'moral','Lawful Good')">Lawful Good</div>
-          <div class="option-pill" onclick="selectPill(this,'moral','Neutral')">Neutral</div>
-          <div class="option-pill" onclick="selectPill(this,'moral','Morally Grey')">Morally Grey</div>
-          <div class="option-pill" onclick="selectPill(this,'moral','Corrupt')">Corrupt</div>
-          <div class="option-pill" onclick="selectPill(this,'moral','Chaotic')">Chaotic</div>
-        </div>
-      </div>
     </div>
-
-    <div class="char-preview">
-      <div class="char-preview-title">Character Preview</div>
-      <div class="preview-line">Theme: <strong class="preview-val" id="prev-theme">Medieval</strong></div>
-      <div class="preview-line">Role: <strong class="preview-val" id="prev-role">Guard</strong></div>
-      <div class="preview-line">Tone: <strong class="preview-val" id="prev-tone">Serious</strong></div>
-      <div class="preview-line">Alignment: <strong class="preview-val" id="prev-moral">Lawful Good</strong></div>
-      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
-        <div style="font-size:0.7rem;font-weight:700;color:var(--grey);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;">What I Will Build</div>
-        <div class="preview-line" id="prev-description" style="color:var(--white);font-style:italic;">A serious lawful good Medieval Guard. Thirty years of service. Suspicious by profession. Honest by choice. Will not accept bribes. Will not break character. Will remember every face that passes through his gate.</div>
-      </div>
-    </div>
-
-    <div style="text-align:center;">
-      <a href="pay-custom-single.html" class="btn-tier" style="display:inline-block;max-width:300px;">
-        Commission This Character — $25
-      </a>
-      <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--grey);">
-        You describe the details after purchase. This preview just helps you think it through.
-      </div>
-    </div>
-  </div>
-
-</div>
 </section>
 
-<section class="section section-navy">
-<div class="container">
+<!-- ── PRICING TIERS ── -->
+<section class="section pricing-section">
+    <div class="section-inner">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Choose your tier</h2>
+        <p class="section-desc">Every tier includes a complete, working personality pack. Higher tiers add depth, complexity, and support.</p>
 
-  <!-- PAYMENT -->
-  <div class="section-header">
-    <div class="section-tag">Payment</div>
-    <h2>Crypto Only</h2>
-    <p>All custom commissions are paid in cryptocurrency. Instant settlement. No geographic restrictions.</p>
-  </div>
+        <div class="pricing-grid">
+            <!-- STANDARD -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <span class="pricing-tier-badge tier-standard">Standard</span>
+                    <h3>Single Character</h3>
+                    <div class="price">$12</div>
+                    <div class="price-note">per character</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-desc">A solid custom character built to your description. Same quality as our store packs, tailored to your world.</p>
+                    <ul class="pricing-features">
+                        <li>600+ word custom system prompt</li>
+                        <li>25 hand-crafted memories</li>
+                        <li>Optimized config.yml</li>
+                        <li>Tailored to your server's lore</li>
+                        <li>1 round of revisions included</li>
+                        <li>Delivered within 48 hours</li>
+                        <li>Personal support</li>
+                    </ul>
+                    <a href="#order-form" class="pricing-btn pricing-btn-standard">Order Standard →</a>
+                </div>
+            </div>
 
-  <div class="payment-block">
-    <div class="pay-icon">💰</div>
-    <div class="payment-block-info">
-      <h4>Accepted Cryptocurrencies</h4>
-      <p>Send to any of the addresses on the payment page. Files delivered automatically after blockchain confirmation. USDT TRC20 is recommended for stable pricing.</p>
-      <div class="crypto-accepted-row">
-        <span class="crypto-pill">USDT (TRC20)</span>
-        <span class="crypto-pill">Bitcoin (BTC)</span>
-        <span class="crypto-pill">Litecoin (LTC)</span>
-        <span class="crypto-pill">Dogecoin (DOGE)</span>
-        <span class="crypto-pill">Ethereum (ETH)</span>
-      </div>
+            <!-- PREMIUM -->
+            <div class="pricing-card featured">
+                <div class="pricing-header">
+                    <span class="pricing-tier-badge tier-premium">Premium</span>
+                    <h3>Deep Character</h3>
+                    <div class="price">$20</div>
+                    <div class="price-note">per character</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-desc">For characters that need to carry conversations. Deeper backstory, more complex emotional logic, richer voice.</p>
+                    <ul class="pricing-features">
+                        <li>1000+ word deep system prompt</li>
+                        <li>40 hand-crafted memories</li>
+                        <li>Optimized config.yml</li>
+                        <li>Emotional trigger system</li>
+                        <li>Complex refusal patterns</li>
+                        <li>Speech quirks &amp; mannerisms</li>
+                        <li class="extra">Relationship dynamics</li>
+                        <li class="extra">3 rounds of revisions</li>
+                        <li>Delivered within 48 hours</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#order-form" class="pricing-btn pricing-btn-premium">Order Premium →</a>
+                </div>
+            </div>
+
+            <!-- ELITE -->
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <span class="pricing-tier-badge tier-elite">Elite</span>
+                    <h3>Character Group</h3>
+                    <div class="price">$45</div>
+                    <div class="price-note">3 characters · shared lore</div>
+                </div>
+                <div class="pricing-body">
+                    <p class="pricing-desc">Three interconnected characters who share the same world. They reference each other, share history, and feel like a real cast.</p>
+                    <ul class="pricing-features">
+                        <li>3 premium-tier characters</li>
+                        <li>120 total memories across group</li>
+                        <li>Shared world lore document</li>
+                        <li>Cross-character references</li>
+                        <li>Each character knows the others</li>
+                        <li>All configs optimized together</li>
+                        <li class="extra">World bible included</li>
+                        <li class="extra">Unlimited revisions</li>
+                        <li>Delivered within 72 hours</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#order-form" class="pricing-btn pricing-btn-elite">Order Elite →</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- GUARANTEE -->
-  <div class="custom-guarantee">
-    <h2>The Custom Commission Guarantee</h2>
-    <p>
-      If the character does not feel right after delivery,
-      tell me specifically what is off.
-    </p>
-    <p>
-      I revise it within 24 hours.
-      The 7-day revision window exists for exactly this.
-      Small adjustments are free and expected.
-      Major rewrites are free if the brief was unclear on my end.
-    </p>
-    <p>
-      If after revisions you are genuinely unhappy,
-      I refund you. Full amount. In crypto.
-    </p>
-    <br>
-    <p style="font-size:0.85rem;color:var(--grey);">
-      Find me on BuiltByBit: <strong style="color:var(--gold);">NPCForge</strong><br>
-      If anything is unclear before purchase, ask there first.
-    </p>
-  </div>
-
-</div>
 </section>
 
+<!-- ── WHAT YOU PROVIDE ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">Your Input</div>
+        <h2 class="section-title">What we need from you</h2>
+        <p class="section-desc">The more you give us, the better the character. But even a short paragraph is enough to start.</p>
+
+        <div class="provide-grid">
+            <div class="provide-card">
+                <h3>📋 Required</h3>
+                <ul class="provide-list">
+                    <li class="required">
+                        <span class="icon">●</span>
+                        <span><strong>Character role</strong> — What does this NPC do? Guard, merchant, healer, bartender, etc.</span>
+                    </li>
+                    <li class="required">
+                        <span class="icon">●</span>
+                        <span><strong>Personality tone</strong> — Gruff? Friendly? Suspicious? Cryptic? A few words is enough.</span>
+                    </li>
+                    <li class="required">
+                        <span class="icon">●</span>
+                        <span><strong>Server context</strong> — Medieval? Fantasy? Sci-fi? What kind of world is this NPC living in?</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="provide-card">
+                <h3>💡 Optional (but helpful)</h3>
+                <ul class="provide-list">
+                    <li class="optional">
+                        <span class="icon">○</span>
+                        <span><strong>Backstory details</strong> — Any history, events, or relationships you want included.</span>
+                    </li>
+                    <li class="optional">
+                        <span class="icon">○</span>
+                        <span><strong>Speech examples</strong> — Lines you imagine them saying. Helps us nail the voice.</span>
+                    </li>
+                    <li class="optional">
+                        <span class="icon">○</span>
+                        <span><strong>Topics to avoid</strong> — Things this NPC should never discuss or always deflect.</span>
+                    </li>
+                    <li class="optional">
+                        <span class="icon">○</span>
+                        <span><strong>Relationships</strong> — Other NPCs or factions this character has opinions about.</span>
+                    </li>
+                    <li class="optional">
+                        <span class="icon">○</span>
+                        <span><strong>Secrets</strong> — Things the NPC knows but won't reveal easily.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PAST EXAMPLES ── -->
+<section class="section examples-section">
+    <div class="section-inner">
+        <div class="section-label">Examples</div>
+        <h2 class="section-title">Characters we've built</h2>
+        <p class="section-desc">A sample of the types of custom characters we create. Every server is different — that's the point.</p>
+
+        <div class="examples-grid">
+            <div class="example-card">
+                <div class="example-icon">⚒️</div>
+                <h3>Tormund</h3>
+                <div class="example-type">Dwarven Blacksmith · Medieval Fantasy</div>
+                <p>"This blade? Took me three weeks. Most smiths would've quit after the first fold cracked. I don't quit. That's why you're here and not at their forge."</p>
+            </div>
+            <div class="example-card">
+                <div class="example-icon">🍺</div>
+                <h3>Mira</h3>
+                <div class="example-type">Tavern Owner · Knows Every Rumor</div>
+                <p>"Sit down, you look like death warmed over. I'll get you an ale. And while I pour, why don't you tell me who's chasing you? Don't lie — I'll know."</p>
+            </div>
+            <div class="example-card">
+                <div class="example-icon">📚</div>
+                <h3>Archivist Venn</h3>
+                <div class="example-type">Reclusive Scholar · Ancient Library</div>
+                <p>"You want knowledge? Then be still. Be quiet. And for the love of all that's written, do not touch the books on the third shelf. Those are not for you. Not yet."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── ORDER FORM ── -->
+<section class="contact-section" id="order-form">
+    <div class="contact-inner">
+        <h2>Submit Your Order</h2>
+        <p>Fill out the form below. We'll review your request and send payment instructions. Most orders are delivered within 48 hours of payment.</p>
+
+        <form action="https://formsubmit.co/your-email@example.com" method="POST" id="custom-order-form">
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="NPCForge Custom Order">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://npcforge.github.io/success.html">
+            <input type="hidden" name="_template" value="table">
+            <!-- Honeypot -->
+            <input type="text" name="_honey" style="display:none">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contact-name">Your Name / Username</label>
+                    <input type="text" id="contact-name" name="name" placeholder="How should we address you?" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Contact Email or Discord</label>
+                    <input type="text" id="contact-email" name="contact" placeholder="email@example.com or User#1234" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="tier-select">Tier</label>
+                <select id="tier-select" name="tier" required>
+                    <option value="" disabled selected>Select a tier</option>
+                    <option value="standard-$12">Standard — Single Character ($12)</option>
+                    <option value="premium-$20">Premium — Deep Character ($20)</option>
+                    <option value="elite-$45">Elite — Character Group / 3 chars ($45)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="character-role">Character Role &amp; Name <span class="label-optional">(required)</span></label>
+                <input type="text" id="character-role" name="character_role" placeholder='e.g., "Guard captain named Varn" or "Mysterious potion seller"' required>
+            </div>
+
+            <div class="form-group">
+                <label for="server-world">Server / World Context <span class="label-optional">(required)</span></label>
+                <input type="text" id="server-world" name="server_world" placeholder='e.g., "Medieval fantasy kingdom" or "Post-apocalyptic wasteland"' required>
+            </div>
+
+            <div class="form-group">
+                <label for="personality-tone">Personality / Tone</label>
+                <input type="text" id="personality-tone" name="personality_tone" placeholder='e.g., "Gruff, suspicious, hides a soft side" or "Cheerful but hiding grief"'>
+            </div>
+
+            <div class="form-group">
+                <label for="details">Full Description &amp; Details <span class="label-optional">(the more the better)</span></label>
+                <textarea id="details" name="details" placeholder="Backstory, relationships, speech examples, secrets, topics to avoid, anything else you want us to know. Even a short paragraph helps. The more detail you provide, the better the character will be."></textarea>
+                <div class="form-hint">Include backstory, relationships, speech style, secrets, anything relevant. There's no such thing as too much detail.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="plugin-choice">Plugin</label>
+                <select id="plugin-choice" name="plugin">
+                    <option value="sentiencepro">SentiencePro</option>
+                    <option value="llamacraft">LlamaCraft Bridge</option>
+                    <option value="both">Both / Not Sure</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="additional">Anything Else? <span class="label-optional">(optional)</span></label>
+                <textarea id="additional" name="additional" placeholder="Special requests, timeline needs, questions, etc." style="min-height: 80px;"></textarea>
+            </div>
+
+            <button type="submit" class="form-submit-btn">🛠 Submit Custom Order</button>
+            <p class="form-note">We'll reply within 24 hours with payment instructions and any clarifying questions. No payment is taken until we confirm the order details with you.</p>
+        </form>
+    </div>
+</section>
+
+<!-- ── FAQ ── -->
+<div class="faq-section">
+    <h2>Custom Order FAQ</h2>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>How long does delivery take?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">Standard and Premium orders are delivered within 48 hours of payment confirmation. Elite (3-character group) orders are delivered within 72 hours. Rush delivery may be available — ask when you submit.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What if the character doesn't match what I wanted?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">Every tier includes revision rounds. Standard gets 1 round, Premium gets 3 rounds, Elite gets unlimited revisions. We work with you until the character feels right for your server.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Can I order a character type you already sell?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">Yes — but if you want a guard character and our Aldric pack fits your needs, buying from the <a href="store.html">store</a> is cheaper. Custom orders make sense when you need a character tailored to your specific world, lore, or role that we don't currently offer.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What payment methods do you accept?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">We accept cryptocurrency — Bitcoin, Ethereum, USDT, Solana, and many more. After we confirm your order details, we'll send you the wallet address and amount. Payment is handled before we begin building.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Can I use the custom character on multiple servers?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">Yes. Once you receive the files, they're yours. Use them on as many of your own servers as you like. You may not resell or redistribute the files.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Do you build characters for non-Minecraft projects?</span>
+            <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">Our packs are optimized for SentiencePro and LlamaCraft Bridge. If you have a different AI NPC system with similar architecture (system prompt + memories + config), reach out and we can discuss. The personality engineering principles are transferable.</div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-icon">⚔️</div>
-        <span class="logo-text">NPCForge</span>
-      </a>
-      <p>AI NPC Character Design</p>
-      <p>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="store.html">Store</a>
+            <a href="free.html">Free Pack</a>
+            <a href="custom.html">Custom Orders</a>
+        </div>
+        <p class="footer-copy">© 2025 NPCForge. All rights reserved. Custom character packs are proprietary to the buyer.</p>
     </div>
-    <div class="footer-links-col">
-      <h4>Store</h4>
-      <a href="store.html#aldric">Aldric — $15</a>
-      <a href="store.html#dravek">Dravek — $15</a>
-      <a href="store.html#bundle">Bundle — $25</a>
-      <a href="store.html#dfy">Fix My Setup — $35</a>
-    </div>
-    <div class="footer-links-col">
-      <h4>Free</h4>
-      <a href="free.html">Starter Guard Pack</a>
-      <a href="free.html#diagnostic">Diagnostic Checklist</a>
-      <a href="free.html#guide">5-Line Guide</a>
-    </div>
-    <div class="footer-links-col">
-      <h4>Support</h4>
-      <a href="https://builtbybit.com" target="_blank">BuiltByBit: NPCForge</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 NPCForge. All rights reserved.</p>
-    <div class="crypto-badges">
-      <span class="crypto-badge">BTC</span>
-      <span class="crypto-badge">ETH</span>
-      <span class="crypto-badge">LTC</span>
-      <span class="crypto-badge">DOGE</span>
-      <span class="crypto-badge">USDT</span>
-    </div>
-  </div>
 </footer>
 
+<!-- ── SCRIPTS ── -->
 <script>
-const selections = { theme: 'Medieval', role: 'Guard', tone: 'Serious', moral: 'Lawful Good' };
+    // Mobile nav
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.nav-links');
+        const toggle = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
 
-const descriptions = {
-  'Medieval-Guard-Serious-Lawful Good': 'A serious lawful good Medieval Guard. Decades of service. Suspicious by profession. Honest by choice. Will not accept bribes. Will not break character. Remembers every face that passes through his gate.',
-  'Medieval-Merchant-Morally Grey-Neutral': 'A neutral morally grey Medieval Merchant. Sells legitimate goods as cover for everything else. Pragmatic. Charming. Remembers every deal ever made. Silence is his most effective negotiating tool.',
-  'Sci-Fi-Guard-Serious-Lawful Good': 'A serious lawful good Sci-Fi Security Officer. Forty years protecting the station. Has seen three different administrations. Trusts none of them equally. Does his job regardless.',
-  'Post-Apoc-Merchant-Humorous-Neutral': 'A humorous neutral Post-Apocalyptic Trader. Survived the collapse with dark wit intact. Sells everything. Questions nothing. Has a story for every scar.',
-  'default': 'A unique character built specifically for your server world. Their history, speech patterns, relationships, and code of ethics all emerge from the theme and role you select. No templates. Built from scratch.'
-};
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 
-function selectPill(el, type, value) {
-  const group = document.getElementById(type + '-pills');
-  group.querySelectorAll('.option-pill').forEach(p => p.classList.remove('selected'));
-  el.classList.add('selected');
-  selections[type] = value;
-  updatePreview();
-}
+    // Pricing button scroll to form with tier pre-selected
+    document.querySelectorAll('.pricing-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var card = this.closest('.pricing-card');
+            var tierBadge = card.querySelector('.pricing-tier-badge');
+            var tierText = tierBadge ? tierBadge.textContent.trim().toLowerCase() : '';
+            var select = document.getElementById('tier-select');
 
-function updatePreview() {
-  document.getElementById('prev-theme').textContent = selections.theme;
-  document.getElementById('prev-role').textContent = selections.role;
-  document.getElementById('prev-tone').textContent = selections.tone;
-  document.getElementById('prev-moral').textContent = selections.moral;
-  const key = selections.theme + '-' + selections.role + '-' + selections.moral + '-' + selections.moral;
-  const altKey = Object.keys(descriptions).find(k => k.includes(selections.theme) && k.includes(selections.role));
-  document.getElementById('prev-description').textContent = altKey ? descriptions[altKey] : descriptions['default'];
-}
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value.toLowerCase().indexOf(tierText) !== -1) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+
+            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
 </script>
 
 </body>
