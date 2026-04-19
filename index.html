@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NPCForge — AI NPC Personality Engine</title>
-    <meta name="description" content="Stop your AI NPCs from sounding like customer service bots. Deep personality packs for SentiencePro and LlamaCraft Bridge.">
-    <meta name="keywords" content="NPCForge, SentiencePro, LlamaCraft, Minecraft NPC, AI NPC, personality engine">
+    <title>NPCForge — AI NPC Personality Engine for SentiencePro & LlamaCraft</title>
+    <meta name="description" content="Stop your AI NPCs from sounding like customer service bots. Professional character packs, server licenses, and custom commissions for SentiencePro and LlamaCraft Bridge.">
+    <meta name="keywords" content="NPCForge, SentiencePro, LlamaCraft, Minecraft NPC, AI NPC, personality engine, Minecraft AI">
     <meta property="og:title" content="NPCForge — AI NPC Characters That Actually Feel Human">
-    <meta property="og:description" content="Your AI NPC sounds like a customer service bot. We fix that.">
+    <meta property="og:description" content="Your AI NPC sounds like a customer service bot. Professional personality packs from $4.89. Server licenses, world lore systems, and custom commissions available.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://npcforge.github.io">
     <link rel="canonical" href="https://npcforge.github.io">
@@ -27,6 +27,12 @@
             --green: #4CAF50;
             --red: #E74C3C;
             --blue: #3498DB;
+            --urgent-red: #FF4444;
+            --urgent-orange: #FF6B35;
+            --purple: #9B59B6;
+            --purple-light: #B07CC6;
+            --teal: #1ABC9C;
+            --teal-light: #2EE0BA;
         }
 
         *, *::before, *::after {
@@ -46,17 +52,73 @@
         }
 
         /* ══════════════════════════════════
-           NAV — SINGLE INSTANCE
+           URGENCY BANNER
+        ══════════════════════════════════ */
+        .urgency-banner {
+            background: linear-gradient(90deg, #FF4444 0%, #FF6B35 50%, #FF4444 100%);
+            background-size: 200% 100%;
+            animation: bannerShift 3s ease infinite;
+            color: #fff;
+            text-align: center;
+            padding: 0.6rem 3rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        @keyframes bannerShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .urgency-banner .banner-timer {
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .urgency-banner .banner-close {
+            position: absolute;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.2rem;
+            line-height: 1;
+        }
+
+        .urgency-banner .banner-close:hover { color: #fff; }
+
+        /* ══════════════════════════════════
+           NAV
         ══════════════════════════════════ */
         nav {
             position: fixed;
-            top: 0; left: 0; right: 0;
+            top: 36px;
+            left: 0; right: 0;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(10, 10, 15, 0.97);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 0 2rem;
+            transition: top 0.3s;
         }
+
+        nav.banner-closed { top: 0; }
 
         .nav-inner {
             max-width: 1200px;
@@ -82,7 +144,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.75rem;
             list-style: none;
             align-items: center;
         }
@@ -90,7 +152,7 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             transition: color 0.2s;
         }
@@ -103,7 +165,6 @@
             padding: 0.5rem 1.25rem;
             border-radius: 6px;
             font-weight: 600;
-            transition: background 0.2s;
         }
 
         .nav-links .nav-cta:hover {
@@ -129,22 +190,32 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 6rem 2rem 4rem;
+            padding: 8rem 2rem 5rem;
             position: relative;
+            overflow: hidden;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 50%;
+            top: -100px; left: 50%;
             transform: translateX(-50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(212,165,55,0.08) 0%, transparent 70%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(212,165,55,0.07) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--bg-primary));
             pointer-events: none;
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 860px;
             position: relative;
             z-index: 1;
         }
@@ -164,20 +235,84 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
             font-weight: 800;
-            line-height: 1.15;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
         }
 
         .hero h1 .highlight { color: var(--gold); }
 
         .hero-sub {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 640px;
+            margin: 0 auto 2rem;
+            line-height: 1.75;
+        }
+
+        /* ══════════════════════════════════
+           LAUNCH PRICING CALLOUT
+        ══════════════════════════════════ */
+        .hero-launch-box {
+            background: rgba(255, 68, 68, 0.06);
+            border: 1px solid rgba(255, 68, 68, 0.25);
+            border-radius: 12px;
+            padding: 1.25rem 2rem;
             margin: 0 auto 2.5rem;
-            line-height: 1.7;
+            max-width: 540px;
+            position: relative;
+            animation: launchPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes launchPulse {
+            0%, 100% { border-color: rgba(255,68,68,0.25); }
+            50% { border-color: rgba(255,68,68,0.55); }
+        }
+
+        .launch-tag {
+            display: inline-block;
+            background: var(--urgent-red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-launch-box .launch-text {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .launch-price-strike {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .launch-price-now {
+            color: var(--urgent-red);
+            font-weight: 800;
+            font-size: 1.15rem;
+        }
+
+        .hero-launch-box .launch-countdown {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            margin-top: 0.3rem;
+        }
+
+        .countdown-timer {
+            color: var(--urgent-orange);
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
         }
 
         .hero-buttons {
@@ -191,7 +326,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.85rem 2rem;
+            padding: 0.9rem 2.25rem;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;
@@ -209,7 +344,7 @@
         .btn-primary:hover {
             background: var(--gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212,165,55,0.25);
+            box-shadow: 0 8px 30px rgba(212,165,55,0.3);
         }
 
         .btn-secondary {
@@ -224,24 +359,33 @@
             transform: translateY(-2px);
         }
 
+        .btn-purple {
+            background: var(--purple);
+            color: #fff;
+        }
+
+        .btn-purple:hover {
+            background: var(--purple-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(155,89,182,0.3);
+        }
+
         /* ══════════════════════════════════
            STATS BAR
         ══════════════════════════════════ */
         .stats-bar {
-            max-width: 900px;
-            margin: -2rem auto 0;
-            padding: 0 2rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 5rem;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 1.5rem;
             text-align: center;
             position: relative;
             z-index: 1;
         }
 
-        .stat-item {
-            padding: 1rem 0;
-        }
+        .stat-item { padding: 1rem 0; }
 
         .stat-number {
             font-size: 2rem;
@@ -252,20 +396,18 @@
         }
 
         .stat-label {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             line-height: 1.4;
         }
 
         /* ══════════════════════════════════
-           BEFORE / AFTER
+           SECTIONS
         ══════════════════════════════════ */
-        .section {
-            padding: 6rem 2rem;
-        }
+        .section { padding: 6rem 2rem; }
 
         .section-inner {
-            max-width: 1100px;
+            max-width: 1140px;
             margin: 0 auto;
         }
 
@@ -280,7 +422,7 @@
         }
 
         .section-title {
-            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-size: clamp(1.7rem, 3.5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1rem;
             line-height: 1.2;
@@ -289,10 +431,14 @@
         .section-desc {
             color: var(--text-secondary);
             font-size: 1.05rem;
-            max-width: 650px;
+            max-width: 660px;
             margin-bottom: 3rem;
+            line-height: 1.7;
         }
 
+        /* ══════════════════════════════════
+           BEFORE / AFTER
+        ══════════════════════════════════ */
         .comparison { background: var(--bg-secondary); }
 
         .compare-grid {
@@ -325,22 +471,21 @@
         .compare-card.bad .compare-label { color: var(--red); }
         .compare-card.good .compare-label { color: var(--gold); }
 
-        .compare-card.bad .compare-icon {
+        .compare-icon {
             width: 32px; height: 32px;
             border-radius: 8px;
-            background: rgba(231,76,60,0.1);
-            border: 1px solid rgba(231,76,60,0.2);
             display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem;
         }
 
+        .compare-card.bad .compare-icon {
+            background: rgba(231,76,60,0.1);
+            border: 1px solid rgba(231,76,60,0.2);
+        }
+
         .compare-card.good .compare-icon {
-            width: 32px; height: 32px;
-            border-radius: 8px;
             background: rgba(212,165,55,0.1);
             border: 1px solid rgba(212,165,55,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
         }
 
         .chat-line { margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.6; }
@@ -357,9 +502,6 @@
             border-top: 1px solid var(--border);
             font-size: 0.8rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .compare-card.bad .compare-verdict { color: var(--red); }
@@ -387,22 +529,9 @@
             transform: translateY(-3px);
         }
 
-        .problem-icon {
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .problem-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .problem-card p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
+        .problem-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .problem-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .problem-card p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; }
 
         /* ══════════════════════════════════
            FEATURES
@@ -431,11 +560,196 @@
         .feature-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
 
         /* ══════════════════════════════════
-           CHARACTERS
+           PRICING TIERS
+        ══════════════════════════════════ */
+        .pricing-section { background: var(--bg-secondary); }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(212,165,55,0.3);
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured-tier {
+            border-color: var(--gold);
+            background: linear-gradient(160deg, var(--bg-card) 0%, rgba(212,165,55,0.04) 100%);
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured-tier:hover { transform: translateY(-12px); }
+
+        .pricing-card.enterprise-tier {
+            border-color: rgba(155,89,182,0.4);
+            background: linear-gradient(160deg, var(--bg-card) 0%, rgba(155,89,182,0.04) 100%);
+        }
+
+        .pricing-card.enterprise-tier:hover { border-color: var(--purple); }
+
+        .tier-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .tier-badge.purple-badge {
+            background: var(--purple);
+            color: #fff;
+        }
+
+        .tier-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+        .tier-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .tier-tagline {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.4;
+        }
+
+        .tier-price-block {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tier-launch-tag {
+            display: inline-block;
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.2);
+            color: var(--urgent-red);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.4rem;
+        }
+
+        .tier-price {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .pricing-card.featured-tier .tier-price { color: var(--gold); }
+        .pricing-card.enterprise-tier .tier-price { color: var(--purple); }
+
+        .tier-price-original {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-left: 0.25rem;
+        }
+
+        .tier-price-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 1.75rem;
+            flex: 1;
+        }
+
+        .tier-features li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .tier-features li .feat-check {
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .tier-features li .feat-x {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .tier-features li.muted { color: var(--text-muted); }
+
+        .tier-btn {
+            display: block;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tier-btn-gold { background: var(--gold); color: #000; }
+        .tier-btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+        .tier-btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .tier-btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .tier-btn-purple { background: var(--purple); color: #fff; }
+        .tier-btn-purple:hover { background: var(--purple-light); transform: translateY(-1px); }
+
+        .tier-btn-green { background: var(--green); color: #fff; }
+        .tier-btn-green:hover { background: #5cc760; transform: translateY(-1px); }
+
+        /* ══════════════════════════════════
+           CHARACTERS SHOWCASE
         ══════════════════════════════════ */
         .characters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
             gap: 1.5rem;
         }
 
@@ -447,6 +761,7 @@
             transition: border-color 0.2s, transform 0.2s;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .char-card:hover {
@@ -455,9 +770,11 @@
         }
 
         .char-card.featured-char {
-            border-color: rgba(212,165,55,0.25);
+            border-color: rgba(212,165,55,0.3);
             background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,165,55,0.03) 100%);
         }
+
+        .char-card.coming-soon { opacity: 0.65; }
 
         .char-header {
             display: flex;
@@ -484,7 +801,7 @@
             font-style: italic;
             font-size: 0.9rem;
             line-height: 1.6;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             padding-left: 1rem;
             border-left: 2px solid rgba(212,165,55,0.3);
             flex: 1;
@@ -498,7 +815,7 @@
         .char-includes li {
             font-size: 0.8rem;
             color: var(--text-secondary);
-            padding: 0.25rem 0;
+            padding: 0.2rem 0;
             display: flex;
             align-items: flex-start;
             gap: 0.4rem;
@@ -520,38 +837,59 @@
             border-top: 1px solid var(--border);
         }
 
-        .char-price { font-size: 1.35rem; font-weight: 800; }
+        .char-price { font-size: 1.3rem; font-weight: 800; }
         .char-price.free { color: var(--green); }
-        .char-price .original {
-            font-size: 0.85rem; color: var(--text-muted);
-            text-decoration: line-through; margin-left: 0.4rem; font-weight: 400;
-        }
-
-        .char-meta {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .char-tag {
-            font-size: 0.7rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 50px;
-            background: rgba(212,165,55,0.08);
-            color: var(--gold);
-            border: 1px solid rgba(212,165,55,0.15);
-        }
-
-        .char-tag.free-tag {
-            background: rgba(76,175,80,0.08);
-            color: var(--green);
-            border-color: rgba(76,175,80,0.15);
-        }
-
-        .char-tag.soon-tag {
-            background: rgba(102,102,119,0.08);
+        .char-price-original {
+            font-size: 0.8rem;
             color: var(--text-muted);
-            border-color: rgba(102,102,119,0.15);
+            text-decoration: line-through;
+            display: block;
+            font-weight: 400;
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 68, 68, 0.08);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--urgent-red);
+        }
+
+        .stock-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--urgent-red);
+            animation: stockPulse 1.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes stockPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .launch-price-tag {
+            display: inline-block;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            color: var(--urgent-red);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.6rem;
+            display: block;
+            width: fit-content;
         }
 
         .char-btn {
@@ -564,131 +902,464 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
         .char-btn-gold { background: var(--gold); color: #000; }
         .char-btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
         .char-btn-green { background: var(--green); color: #fff; }
         .char-btn-green:hover { background: #5cc760; transform: translateY(-1px); }
-        .char-btn-disabled { background: var(--bg-card-hover); color: var(--text-muted); cursor: not-allowed; border: 1px solid var(--border); }
+        .char-btn-disabled {
+            background: var(--bg-card-hover);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            border: 1px solid var(--border);
+        }
 
-        /* Bundle Card — full width */
+        /* ══════════════════════════════════
+           BUNDLES SECTION
+        ══════════════════════════════════ */
+        .bundles-section { background: var(--bg-secondary); }
+
+        .bundles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
         .bundle-card {
             background: var(--bg-card);
             border: 1px solid rgba(155,89,182,0.3);
             border-radius: 14px;
-            padding: 2.5rem;
-            margin-top: 1.5rem;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 2rem;
-            align-items: center;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.2s, transform 0.2s;
         }
+
+        .bundle-card:hover {
+            border-color: rgba(155,89,182,0.6);
+            transform: translateY(-3px);
+        }
+
+        .bundle-card.gold-bundle {
+            border-color: rgba(212,165,55,0.3);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,165,55,0.03) 100%);
+        }
+
+        .bundle-card.gold-bundle:hover { border-color: rgba(212,165,55,0.6); }
 
         .bundle-card::before {
             content: '';
             position: absolute;
-            top: 0; right: 0;
-            width: 300px; height: 300px;
+            top: -50px; right: -50px;
+            width: 200px; height: 200px;
             background: radial-gradient(circle, rgba(155,89,182,0.06) 0%, transparent 70%);
             pointer-events: none;
         }
 
-        .bundle-badge {
+        .bundle-card.gold-bundle::before {
+            background: radial-gradient(circle, rgba(212,165,55,0.06) 0%, transparent 70%);
+        }
+
+        .bundle-top-badge {
             position: absolute;
-            top: 1rem; right: 1rem;
+            top: 1rem;
+            right: 1rem;
             background: rgba(231,76,60,0.1);
             color: var(--red);
             border: 1px solid rgba(231,76,60,0.25);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            padding: 0.3rem 0.75rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 50px;
         }
 
-        .bundle-left h3 {
-            font-size: 1.3rem;
+        .bundle-stock {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 68, 68, 0.08);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.68rem;
             font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .bundle-left .bundle-role {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            color: var(--urgent-red);
             margin-bottom: 1rem;
+            width: fit-content;
         }
 
-        .bundle-left .bundle-desc {
+        .bundle-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .bundle-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .bundle-tagline { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .bundle-desc {
+            font-size: 0.88rem;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            line-height: 1.65;
             margin-bottom: 1.25rem;
-            max-width: 550px;
         }
 
-        .bundle-left .bundle-includes {
+        .bundle-includes {
             list-style: none;
-            margin-bottom: 0;
+            margin-bottom: 1.5rem;
+            flex: 1;
         }
 
-        .bundle-left .bundle-includes li {
-            font-size: 0.82rem;
+        .bundle-includes li {
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            padding: 0.2rem 0;
+            padding: 0.22rem 0;
             display: flex;
+            align-items: flex-start;
             gap: 0.4rem;
         }
 
-        .bundle-left .bundle-includes li::before {
+        .bundle-includes li::before {
             content: '✓';
             color: var(--green);
             font-weight: 700;
             flex-shrink: 0;
         }
 
-        .bundle-right {
-            text-align: center;
-            position: relative;
-            z-index: 1;
+        .bundle-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
         }
 
-        .bundle-right .bundle-price {
-            font-size: 2.5rem;
+        .bundle-price-block .bundle-price {
+            font-size: 1.75rem;
             font-weight: 800;
-            color: #9B59B6;
-            line-height: 1;
-            margin-bottom: 0.25rem;
+            color: var(--purple);
         }
 
-        .bundle-right .bundle-original {
-            font-size: 0.9rem;
+        .bundle-card.gold-bundle .bundle-price-block .bundle-price { color: var(--gold); }
+
+        .bundle-price-block .bundle-original {
+            font-size: 0.8rem;
             color: var(--text-muted);
             text-decoration: line-through;
-            margin-bottom: 1rem;
         }
 
-        .bundle-right .bundle-btn {
+        .bundle-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            padding: 0.75rem 2rem;
-            background: #9B59B6;
+            padding: 0.65rem 1.5rem;
+            background: var(--purple);
             color: #fff;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.2s;
         }
 
-        .bundle-right .bundle-btn:hover {
-            background: #a96bc4;
+        .bundle-card.gold-bundle .bundle-btn { background: var(--gold); color: #000; }
+        .bundle-card.gold-bundle .bundle-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .bundle-btn:hover { background: var(--purple-light); transform: translateY(-1px); }
+
+        /* ══════════════════════════════════
+           SERVER LICENSE
+        ══════════════════════════════════ */
+        .license-section { background: var(--bg-primary); }
+
+        .license-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(26, 188, 156, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .license-card::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(26,188,156,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .license-badge-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .license-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        .badge-teal {
+            background: rgba(26,188,156,0.1);
+            color: var(--teal);
+            border: 1px solid rgba(26,188,156,0.25);
+        }
+
+        .badge-red {
+            background: rgba(255,68,68,0.1);
+            color: var(--urgent-red);
+            border: 1px solid rgba(255,68,68,0.25);
+        }
+
+        .license-card h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--teal);
+        }
+
+        .license-card .license-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+        }
+
+        .license-features {
+            list-style: none;
+        }
+
+        .license-features li {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            padding: 0.35rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .license-features li .check-teal {
+            color: var(--teal);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .license-right {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .license-price-tag {
+            display: inline-block;
+            background: rgba(255,68,68,0.1);
+            color: var(--urgent-red);
+            border: 1px solid rgba(255,68,68,0.2);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+
+        .license-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--teal);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .license-price-original {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-bottom: 0.25rem;
+        }
+
+        .license-price-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .license-stock {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 68, 68, 0.08);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--urgent-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .license-btn {
+            display: block;
+            padding: 1rem 2.5rem;
+            background: var(--teal);
+            color: #000;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-bottom: 0.75rem;
+        }
+
+        .license-btn:hover {
+            background: var(--teal-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(155,89,182,0.25);
+            box-shadow: 0 8px 30px rgba(26,188,156,0.3);
+        }
+
+        .license-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════
+           RETAINER SECTION
+        ══════════════════════════════════ */
+        .retainer-section { background: var(--bg-secondary); }
+
+        .retainer-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,165,55,0.04) 100%);
+            border: 1px solid rgba(212,165,55,0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .retainer-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(212,165,55,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .retainer-badge {
+            display: inline-block;
+            background: rgba(212,165,55,0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212,165,55,0.25);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .retainer-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .retainer-card .retainer-sub {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+            max-width: 580px;
+        }
+
+        .retainer-perks {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 2rem;
+        }
+
+        .retainer-perks li {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .retainer-perks li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .retainer-right {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            min-width: 200px;
+        }
+
+        .retainer-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .retainer-period {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .retainer-equiv {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .retainer-btn {
+            display: block;
+            padding: 0.85rem 2rem;
+            background: var(--gold);
+            color: #000;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+        }
+
+        .retainer-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212,165,55,0.3);
+        }
+
+        .retainer-spots {
+            font-size: 0.72rem;
+            color: var(--urgent-red);
+            font-weight: 600;
         }
 
         /* ══════════════════════════════════
@@ -727,16 +1398,9 @@
             margin-top: 3rem;
         }
 
-        .guarantee-icon {
-            font-size: 2.5rem;
-            flex-shrink: 0;
-        }
+        .guarantee-icon { font-size: 2.5rem; flex-shrink: 0; }
 
-        .guarantee h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+        .guarantee h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
 
         .guarantee p {
             color: var(--text-secondary);
@@ -748,39 +1412,132 @@
         .guarantee p:last-child { margin-bottom: 0; }
 
         /* ══════════════════════════════════
-           CTA
+           FINAL CTA
         ══════════════════════════════════ */
         .cta-section {
             text-align: center;
             background: var(--bg-secondary);
         }
 
-        .cta-section .section-title {
-            max-width: 600px;
-            margin: 0 auto 1rem;
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
 
-        .cta-section .section-desc {
-            margin: 0 auto 2.5rem;
-            text-align: center;
+        .cta-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: left;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .cta-card:hover {
+            border-color: rgba(212,165,55,0.3);
+            transform: translateY(-3px);
+        }
+
+        .cta-card-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .cta-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .cta-card p { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem; }
+
+        .cta-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .cta-card-btn:hover { color: var(--gold-light); }
+
+        /* ══════════════════════════════════
+           SOCIAL PROOF POPUP
+        ══════════════════════════════════ */
+        .social-proof-popup {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: translateX(-120%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 320px;
+        }
+
+        .social-proof-popup.show { transform: translateX(0); }
+
+        .proof-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .proof-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+        .proof-text strong { color: var(--text-primary); font-weight: 600; }
+        .proof-time { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+        /* ══════════════════════════════════
+           STICKY BOTTOM BAR
+        ══════════════════════════════════ */
+        .sticky-bottom {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0; right: 0;
+            z-index: 998;
+            background: rgba(10, 10, 15, 0.97);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sticky-info { font-size: 0.8rem; color: var(--text-secondary); }
+        .sticky-info strong { color: var(--urgent-red); font-weight: 700; }
+        .sticky-timer { font-family: 'Courier New', monospace; color: var(--urgent-orange); font-weight: 700; }
+
+        .sticky-btn {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         /* ══════════════════════════════════
-           FOOTER — SINGLE INSTANCE
+           FOOTER
         ══════════════════════════════════ */
         footer {
             padding: 4rem 2rem 3rem;
             border-top: 1px solid var(--border);
         }
 
-        .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .footer-inner { max-width: 1140px; margin: 0 auto; }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
             gap: 2rem;
             margin-bottom: 2.5rem;
         }
@@ -801,13 +1558,13 @@
             margin-bottom: 0.75rem;
         }
 
-        .footer-brand .footer-specialist {
+        .footer-specialist {
             font-size: 0.75rem;
             color: var(--text-muted);
         }
 
         .footer-col h4 {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -819,7 +1576,7 @@
             display: block;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.83rem;
             padding: 0.25rem 0;
             transition: color 0.2s;
         }
@@ -834,30 +1591,29 @@
             align-items: center;
         }
 
-        .footer-copy {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-        }
-
-        .footer-bbb {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-bbb:hover { color: var(--gold); }
+        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
 
         /* ══════════════════════════════════
            RESPONSIVE
         ══════════════════════════════════ */
+        @media (max-width: 1100px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-card.featured-tier { transform: none; }
+            .pricing-card.featured-tier:hover { transform: translateY(-4px); }
+            .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
         @media (max-width: 900px) {
             .compare-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr 1fr; }
             .problems-grid { grid-template-columns: 1fr 1fr; }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .bundle-card { grid-template-columns: 1fr; text-align: center; }
-            .bundle-right { margin-top: 1rem; }
+            .stats-bar { grid-template-columns: repeat(3, 1fr); }
+            .bundles-grid { grid-template-columns: 1fr; }
+            .license-card { grid-template-columns: 1fr; text-align: center; }
+            .license-features { text-align: left; }
+            .retainer-card { grid-template-columns: 1fr; text-align: center; }
+            .retainer-perks { grid-template-columns: 1fr; text-align: left; }
+            .cta-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
         }
 
@@ -874,9 +1630,11 @@
             }
             .nav-links.open { display: flex; }
             .nav-toggle { display: block; }
+            .pricing-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .problems-grid { grid-template-columns: 1fr; }
             .stats-bar { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .cta-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
             .hero-sub { font-size: 1rem; }
             .btn { width: 100%; justify-content: center; }
@@ -885,23 +1643,38 @@
             .guarantee { flex-direction: column; text-align: center; }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+            .sticky-bottom { display: flex; }
+            .social-proof-popup { bottom: 5rem; max-width: calc(100vw - 4rem); }
+            footer { padding-bottom: 6rem; }
         }
     </style>
 </head>
 <body>
 
 <!-- ══════════════════════════════════
-     SINGLE NAV
+     URGENCY BANNER
 ══════════════════════════════════ -->
-<nav>
+<div class="urgency-banner" id="urgencyBanner">
+    🔥 LAUNCH WEEK — All packs from <strong>$4.89</strong> · Server License <strong>$24.99</strong> · Ends in
+    <span class="banner-timer" id="bannerTimer">00:00:00</span>
+    <button class="banner-close" onclick="closeBanner()" aria-label="Close">✕</button>
+</div>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav id="mainNav">
     <div class="nav-inner">
         <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
-        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="store.html">Store</a></li>
-            <li><a href="free.html">Free Packs</a></li>
-            <li><a href="custom.html">Custom Order</a></li>
+            <li><a href="store.html">Characters</a></li>
+            <li><a href="bundles.html">Bundles</a></li>
+            <li><a href="license.html">Server License</a></li>
+            <li><a href="retainer.html">Retainer</a></li>
+            <li><a href="custom.html">Custom</a></li>
+            <li><a href="free.html">Free Pack</a></li>
             <li><a href="store.html" class="nav-cta">Buy Now</a></li>
         </ul>
     </div>
@@ -914,10 +1687,24 @@
     <div class="hero-content">
         <div class="hero-badge">SentiencePro &amp; LlamaCraft Bridge Specialist</div>
         <h1>Your AI NPC Sounds Like<br>A <span class="highlight">Customer Service Bot.</span></h1>
-        <p class="hero-sub">SentiencePro and LlamaCraft Bridge are powerful engines. The default settings give them nothing to work with. NPCForge builds the personality layer that makes the difference.</p>
+        <p class="hero-sub">SentiencePro and LlamaCraft Bridge are powerful engines. The default settings give them nothing to work with. NPCForge builds the personality layer — characters, world lore, server systems — that make players stay.</p>
+
+        <div class="hero-launch-box">
+            <div class="launch-tag">Launch Week — Everything Discounted</div>
+            <div class="launch-text">
+                Single packs from <span class="launch-price-strike">$6.99</span> <span class="launch-price-now">$4.89</span> &nbsp;·&nbsp;
+                Server License <span class="launch-price-strike">$34.99</span> <span class="launch-price-now">$24.99</span>
+            </div>
+            <div class="launch-countdown">
+                Sale ends in <span class="countdown-timer" id="heroTimer">00:00:00</span>
+                &nbsp;·&nbsp; Only <strong id="heroStock">47</strong> single licenses at this price
+            </div>
+        </div>
+
         <div class="hero-buttons">
             <a href="store.html" class="btn btn-primary">⚔ Browse Characters</a>
-            <a href="free.html" class="btn btn-secondary">⬇ Free Starter Pack</a>
+            <a href="license.html" class="btn btn-purple">🏰 Server License — $24.99</a>
+            <a href="free.html" class="btn btn-secondary">⬇ Free Starter</a>
         </div>
     </div>
 </section>
@@ -933,6 +1720,10 @@
     <div class="stat-item">
         <div class="stat-number">25</div>
         <div class="stat-label">Hand-Crafted Memories Per Character</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Product Tiers Available</div>
     </div>
     <div class="stat-item">
         <div class="stat-number">7+</div>
@@ -1012,7 +1803,7 @@
 </section>
 
 <!-- ══════════════════════════════════
-     THE PROBLEMS
+     PROBLEMS
 ══════════════════════════════════ -->
 <section class="section">
     <div class="section-inner">
@@ -1090,13 +1881,131 @@
 </section>
 
 <!-- ══════════════════════════════════
-     CHARACTERS
+     PRICING TIERS
+        Free / Single / Pro Pack / Server License / Retainer
 ══════════════════════════════════ -->
-<section class="section">
+<section class="section pricing-section" id="pricing">
+    <div class="section-inner">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Pick Your Tier</h2>
+        <p class="section-desc">From a free starter to a full server personality system. Every tier is built on the same quality standard.</p>
+
+        <div class="pricing-grid">
+
+            <!-- TIER 1: FREE -->
+            <div class="pricing-card">
+                <div class="tier-icon">🛡️</div>
+                <div class="tier-name">Starter</div>
+                <div class="tier-tagline">Test before you commit. No email. No signup.</div>
+                <div class="tier-price-block">
+                    <div class="tier-price" style="color:var(--green);">Free</div>
+                    <div class="tier-price-note">MIT Licensed · Forever</div>
+                </div>
+                <ul class="tier-features">
+                    <li><span class="feat-check">✓</span> Basic Guard character</li>
+                    <li><span class="feat-check">✓</span> ~200 word system prompt</li>
+                    <li><span class="feat-check">✓</span> 10 pre-built memories</li>
+                    <li><span class="feat-check">✓</span> Standard config.yml</li>
+                    <li><span class="feat-check">✓</span> 3-step install guide</li>
+                    <li class="muted"><span class="feat-x">✗</span> No edge case handling</li>
+                    <li class="muted"><span class="feat-x">✗</span> No support</li>
+                    <li class="muted"><span class="feat-x">✗</span> No world lore</li>
+                </ul>
+                <a href="free.html" class="tier-btn tier-btn-green">↓ Download Free</a>
+            </div>
+
+            <!-- TIER 2: SINGLE CHARACTER (FEATURED) -->
+            <div class="pricing-card featured-tier">
+                <div class="tier-badge">Most Popular</div>
+                <div class="tier-icon">⚔️</div>
+                <div class="tier-name">Single Character</div>
+                <div class="tier-tagline">One fully realized NPC. Drop-in ready.</div>
+                <div class="tier-price-block">
+                    <div class="tier-launch-tag">Launch Week</div>
+                    <div>
+                        <span class="tier-price">$4.89</span>
+                        <span class="tier-price-original">$6.99</span>
+                    </div>
+                    <div class="tier-price-note">Per character · One-time payment</div>
+                </div>
+                <ul class="tier-features">
+                    <li><span class="feat-check">✓</span> 600+ word personality definition</li>
+                    <li><span class="feat-check">✓</span> 25 hand-crafted memories</li>
+                    <li><span class="feat-check">✓</span> Advanced config.yml + edge cases</li>
+                    <li><span class="feat-check">✓</span> 7+ edge case responses</li>
+                    <li><span class="feat-check">✓</span> 3-step install guide</li>
+                    <li><span class="feat-check">✓</span> 24hr personal support</li>
+                    <li class="muted"><span class="feat-x">✗</span> No shared world lore</li>
+                    <li class="muted"><span class="feat-x">✗</span> Single server use</li>
+                </ul>
+                <a href="store.html" class="tier-btn tier-btn-gold">Buy a Character →</a>
+            </div>
+
+            <!-- TIER 3: PRO PACK -->
+            <div class="pricing-card">
+                <div class="tier-icon">🏰</div>
+                <div class="tier-name">Pro Pack</div>
+                <div class="tier-tagline">3 characters. Shared lore. One world.</div>
+                <div class="tier-price-block">
+                    <div class="tier-launch-tag">Launch Week</div>
+                    <div>
+                        <span class="tier-price">$11.99</span>
+                        <span class="tier-price-original">$17.99</span>
+                    </div>
+                    <div class="tier-price-note">3 characters · One-time payment</div>
+                </div>
+                <ul class="tier-features">
+                    <li><span class="feat-check">✓</span> 3 full character packs</li>
+                    <li><span class="feat-check">✓</span> 75 total hand-crafted memories</li>
+                    <li><span class="feat-check">✓</span> Shared world lore document</li>
+                    <li><span class="feat-check">✓</span> Cross-reference memories</li>
+                    <li><span class="feat-check">✓</span> All advanced configs</li>
+                    <li><span class="feat-check">✓</span> Priority 24hr support</li>
+                    <li><span class="feat-check">✓</span> City Bundle included</li>
+                    <li class="muted"><span class="feat-x">✗</span> Single server use</li>
+                </ul>
+                <a href="bundles.html" class="tier-btn tier-btn-outline">View Pro Pack →</a>
+            </div>
+
+            <!-- TIER 4: SERVER LICENSE -->
+            <div class="pricing-card enterprise-tier">
+                <div class="tier-badge purple-badge">Best For Servers</div>
+                <div class="tier-icon">🌐</div>
+                <div class="tier-name">Server License</div>
+                <div class="tier-tagline">5 characters. Full server rights. Priority support.</div>
+                <div class="tier-price-block">
+                    <div class="tier-launch-tag">Launch Week</div>
+                    <div>
+                        <span class="tier-price">$24.99</span>
+                        <span class="tier-price-original">$34.99</span>
+                    </div>
+                    <div class="tier-price-note">Commercial server license · One-time</div>
+                </div>
+                <ul class="tier-features">
+                    <li><span class="feat-check">✓</span> 5 full character packs</li>
+                    <li><span class="feat-check">✓</span> 125 total hand-crafted memories</li>
+                    <li><span class="feat-check">✓</span> Full world lore system</li>
+                    <li><span class="feat-check">✓</span> Commercial server use rights</li>
+                    <li><span class="feat-check">✓</span> NPC relationship map</li>
+                    <li><span class="feat-check">✓</span> API cost optimization report</li>
+                    <li><span class="feat-check">✓</span> Priority support + setup call</li>
+                    <li><span class="feat-check">✓</span> 1 free revision per character</li>
+                </ul>
+                <a href="license.html" class="tier-btn tier-btn-purple">Get Server License →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CHARACTERS SHOWCASE
+══════════════════════════════════ -->
+<section class="section" id="characters">
     <div class="section-inner">
         <div class="section-label">Characters</div>
-        <h2 class="section-title">Available Now</h2>
-        <p class="section-desc">Every character includes a full personality definition, 25 memories, advanced config, and a setup guide.</p>
+        <h2 class="section-title">Available Characters</h2>
+        <p class="section-desc">Every paid character includes a full personality definition, 25 memories, advanced config, and a setup guide. Available individually or in bundles.</p>
 
         <div class="characters-grid">
 
@@ -1106,7 +2015,7 @@
                     <div class="char-avatar">🛡️</div>
                     <div>
                         <div class="char-name">Starter Guard</div>
-                        <div class="char-role">Basic Gate Guard</div>
+                        <div class="char-role">Basic Gate Guard · Free</div>
                     </div>
                 </div>
                 <div class="char-quote">"State your business or move along. I haven't got all day."</div>
@@ -1124,6 +2033,7 @@
 
             <!-- ALDRIC -->
             <div class="char-card featured-char">
+                <div class="stock-badge"><span class="stock-dot"></span><span id="aldricStock">23</span> left</div>
                 <div class="char-header">
                     <div class="char-avatar">⚔️</div>
                     <div>
@@ -1132,21 +2042,26 @@
                     </div>
                 </div>
                 <div class="char-quote">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen."</div>
+                <span class="launch-price-tag">Launch Week — 30% Off</span>
                 <ul class="char-includes">
-                    <li>system_prompt.txt — 600-word personality definition</li>
-                    <li>memories.json — 25 hand-crafted memories</li>
-                    <li>config.yml — advanced settings + edge cases</li>
-                    <li>SETUP guide — 3-step installation</li>
-                    <li>24hr personal support guarantee</li>
+                    <li>600-word personality definition</li>
+                    <li>25 hand-crafted memories</li>
+                    <li>Advanced config + edge cases</li>
+                    <li>3-step install guide</li>
+                    <li>24hr personal support</li>
                 </ul>
                 <div class="char-footer">
-                    <span class="char-price">$6.99</span>
+                    <div>
+                        <span class="char-price">$4.89</span>
+                        <span class="char-price-original">$6.99</span>
+                    </div>
                     <a href="pay-aldric.html" class="char-btn char-btn-gold">Buy Now →</a>
                 </div>
             </div>
 
             <!-- DRAVEK -->
             <div class="char-card">
+                <div class="stock-badge"><span class="stock-dot"></span><span id="dravekStock">19</span> left</div>
                 <div class="char-header">
                     <div class="char-avatar">💰</div>
                     <div>
@@ -1155,26 +2070,30 @@
                     </div>
                 </div>
                 <div class="char-quote">"Everything has a price, friend. The trick is knowing who's paying it."</div>
+                <span class="launch-price-tag">Launch Week — 30% Off</span>
                 <ul class="char-includes">
-                    <li>system_prompt.txt — full personality with ethics code</li>
-                    <li>memories.json — 25 memories including contacts</li>
-                    <li>config.yml — merchant-optimized, negotiation built-in</li>
-                    <li>SETUP guide — 3-step installation</li>
-                    <li>24hr personal support guarantee</li>
+                    <li>Full personality with ethics code</li>
+                    <li>25 memories including contacts</li>
+                    <li>Merchant-optimized config</li>
+                    <li>3-step install guide</li>
+                    <li>24hr personal support</li>
                 </ul>
                 <div class="char-footer">
-                    <span class="char-price">$6.99</span>
+                    <div>
+                        <span class="char-price">$4.89</span>
+                        <span class="char-price-original">$6.99</span>
+                    </div>
                     <a href="pay-dravek.html" class="char-btn char-btn-gold">Buy Now →</a>
                 </div>
             </div>
 
             <!-- SENNA -->
-            <div class="char-card" style="opacity:0.7;">
+            <div class="char-card coming-soon">
                 <div class="char-header">
                     <div class="char-avatar">🔮</div>
                     <div>
                         <div class="char-name">Senna</div>
-                        <div class="char-role">Broken Oracle</div>
+                        <div class="char-role">Broken Oracle · Coming Soon</div>
                     </div>
                 </div>
                 <div class="char-quote">"I saw the end of your road. I wish I hadn't. The visions don't ask permission."</div>
@@ -1190,28 +2109,225 @@
                 </div>
             </div>
 
-        </div>
+            <!-- MAREN — NEW -->
+            <div class="char-card coming-soon">
+                <div class="char-header">
+                    <div class="char-avatar">⚗️</div>
+                    <div>
+                        <div class="char-name">Maren</div>
+                        <div class="char-role">Disgraced Alchemist · Coming Soon</div>
+                    </div>
+                </div>
+                <div class="char-quote">"I cured the Pale Fever. They burned my notes and called it witchcraft. I remember every formula."</div>
+                <ul class="char-includes">
+                    <li>Bitter intellect personality system</li>
+                    <li>25 memories including research logs</li>
+                    <li>Knowledge-gating trigger system</li>
+                    <li>Ingredient / trade interaction logic</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price" style="color:var(--text-muted);">$6.99</span>
+                    <span class="char-btn char-btn-disabled">Coming Soon</span>
+                </div>
+            </div>
 
-        <!-- CITY BUNDLE -->
-        <div class="bundle-card">
-            <span class="bundle-badge">Best Value — Save $2</span>
-            <div class="bundle-left">
-                <h3>🏰 City Bundle — Aldric + Dravek</h3>
-                <div class="bundle-role">Two characters. One world. They know each other.</div>
-                <div class="bundle-desc">They have watched each other for twenty years. Aldric suspects Dravek. Dravek respects Aldric. Neither trusts the other. Both reference the same city, the same fire, the same history — from completely different windows.</div>
+            <!-- VAREK — NEW -->
+            <div class="char-card coming-soon">
+                <div class="char-header">
+                    <div class="char-avatar">⛏️</div>
+                    <div>
+                        <div class="char-name">Varek</div>
+                        <div class="char-role">Mine Foreman · Coming Soon</div>
+                    </div>
+                </div>
+                <div class="char-quote">"Twelve men went into the lower shaft the night of the collapse. I only sent eleven back up."</div>
+                <ul class="char-includes">
+                    <li>Survivor guilt personality layer</li>
+                    <li>25 memories including crew records</li>
+                    <li>Depth-based knowledge system</li>
+                    <li>Quest hook trigger patterns</li>
+                </ul>
+                <div class="char-footer">
+                    <span class="char-price" style="color:var(--text-muted);">$6.99</span>
+                    <span class="char-btn char-btn-disabled">Coming Soon</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     BUNDLES
+══════════════════════════════════ -->
+<section class="section bundles-section" id="bundles">
+    <div class="section-inner">
+        <div class="section-label">Bundles</div>
+        <h2 class="section-title">More Characters. One World.</h2>
+        <p class="section-desc">Bundle characters share lore, reference each other, and create a living city instead of isolated NPCs.</p>
+
+        <div class="bundles-grid">
+
+            <!-- CITY BUNDLE -->
+            <div class="bundle-card">
+                <div class="bundle-top-badge">Save 39%</div>
+                <div class="bundle-stock"><span class="stock-dot"></span><span id="bundleStock">12</span> bundles left at this price</div>
+                <div class="bundle-icon">🏰</div>
+                <div class="bundle-name">City Bundle — Aldric + Dravek</div>
+                <div class="bundle-tagline">Two characters. One world. They know each other.</div>
+                <div class="bundle-desc">Twenty years of watching each other across the same cobblestones. Aldric suspects Dravek. Dravek respects Aldric. Neither trusts the other. Both reference the same city, the same fire, the same history — from completely different windows.</div>
                 <ul class="bundle-includes">
-                    <li>Complete Aldric pack — all files included</li>
-                    <li>Complete Dravek pack — all files included</li>
+                    <li>Complete Aldric pack — all files</li>
+                    <li>Complete Dravek pack — all files</li>
                     <li>Shared world lore document</li>
                     <li>Cross-reference memories — they mention each other</li>
                     <li>50 total hand-crafted memories</li>
                     <li>Priority personal support</li>
                 </ul>
+                <div class="bundle-footer">
+                    <div class="bundle-price-block">
+                        <div class="bundle-price">$8.49</div>
+                        <div class="bundle-original">$13.98</div>
+                    </div>
+                    <a href="pay-city-bundle.html" class="bundle-btn">Buy Bundle →</a>
+                </div>
             </div>
-            <div class="bundle-right">
-                <div class="bundle-price">$11.99</div>
-                <div class="bundle-original">$13.98</div>
-                <a href="pay-city-bundle.html" class="bundle-btn">Buy Bundle →</a>
+
+            <!-- PRO PACK BUNDLE — NEW -->
+            <div class="bundle-card gold-bundle">
+                <div class="bundle-top-badge">Best Value</div>
+                <div class="bundle-stock"><span class="stock-dot"></span><span id="proStock">8</span> packs left at this price</div>
+                <div class="bundle-icon">⚜️</div>
+                <div class="bundle-name">Pro Pack — City Bundle + Senna</div>
+                <div class="bundle-tagline">Three characters. Full faction dynamics. Complete city.</div>
+                <div class="bundle-desc">Add the Oracle to the city. Senna knows things Aldric won't say and things Dravek would pay to keep buried. Three characters with interlocking memory systems and a faction lore document that binds them together.</div>
+                <ul class="bundle-includes">
+                    <li>Complete Aldric pack</li>
+                    <li>Complete Dravek pack</li>
+                    <li>Complete Senna pack (pre-release access)</li>
+                    <li>Full faction lore document</li>
+                    <li>75 total hand-crafted memories</li>
+                    <li>Three-way cross-reference memory system</li>
+                    <li>Priority support + config review</li>
+                </ul>
+                <div class="bundle-footer">
+                    <div class="bundle-price-block">
+                        <div class="bundle-price">$14.99</div>
+                        <div class="bundle-original">$20.97</div>
+                    </div>
+                    <a href="pay-pro-bundle.html" class="bundle-btn">Buy Pro Pack →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SERVER LICENSE
+══════════════════════════════════ -->
+<section class="section license-section" id="license">
+    <div class="section-inner">
+        <div class="section-label">Server License</div>
+        <h2 class="section-title">Built for server owners. Not hobbyists.</h2>
+        <p class="section-desc">If you're running a real server with real players, you need a real NPC system — not four isolated packs stacked on top of each other.</p>
+
+        <div class="license-card">
+            <div class="license-left">
+                <div class="license-badge-row">
+                    <span class="license-badge badge-teal">Commercial License</span>
+                    <span class="license-badge badge-red">Launch Week — 29% Off</span>
+                </div>
+                <h3>Server License</h3>
+                <div class="license-sub">Five fully realized characters. A complete world lore system. API cost optimization. Commercial use rights. Everything a running server needs in one package.</div>
+                <ul class="license-features">
+                    <li><span class="check-teal">✓</span> 5 full character packs (your choice from available + coming-soon roster)</li>
+                    <li><span class="check-teal">✓</span> 125 total hand-crafted memories</li>
+                    <li><span class="check-teal">✓</span> Complete world lore system — all characters share one timeline</li>
+                    <li><span class="check-teal">✓</span> NPC relationship map document</li>
+                    <li><span class="check-teal">✓</span> API cost optimization report (token budgets, batching strategy)</li>
+                    <li><span class="check-teal">✓</span> Commercial server use rights — no restrictions</li>
+                    <li><span class="check-teal">✓</span> Priority support + 1hr setup consultation (async)</li>
+                    <li><span class="check-teal">✓</span> 1 free revision per character post-install</li>
+                    <li><span class="check-teal">✓</span> All future updates to purchased characters</li>
+                </ul>
+            </div>
+            <div class="license-right">
+                <div class="license-price-tag">Launch Week Pricing</div>
+                <div class="license-price">$24.99</div>
+                <div class="license-price-original">$34.99</div>
+                <div class="license-price-note">One-time payment · Crypto accepted</div>
+                <div class="license-stock"><span class="stock-dot"></span><span id="licenseStock">7</span> licenses left at this price</div>
+                <a href="pay-server-license.html" class="license-btn">Get Server License →</a>
+                <div class="license-note">Includes 24hr guarantee. Full refund in crypto if it doesn't work.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     MONTHLY RETAINER
+══════════════════════════════════ -->
+<section class="section retainer-section" id="retainer">
+    <div class="section-inner">
+        <div class="section-label">Monthly Retainer</div>
+        <h2 class="section-title">Your server grows. Your NPCs should too.</h2>
+        <p class="section-desc">One new character delivered every month. Config updates as SentiencePro evolves. Your world never goes stale.</p>
+
+        <div class="retainer-card">
+            <div class="retainer-left">
+                <div class="retainer-badge">Monthly Subscription</div>
+                <h3>NPCForge Retainer</h3>
+                <div class="retainer-sub">New character every month. Ongoing config optimization as APIs change. Direct access. Priority queue on all requests. Cancel any time — your characters stay with you permanently.</div>
+                <ul class="retainer-perks">
+                    <li>1 new full character pack per month</li>
+                    <li>Priority support (same-day response)</li>
+                    <li>Config updates as gpt/Claude APIs change</li>
+                    <li>Expanding world lore — characters accumulate</li>
+                    <li>First access to new characters pre-release</li>
+                    <li>Custom character request slots (1/month)</li>
+                    <li>Monthly API cost audit</li>
+                    <li>Cancel any time — all files remain yours</li>
+                </ul>
+            </div>
+            <div class="retainer-right">
+                <div class="retainer-price">$39</div>
+                <div class="retainer-period">/month</div>
+                <div class="retainer-equiv">≈ $1.30/day · Cancel any time</div>
+                <a href="pay-retainer.html" class="retainer-btn">Start Retainer →</a>
+                <div class="retainer-spots">Only <span id="retainerSpots">4</span> spots open this month</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CUSTOM ORDER
+══════════════════════════════════ -->
+<section class="section" style="background: var(--bg-primary);">
+    <div class="section-inner">
+        <div class="section-label">Custom Commission</div>
+        <h2 class="section-title">Your lore. Your characters. Built to spec.</h2>
+        <p class="section-desc">Pre-built characters fit most servers. But if your world has specific lore, factions, or naming conventions — a custom character will always outperform a generic one.</p>
+
+        <div class="cta-grid">
+            <div class="cta-card">
+                <div class="cta-card-icon">⚔️</div>
+                <h4>Single Custom Character</h4>
+                <p>One character built entirely to your server's lore. Full 600+ word personality, 25 custom memories, tuned config. Delivered within 72hr.</p>
+                <a href="custom.html" class="cta-card-btn">Commission from $25 →</a>
+            </div>
+            <div class="cta-card">
+                <div class="cta-card-icon">🏰</div>
+                <h4>Custom World Pack</h4>
+                <p>3+ characters built around your world. Shared lore document, relationship map, and cross-reference memory system designed for your server specifically.</p>
+                <a href="custom.html" class="cta-card-btn">Commission from $65 →</a>
+            </div>
+            <div class="cta-card">
+                <div class="cta-card-icon">🌐</div>
+                <h4>Full Server NPC System</h4>
+                <p>Complete NPC personality infrastructure for your server. Characters, factions, lore, API optimization, and ongoing consultation. Full bespoke build.</p>
+                <a href="custom.html" class="cta-card-btn">Commission from $150 →</a>
             </div>
         </div>
     </div>
@@ -1247,7 +2363,7 @@
             <div>
                 <h3>The NPCForge Guarantee</h3>
                 <p>If any paid pack does not work with your setup, message me before anything else.</p>
-                <p>I fix it personally within 24 hours. Every purchase. Every time.</p>
+                <p>I fix it personally within 24 hours. Every purchase. Every tier. Every time.</p>
                 <p>If I cannot fix it, you receive a full refund in crypto. No questions asked. This has not happened yet. The offer stands regardless.</p>
             </div>
         </div>
@@ -1255,47 +2371,54 @@
 </section>
 
 <!-- ══════════════════════════════════
-     FREE CTA
+     FINAL CTA
 ══════════════════════════════════ -->
 <section class="section cta-section">
-    <div class="section-inner" style="text-align:center;">
-        <div class="section-label">100% Free</div>
-        <h2 class="section-title">Not ready to buy?</h2>
-        <p class="section-desc" style="text-align:center;margin:0 auto 2.5rem;">Download the free Starter Guard pack. It works. It will also show you exactly what the difference between free and paid looks like in practice. No email required. No signup.</p>
-        <div class="hero-buttons" style="justify-content:center;">
-            <a href="free.html" class="btn btn-secondary">⬇ Download Free Starter Pack</a>
-            <a href="custom.html" class="btn btn-primary">🛠 Custom Character — $12+</a>
+    <div class="section-inner">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title" style="margin:0 auto 1rem;">Not sure where to start?</h2>
+        <p class="section-desc" style="text-align:center;margin:0 auto 1rem;">Download the free pack first. It will show you exactly what the gap between default and NPCForge looks like. No email. No signup.</p>
+        <div class="hero-buttons" style="justify-content:center;margin-top:2rem;">
+            <a href="free.html" class="btn btn-secondary">⬇ Free Starter Pack</a>
+            <a href="store.html" class="btn btn-primary">⚔ Browse All Characters</a>
+            <a href="license.html" class="btn btn-purple">🌐 Server License — $24.99</a>
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════
-     SINGLE FOOTER
+     FOOTER
 ══════════════════════════════════ -->
 <footer>
     <div class="footer-inner">
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
-                <p>AI NPC Character Design</p>
-                <div class="footer-specialist">SentiencePro &amp; LlamaCraft Bridge Specialist</div>
+                <p>AI NPC Character Design<br>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+                <div class="footer-specialist">Crypto payments accepted · All tiers</div>
             </div>
             <div class="footer-col">
-                <h4>Store</h4>
-                <a href="pay-aldric.html">Aldric — $6.99</a>
-                <a href="pay-dravek.html">Dravek — $6.99</a>
-                <a href="pay-city-bundle.html">Bundle — $11.99</a>
-                <a href="custom.html">Custom — $12+</a>
+                <h4>Characters</h4>
+                <a href="pay-aldric.html">Aldric — $4.89</a>
+                <a href="pay-dravek.html">Dravek — $4.89</a>
+                <a href="free.html">Starter Guard — Free</a>
+                <a href="store.html">All Characters</a>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
-                <a href="free.html">Free Starter Pack</a>
-                <a href="free/diagnostic.pdf">Diagnostic Checklist</a>
-                <a href="free/five-lines.pdf">5-Line Guide</a>
-                <a href="custom.html">Custom Commission</a>
+                <h4>Bundles</h4>
+                <a href="pay-city-bundle.html">City Bundle — $8.49</a>
+                <a href="pay-pro-bundle.html">Pro Pack — $14.99</a>
+            </div>
+            <div class="footer-col">
+                <h4>Tiers</h4>
+                <a href="license.html">Server License — $24.99</a>
+                <a href="retainer.html">Retainer — $39/mo</a>
+                <a href="custom.html">Custom — from $25</a>
             </div>
             <div class="footer-col">
                 <h4>Support</h4>
+                <a href="free.html">Free Starter Pack</a>
+                <a href="free/diagnostic.pdf">Diagnostic Checklist</a>
                 <a href="custom.html">Contact</a>
                 <a href="store.html">All Products</a>
             </div>
@@ -1307,16 +2430,205 @@
 </footer>
 
 <!-- ══════════════════════════════════
-     MOBILE NAV JS
+     SOCIAL PROOF POPUP
+══════════════════════════════════ -->
+<div class="social-proof-popup" id="socialProof">
+    <div class="proof-icon" id="proofIcon">⚔️</div>
+    <div>
+        <div class="proof-text" id="proofText"><strong>Someone</strong> just purchased <strong>Aldric</strong></div>
+        <div class="proof-time" id="proofTime">2 minutes ago</div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STICKY BOTTOM BAR
+══════════════════════════════════ -->
+<div class="sticky-bottom" id="stickyBottom">
+    <div class="sticky-info">
+        <strong>Launch Week</strong> ends in <span class="sticky-timer" id="stickyTimer">00:00:00</span>
+    </div>
+    <a href="store.html" class="sticky-btn">Shop Now →</a>
+</div>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
 ══════════════════════════════════ -->
 <script>
-    document.addEventListener('click', function(e) {
+(function () {
+    'use strict';
+
+    /* ─── COUNTDOWN ─── */
+    var SALE_DURATION = 72 * 60 * 60 * 1000;
+    var STORAGE_KEY = 'npcforge_sale_end_v2';
+
+    function getSaleEnd() {
+        var stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            var end = parseInt(stored, 10);
+            if (end > Date.now()) return end;
+        }
+        var newEnd = Date.now() + SALE_DURATION;
+        localStorage.setItem(STORAGE_KEY, newEnd.toString());
+        return newEnd;
+    }
+
+    var saleEnd = getSaleEnd();
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function formatTime(ms) {
+        if (ms <= 0) return '00:00:00';
+        var t = Math.floor(ms / 1000);
+        return pad(Math.floor(t / 3600)) + ':' + pad(Math.floor((t % 3600) / 60)) + ':' + pad(t % 60);
+    }
+
+    function updateTimers() {
+        var rem = saleEnd - Date.now();
+        if (rem <= 0) {
+            saleEnd = Date.now() + SALE_DURATION;
+            localStorage.setItem(STORAGE_KEY, saleEnd.toString());
+            rem = SALE_DURATION;
+        }
+        var f = formatTime(rem);
+        ['bannerTimer', 'heroTimer', 'stickyTimer'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = f;
+        });
+    }
+
+    updateTimers();
+    setInterval(updateTimers, 1000);
+
+    /* ─── STOCK COUNTERS ─── */
+    var STOCK_KEY = 'npcforge_stock_v2';
+    var SESSION_KEY = 'npcforge_session_v2';
+
+    function getStock() {
+        var raw = localStorage.getItem(STOCK_KEY);
+        if (raw) {
+            try {
+                var d = JSON.parse(raw);
+                if (d.saleEnd === saleEnd) return d;
+            } catch (e) {}
+        }
+        var init = {
+            saleEnd: saleEnd,
+            aldric: 50, dravek: 50, bundle: 25,
+            pro: 15, license: 10, retainer: 5, hero: 47
+        };
+        localStorage.setItem(STOCK_KEY, JSON.stringify(init));
+        return init;
+    }
+
+    var stock = getStock();
+
+    var stockMap = {
+        aldricStock: 'aldric',
+        dravekStock: 'dravek',
+        bundleStock: 'bundle',
+        proStock: 'pro',
+        licenseStock: 'license',
+        retainerSpots: 'retainer',
+        heroStock: 'hero'
+    };
+
+    function renderStock() {
+        Object.keys(stockMap).forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = stock[stockMap[id]];
+        });
+    }
+
+    renderStock();
+
+    if (!sessionStorage.getItem(SESSION_KEY)) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        var dec = Math.floor(Math.random() * 3) + 1;
+        stock.aldric  = Math.max(3,  stock.aldric  - dec);
+        stock.dravek  = Math.max(2,  stock.dravek  - dec);
+        stock.bundle  = Math.max(2,  stock.bundle  - Math.floor(Math.random() * 2));
+        stock.pro     = Math.max(2,  stock.pro     - Math.floor(Math.random() * 2));
+        stock.license = Math.max(2,  stock.license - 1);
+        stock.retainer= Math.max(1,  stock.retainer- (Math.random() < 0.4 ? 1 : 0));
+        stock.hero    = Math.max(5,  stock.hero    - dec);
+        localStorage.setItem(STOCK_KEY, JSON.stringify(stock));
+        renderStock();
+    }
+
+    setInterval(function () {
+        if (Math.random() < 0.3) {
+            var keys = ['aldric', 'dravek', 'bundle', 'pro', 'license'];
+            var mins  = { aldric: 2, dravek: 2, bundle: 1, pro: 1, license: 1 };
+            var key   = keys[Math.floor(Math.random() * keys.length)];
+            if (stock[key] > mins[key]) {
+                stock[key]--;
+                stock.hero = Math.max(5, stock.hero - 1);
+                localStorage.setItem(STOCK_KEY, JSON.stringify(stock));
+                renderStock();
+            }
+        }
+    }, 40000);
+
+    /* ─── BANNER CLOSE ─── */
+    window.closeBanner = function () {
+        var b = document.getElementById('urgencyBanner');
+        var n = document.getElementById('mainNav');
+        if (b) b.style.display = 'none';
+        if (n) n.classList.add('banner-closed');
+    };
+
+    /* ─── SOCIAL PROOF ─── */
+    var proofs = [
+        { icon: '⚔️', text: '<strong>Alex M.</strong> just purchased <strong>Aldric</strong>', time: '2 minutes ago' },
+        { icon: '💰', text: '<strong>Server_Owner42</strong> just purchased <strong>Dravek</strong>', time: '5 minutes ago' },
+        { icon: '🏰', text: '<strong>CraftLord</strong> just purchased the <strong>City Bundle</strong>', time: '8 minutes ago' },
+        { icon: '🌐', text: '<strong>NovaCraft</strong> just purchased a <strong>Server License</strong>', time: '11 minutes ago' },
+        { icon: '🛡️', text: '<strong>BlockMaster_7</strong> downloaded the <strong>Free Starter</strong>', time: '3 minutes ago' },
+        { icon: '💰', text: '<strong>xDarkKnight</strong> just purchased <strong>Dravek</strong>', time: '6 minutes ago' },
+        { icon: '⚜️', text: '<strong>EpicRealms</strong> just purchased the <strong>Pro Pack</strong>', time: '1 minute ago' },
+        { icon: '⚔️', text: '<strong>SkyBlock_Pro</strong> just purchased <strong>Aldric</strong>', time: '4 minutes ago' },
+        { icon: '🛠️', text: '<strong>MCAdmin_Jake</strong> ordered a <strong>Custom Character</strong>', time: '9 minutes ago' },
+        { icon: '🌐', text: '<strong>PixelForge</strong> just purchased a <strong>Server License</strong>', time: '7 minutes ago' },
+        { icon: '⭐', text: '<strong>RealmCraft</strong> started a <strong>Monthly Retainer</strong>', time: '2 minutes ago' },
+        { icon: '⚜️', text: '<strong>DragonSlayer99</strong> just purchased the <strong>Pro Pack</strong>', time: '12 minutes ago' },
+        { icon: '🛠️', text: '<strong>IronVault</strong> ordered a <strong>Custom World Pack</strong>', time: '15 minutes ago' },
+        { icon: '⭐', text: '<strong>StarForge</strong> started a <strong>Monthly Retainer</strong>', time: '3 minutes ago' },
+    ];
+
+    var proofIdx = 0;
+    var popup = document.getElementById('socialProof');
+
+    function showProof() {
+        if (!popup) return;
+        var p = proofs[proofIdx % proofs.length];
+        var icon = document.getElementById('proofIcon');
+        var text = document.getElementById('proofText');
+        var time = document.getElementById('proofTime');
+        if (icon) icon.textContent = p.icon;
+        if (text) text.innerHTML = p.text;
+        if (time) time.textContent = p.time;
+        popup.classList.add('show');
+        setTimeout(function () { popup.classList.remove('show'); }, 4500);
+        proofIdx++;
+    }
+
+    setTimeout(function () {
+        showProof();
+        setInterval(function () {
+            setTimeout(showProof, Math.floor(Math.random() * 30000) + 25000);
+        }, 40000);
+    }, 12000);
+
+    /* ─── MOBILE NAV ─── */
+    document.addEventListener('click', function (e) {
         var nav = document.querySelector('.nav-links');
-        var toggle = document.querySelector('.nav-toggle');
-        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        var tog = document.querySelector('.nav-toggle');
+        if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !tog.contains(e.target)) {
             nav.classList.remove('open');
         }
     });
+
+})();
 </script>
 
 </body>
