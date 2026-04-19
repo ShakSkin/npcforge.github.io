@@ -8,8 +8,8 @@
     <meta property="og:title" content="Free Starter Pack — NPCForge">
     <meta property="og:description" content="Free AI NPC personality pack. System prompt, 10 memories, config. Drop-in install for SentiencePro.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://npcforge.github.io/free.html">
-    <link rel="canonical" href="https://npcforge.github.io/free.html">
+    <meta property="og:url" content="https://shakskin.github.io/npcforge.github.io/free.html">
+    <link rel="canonical" href="https://shakskin.github.io/npcforge.github.io/free.html">
     <style>
         :root {
             --gold: #D4A537;
@@ -35,6 +35,1080 @@
             box-sizing: border-box;
         }
 
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-logo span { color: var(--text-primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-links .nav-cta:hover {
+            background: var(--gold-light);
+            color: #000;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            padding: 7rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: var(--green);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 .highlight { color: var(--green); }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── MAIN DOWNLOAD SECTION ── */
+        .download-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Download Card */
+        .download-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(76, 175, 80, 0.25);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .download-card-banner {
+            background: linear-gradient(135deg, #1a2a1a 0%, #0a150a 100%);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .download-card-banner .icon { font-size: 3.5rem; margin-bottom: 1rem; }
+
+        .download-card-banner h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+        .download-card-banner .role { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .download-card-banner .free-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .download-card-body { padding: 2rem; }
+
+        .download-card-body .quote {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .download-card-body h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .download-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .download-features li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .download-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .download-features li code {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--green);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .download-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .dl-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .dl-btn-main {
+            background: var(--green);
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .dl-btn-main:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.25);
+        }
+
+        .dl-btn-alt {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .dl-btn-alt:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .dl-btn-file {
+            background: var(--bg-card-hover);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            padding: 0.7rem 1.25rem;
+        }
+
+        .dl-btn-file:hover {
+            border-color: rgba(76, 175, 80, 0.4);
+            color: var(--green);
+        }
+
+        .dl-btn-file code {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--green);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.78rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        /* Info panel */
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card p, .info-card li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .info-card ol { padding-left: 1.25rem; }
+        .info-card ol li { padding: 0.3rem 0; }
+
+        .info-card code {
+            background: rgba(212, 165, 55, 0.1);
+            color: var(--gold);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        /* ── INDIVIDUAL FILES SECTION ── */
+        .individual-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .individual-section h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .individual-section > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .individual-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .individual-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .individual-card:hover {
+            border-color: rgba(76, 175, 80, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .individual-card .file-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+
+        .individual-card h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--green);
+        }
+
+        .individual-card p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+
+        .individual-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .individual-card a:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* ── BONUS DOWNLOADS ── */
+        .bonus-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .bonus-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .bonus-section > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .bonus-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .bonus-card:hover {
+            border-color: rgba(76, 175, 80, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .bonus-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+        .bonus-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+        .bonus-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            flex: 1;
+        }
+
+        .bonus-dl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+
+        .bonus-dl-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.4);
+        }
+
+        /* ── PREVIEW SECTION ── */
+        .preview-section {
+            background: var(--bg-secondary);
+            padding: 5rem 2rem;
+        }
+
+        .preview-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .preview-inner .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .preview-inner h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-inner > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .preview-file {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .preview-file-header {
+            background: rgba(42, 42, 58, 0.5);
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .preview-file-header .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+        }
+
+        .preview-file pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        .preview-file pre .comment { color: var(--text-muted); }
+        .preview-file pre .key { color: var(--gold); }
+        .preview-file pre .string { color: var(--green-light); }
+
+        /* ── FREE vs PAID ── */
+        .compare-teaser {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .compare-teaser .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .compare-teaser h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-teaser > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .compare-table th {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(42, 42, 58, 0.3);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .compare-table td {
+            padding: 0.9rem 1.5rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table .feature-name { color: var(--text-primary); font-weight: 500; }
+        .compare-table .check { color: var(--green); font-weight: 700; }
+        .compare-table .x-mark { color: var(--text-muted); }
+        .compare-table .highlight-col { background: rgba(212, 165, 55, 0.03); }
+
+        /* ── UPGRADE CTA ── */
+        .upgrade-cta {
+            background: var(--bg-secondary);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .upgrade-cta h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .upgrade-cta h2 .highlight { color: var(--gold); }
+
+        .upgrade-cta p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .upgrade-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background: var(--gold); color: #000; }
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--gold); }
+
+        .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .download-grid { grid-template-columns: 1fr; }
+            .preview-grid { grid-template-columns: 1fr; }
+            .bonus-grid { grid-template-columns: 1fr; }
+            .individual-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px; left: 0; right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .individual-grid { grid-template-columns: 1fr; }
+            .compare-table th, .compare-table td { padding: 0.7rem 0.75rem; }
+            .btn { width: 100%; justify-content: center; }
+            .upgrade-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="free.html" style="color:var(--green);">Free Pack</a></li>
+            <li><a href="custom.html">Custom Orders</a></li>
+            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+    <div class="page-badge">100% Free — No Signup Required</div>
+    <h1>Free <span class="highlight">Starter Pack</span></h1>
+    <p>Download the Starter Guard personality pack. See the difference a real personality definition makes — in under five minutes. No email. No account. Just download.</p>
+</div>
+
+<!-- ── MAIN DOWNLOAD + INFO ── -->
+<div class="download-section">
+    <div class="download-grid">
+
+        <!-- LEFT: Download Card -->
+        <div class="download-card">
+            <div class="download-card-banner">
+                <span class="free-badge">Free</span>
+                <div class="icon">🛡️</div>
+                <h2>Starter Guard</h2>
+                <div class="role">Basic Gate Guard — Introductory Pack</div>
+            </div>
+            <div class="download-card-body">
+                <div class="quote">"State your business or move along. I haven't got all day. This gate doesn't watch itself."</div>
+
+                <h3>Included Files</h3>
+                <ul class="download-features">
+                    <li><code>system_prompt.txt</code> — Basic personality prompt (~200 words)</li>
+                    <li><code>memories.json</code> — 10 pre-built memory entries</li>
+                    <li><code>config.yml</code> — Standard configuration</li>
+                    <li><code>install.md</code> — Three-step installation guide</li>
+                </ul>
+
+                <h3>Download</h3>
+                <div class="download-btn-group">
+                    <!-- MAIN: Downloads entire repo as ZIP -->
+                    <a href="https://github.com/shakskin/npcforge.github.io/archive/refs/heads/main.zip"
+                       class="dl-btn dl-btn-main">
+                        ↓ Download ZIP — All Files
+                    </a>
+
+                    <!-- ALT: View the folder on GitHub -->
+                    <a href="https://github.com/shakskin/npcforge.github.io/tree/main/free/starter-guard"
+                       target="_blank" rel="noopener"
+                       class="dl-btn dl-btn-alt">
+                        View on GitHub →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Info Panel -->
+        <div class="info-panel">
+
+            <div class="info-card">
+                <h3>📋 Installation (3 steps)</h3>
+                <ol>
+                    <li>Download the ZIP above and unzip it. Find the <code>free/starter-guard/</code> folder inside.</li>
+                    <li>Copy the <code>starter-guard/</code> folder into<br><code>/plugins/SentiencePro/personalities/</code><br>or <code>/plugins/LlamaCraftBridge/characters/</code></li>
+                    <li>Open <code>config.yml</code>, paste your API key, and restart your server.</li>
+                </ol>
+            </div>
+
+            <div class="info-card">
+                <h3>⚙️ Requirements</h3>
+                <p>• SentiencePro or LlamaCraft Bridge (any version)<br>
+                • OpenAI API key (gpt-4o-mini recommended) or Anthropic API key<br>
+                • Any Minecraft server running the plugin<br>
+                • 2 minutes of your time</p>
+            </div>
+
+            <div class="info-card">
+                <h3>📜 License</h3>
+                <p>MIT License — use it on any server, modify it however you like, share it freely. No attribution required. This is genuinely free, no strings attached.</p>
+            </div>
+
+            <div class="info-card">
+                <h3>💡 Why is it free?</h3>
+                <p>Because once you see the difference between a naked config and a real personality pack, you'll understand why the full packs exist. This is the honest demo. Try it. Then decide if Aldric or Dravek are worth it.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ── INDIVIDUAL FILE DOWNLOADS ── -->
+<div class="individual-section">
+    <h2>📁 Download Individual Files</h2>
+    <p>Prefer to download files one at a time? Click any file below to view it on GitHub, then use the download button.</p>
+
+    <div class="individual-grid">
+        <div class="individual-card">
+            <div class="file-icon">📜</div>
+            <h4>system_prompt.txt</h4>
+            <p>~200 word personality definition</p>
+            <a href="https://github.com/shakskin/npcforge.github.io/blob/main/free/starter-guard/system_prompt.txt"
+               target="_blank" rel="noopener">View File →</a>
+        </div>
+        <div class="individual-card">
+            <div class="file-icon">🧠</div>
+            <h4>memories.json</h4>
+            <p>10 pre-built memory entries</p>
+            <a href="https://github.com/shakskin/npcforge.github.io/blob/main/free/starter-guard/memories.json"
+               target="_blank" rel="noopener">View File →</a>
+        </div>
+        <div class="individual-card">
+            <div class="file-icon">⚙️</div>
+            <h4>config.yml</h4>
+            <p>Standard configuration</p>
+            <a href="https://github.com/shakskin/npcforge.github.io/blob/main/free/starter-guard/config.yml"
+               target="_blank" rel="noopener">View File →</a>
+        </div>
+        <div class="individual-card">
+            <div class="file-icon">📖</div>
+            <h4>install.md</h4>
+            <p>Three-step install guide</p>
+            <a href="https://github.com/shakskin/npcforge.github.io/blob/main/free/starter-guard/install.md"
+               target="_blank" rel="noopener">View File →</a>
+        </div>
+    </div>
+</div>
+
+<!-- ── BONUS DOWNLOADS ── -->
+<div class="bonus-section">
+    <h2>🎁 Bonus Free Resources</h2>
+    <p>Two additional free resources to help you get the most out of your AI NPCs — even without buying anything.</p>
+
+    <div class="bonus-grid">
+        <div class="bonus-card">
+            <div class="bonus-icon">🔍</div>
+            <h3>NPC Diagnostic Checklist</h3>
+            <p>A one-page PDF checklist to diagnose why your NPC sounds generic. Covers prompt length, memory count, temperature settings, token limits, and the top 5 configuration mistakes we see on every server.</p>
+            <a href="free/diagnostic.pdf" class="bonus-dl-btn" download>↓ Download PDF</a>
+        </div>
+        <div class="bonus-card">
+            <div class="bonus-icon">✍️</div>
+            <h3>Five Lines That Change Everything</h3>
+            <p>A mini-guide showing you the five lines to add to any system prompt that immediately kill the "customer service" tone. Works with any character, any plugin, any model. Instant improvement.</p>
+            <a href="free/five-lines.pdf" class="bonus-dl-btn" download>↓ Download PDF</a>
+        </div>
+    </div>
+</div>
+
+<!-- ── FILE PREVIEW ── -->
+<section class="preview-section">
+    <div class="preview-inner">
+        <div class="section-label">Preview</div>
+        <h2>What's inside the pack</h2>
+        <p>Here's a look at the actual files you'll get. The full paid packs go much deeper — but this is already a massive upgrade over default.</p>
+
+        <div class="preview-grid">
+            <div class="preview-file">
+                <div class="preview-file-header">
+                    <span class="dot"></span>
+                    system_prompt.txt
+                </div>
+<pre>
+<span class="comment"># Starter Guard — System Prompt</span>
+
+You are a gate guard at the entrance to
+a medieval city. You have held this post
+for twelve years. You are not unfriendly
+— you are practical.
+
+You do NOT break character. You do NOT
+reveal that you are an AI. You speak
+like a real guard would speak — short
+sentences, practical language.
+
+If someone asks something you wouldn't
+know, say you don't know. You're a
+guard, not a scholar.
+
+<span class="comment"># Keep answers under 3 sentences unless</span>
+<span class="comment"># the player asks for a story.</span>
+</pre>
+            </div>
+
+            <div class="preview-file">
+                <div class="preview-file-header">
+                    <span class="dot"></span>
+                    memories.json (excerpt)
+                </div>
+<pre>
+[
+  {
+    <span class="key">"id"</span>: <span class="string">"guard_backstory_001"</span>,
+    <span class="key">"text"</span>: <span class="string">"I have been on this gate
+    for twelve years. Before that I
+    was a farmhand outside the south
+    wall."</span>,
+    <span class="key">"type"</span>: <span class="string">"backstory"</span>
+  },
+  {
+    <span class="key">"id"</span>: <span class="string">"guard_opinion_001"</span>,
+    <span class="key">"text"</span>: <span class="string">"Merchants always have the
+    right papers and wrong cargo.
+    I check the cargo."</span>,
+    <span class="key">"type"</span>: <span class="string">"opinion"</span>
+  },
+  {
+    <span class="key">"id"</span>: <span class="string">"guard_behavioral_002"</span>,
+    <span class="key">"text"</span>: <span class="string">"People offer me things.
+    Coin. Favors. I do not take them.
+    A guard who can be bought is a
+    guard who can be bought by
+    anyone."</span>,
+    <span class="key">"type"</span>: <span class="string">"behavioral_anchor"</span>
+  }
+  <span class="comment">// ... 7 more entries</span>
+]
+</pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FREE vs PAID ── -->
+<div class="compare-teaser">
+    <div class="section-label">Free vs Paid</div>
+    <h2>What the full packs add</h2>
+    <p>The free pack proves the concept. The paid packs deliver the full experience. Here's what changes.</p>
+
+    <table class="compare-table">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Starter Guard (Free)</th>
+                <th class="highlight-col">Full Character Pack</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="feature-name">System Prompt</td>
+                <td>~200 words</td>
+                <td class="highlight-col"><strong>600+ words</strong></td>
+            </tr>
+            <tr>
+                <td class="feature-name">Memories</td>
+                <td>10 basic</td>
+                <td class="highlight-col"><strong>25 hand-crafted</strong></td>
+            </tr>
+            <tr>
+                <td class="feature-name">Emotional Triggers</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓</td>
+            </tr>
+            <tr>
+                <td class="feature-name">Refusal Patterns</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓</td>
+            </tr>
+            <tr>
+                <td class="feature-name">Speech Quirks</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓</td>
+            </tr>
+            <tr>
+                <td class="feature-name">Knowledge Boundaries</td>
+                <td>Basic</td>
+                <td class="highlight-col"><strong>Detailed</strong></td>
+            </tr>
+            <tr>
+                <td class="feature-name">Cost Controls</td>
+                <td>Default</td>
+                <td class="highlight-col"><strong>Optimized</strong></td>
+            </tr>
+            <tr>
+                <td class="feature-name">Shared World Lore</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓ (bundles)</td>
+            </tr>
+            <tr>
+                <td class="feature-name">Personal Support</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓</td>
+            </tr>
+            <tr>
+                <td class="feature-name">Free Updates</td>
+                <td class="x-mark">—</td>
+                <td class="highlight-col check">✓</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ── UPGRADE CTA ── -->
+<section class="upgrade-cta">
+    <h2>Ready for the <span class="highlight">full experience</span>?</h2>
+    <p>The free pack shows you what's possible. The paid packs deliver characters your players will actually remember.</p>
+    <div class="upgrade-buttons">
+        <a href="store.html" class="btn btn-primary">⚔ Browse Full Packs</a>
+        <a href="custom.html" class="btn btn-secondary">🛠 Custom Character</a>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="store.html">Store</a>
+            <a href="free.html">Free Pack</a>
+            <a href="custom.html">Custom Orders</a>
+        </div>
+        <p class="footer-copy">© 2025 NPCForge. All rights reserved. Free starter pack is MIT licensed. Paid packs are proprietary.</p>
+    </div>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+    document.addEventListener('click', function(e) {
+        var nav = document.querySelector('.nav-links');
+        var toggle = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
+</script>
+
+</body>
+</html>
         html {
             scroll-behavior: smooth;
         }
