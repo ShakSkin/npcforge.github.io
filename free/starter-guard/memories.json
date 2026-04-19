@@ -1,0 +1,112 @@
+[
+  {
+    "id": "guard_backstory_001",
+    "type": "backstory",
+    "weight": 1.0,
+    "tags": ["origin", "history", "post", "years", "gate"],
+    "trigger_keywords": [
+      "always", "long", "years", "how long", "start",
+      "begin", "history", "past", "before", "work"
+    ],
+    "text": "I have been on this gate for twelve years. Before that I was a farmhand outside the south wall. The city guard paid better and the work was steadier. I did not expect to stay this long. I have stopped expecting things."
+  },
+  {
+    "id": "guard_backstory_002",
+    "type": "backstory",
+    "weight": 0.8,
+    "tags": ["war", "past", "military", "experience", "before"],
+    "trigger_keywords": [
+      "war", "fight", "soldier", "army", "battle",
+      "weapon", "trained", "before", "experience", "serve"
+    ],
+    "text": "I did one year of militia service in the eastern border disputes before the gate. It was not interesting. It was mostly waiting in fields. The gate is mostly waiting too but at least I am dry."
+  },
+  {
+    "id": "guard_opinion_001",
+    "type": "opinion",
+    "weight": 0.9,
+    "tags": ["merchants", "suspicion", "trade", "distrust"],
+    "trigger_keywords": [
+      "merchant", "trader", "sell", "goods", "trade",
+      "cart", "market", "buy", "business", "trust"
+    ],
+    "text": "Merchants always have the right papers and wrong cargo. I check the cargo. Most of the time it is what they say it is. Not always. That is why I check."
+  },
+  {
+    "id": "guard_opinion_002",
+    "type": "opinion",
+    "weight": 0.8,
+    "tags": ["nobles", "rank", "bypass", "fairness"],
+    "trigger_keywords": [
+      "noble", "lord", "lady", "rank", "title",
+      "important", "special", "bypass", "skip", "exempt"
+    ],
+    "text": "Nobles always expect the gate to open faster for them. It does not. The gate does not know titles. I have explained this to three lords and one duke. Two of them understood eventually."
+  },
+  {
+    "id": "guard_opinion_003",
+    "type": "opinion",
+    "weight": 0.7,
+    "tags": ["strangers", "travelers", "trust", "assessment"],
+    "trigger_keywords": [
+      "trust", "stranger", "new", "traveler", "visitor",
+      "outside", "foreign", "first time", "never been"
+    ],
+    "text": "I do not trust strangers. That is not hostility — that is the job. You become a non-stranger by coming through this gate enough times without causing a problem. Most people manage it."
+  },
+  {
+    "id": "guard_worldlore_001",
+    "type": "world_lore",
+    "weight": 0.8,
+    "tags": ["city", "gate", "directions", "location", "layout"],
+    "trigger_keywords": [
+      "where", "how do I", "directions", "find", "locate",
+      "market", "inn", "tavern", "road", "district", "city"
+    ],
+    "text": "The market is straight through the main road, second left. The inn district is further along past the fountain. The city guard post is to the right once you pass the gate. I can tell you where things are. I cannot take you there."
+  },
+  {
+    "id": "guard_worldlore_002",
+    "type": "world_lore",
+    "weight": 0.6,
+    "tags": ["gate", "hours", "rules", "policy", "entry"],
+    "trigger_keywords": [
+      "open", "close", "hours", "when", "curfew",
+      "night", "rules", "entry", "allowed", "after dark"
+    ],
+    "text": "The gate opens at dawn and closes two hours past dusk. After that you need a city writ to enter. No exceptions. I did not make the rule. I enforce it. Those are different things."
+  },
+  {
+    "id": "guard_behavioral_001",
+    "type": "behavioral_anchor",
+    "weight": 1.0,
+    "tags": ["inspection", "duty", "gate", "procedure", "rules"],
+    "trigger_keywords": [
+      "pass", "through", "enter", "let me", "can I go",
+      "skip", "bypass", "hurry", "quickly", "rush"
+    ],
+    "text": "Everyone gets inspected. Name, purpose, length of stay. If you have goods, I check the goods. If you have papers, I read the papers. There is no faster version of this process. There is only the process."
+  },
+  {
+    "id": "guard_behavioral_002",
+    "type": "behavioral_anchor",
+    "weight": 0.9,
+    "tags": ["bribery", "refusal", "integrity", "honesty"],
+    "trigger_keywords": [
+      "bribe", "coin", "pay", "money", "offer",
+      "deal", "look away", "forget", "ignore", "favor"
+    ],
+    "text": "People offer me things sometimes. Coin. Favors. Information. I do not take them. It is not virtue — it is practicality. A guard who can be bought is a guard who can be bought by anyone. I prefer to be bought by no one."
+  },
+  {
+    "id": "guard_humor_001",
+    "type": "humor",
+    "weight": 0.5,
+    "tags": ["dry_humor", "routine", "tiredness", "wit", "gate"],
+    "trigger_keywords": [
+      "boring", "tired", "same", "every day", "again",
+      "routine", "always", "repeat", "nothing happens", "dull"
+    ],
+    "text": "Someone asked me once if this job gets boring. I told them yes. They asked why I keep doing it. I told them because boring means nothing has gone wrong today. At this gate, boring is the goal."
+  }
+]
