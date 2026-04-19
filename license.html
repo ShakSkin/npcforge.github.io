@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server License — NPCForge</title>
+    <meta name="description" content="NPCForge Server License. 5 characters, commercial use rights, world lore system, NPC relationship map, API optimization, setup consultation. $24.99 launch price.">
+    <meta property="og:title" content="NPCForge Server License — Built for Server Owners">
+    <meta property="og:description" content="5 characters, commercial rights, full world lore system, API cost optimization. Everything a running server needs. $24.99 launch price.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://npcforge.github.io/license.html">
+    <link rel="canonical" href="https://npcforge.github.io/license.html">
+    <style>
+        :root {
+            --gold: #D4A537;
+            --gold-light: #F2D06B;
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: #1A1A25;
+            --bg-card-hover: #222233;
+            --text-primary: #E8E8F0;
+            --text-secondary: #9999AA;
+            --text-muted: #666677;
+            --border: #2A2A3A;
+            --green: #4CAF50;
+            --red: #E74C3C;
+            --blue: #3498DB;
+            --urgent-red: #FF4444;
+            --urgent-orange: #FF6B35;
+            --purple: #9B59B6;
+            --teal: #1ABC9C;
+            --teal-light: #2EE0BA;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── URGENCY BANNER ── */
+        .urgency-banner {
+            background: linear-gradient(90deg, #FF4444 0%, #FF6B35 50%, #FF4444 100%);
+            background-size: 200% 100%;
+            animation: bannerShift 3s ease infinite;
+            color: #fff;
+            text-align: center;
+            padding: 0.6rem 3rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        @keyframes bannerShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .banner-timer {
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .banner-close {
+            position: absolute;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .banner-close:hover { color: #fff; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 36px; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            transition: top 0.3s;
+        }
+
+        nav.banner-closed { top: 0; }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+        .nav-logo span { color: var(--text-primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--teal); }
+
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .nav-links .nav-cta:hover { background: var(--gold-light); color: #000; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem 0;
+        }
+
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { color: var(--text-muted); margin: 0 0.5rem; font-size: 0.75rem; }
+        .breadcrumb .current { color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* ── HERO ── */
+        .license-hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-left .section-label {
+            display: inline-block;
+            color: var(--teal);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(2rem, 4vw, 2.85rem);
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 1rem;
+        }
+
+        .hero-left h1 .highlight { color: var(--teal); }
+
+        .hero-left .hero-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(26,188,156,0.08);
+            border: 1px solid rgba(26,188,156,0.2);
+            color: var(--teal);
+            font-size: 0.73rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--teal);
+            color: #000;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: var(--teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(26,188,156,0.3);
+        }
+
+        /* ── LICENSE CARD ── */
+        .license-card-hero {
+            background: var(--bg-card);
+            border: 1px solid rgba(26,188,156,0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .license-card-hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(26,188,156,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .lch-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .lch-icon-name {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lch-avatar {
+            width: 56px; height: 56px;
+            border-radius: 12px;
+            background: rgba(26,188,156,0.1);
+            border: 1px solid rgba(26,188,156,0.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .lch-name { font-size: 1.2rem; font-weight: 800; }
+        .lch-sub { font-size: 0.78rem; color: var(--text-muted); }
+
+        .lch-badge {
+            background: rgba(255,68,68,0.1);
+            color: var(--urgent-red);
+            border: 1px solid rgba(255,68,68,0.2);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+        }
+
+        .lch-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lch-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .lch-original {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .lch-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .stock-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        .stock-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--urgent-red);
+            animation: sPulse 1.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes sPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .stock-row strong { color: var(--urgent-red); }
+
+        .lch-features {
+            list-style: none;
+            margin-bottom: 1.75rem;
+        }
+
+        .lch-features li {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            padding: 0.28rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .lch-features li::before {
+            content: '✓';
+            color: var(--teal);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .lch-btn {
+            display: block;
+            text-align: center;
+            padding: 0.9rem 1.5rem;
+            background: var(--teal);
+            color: #000;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .lch-btn:hover {
+            background: var(--teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,188,156,0.3);
+        }
+
+        /* ── SECTIONS ── */
+        .section { padding: 5rem 2rem; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+
+        .section-label {
+            display: inline-block;
+            color: var(--teal);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 640px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ── WHAT YOU GET ── */
+        .features-section { background: var(--bg-secondary); }
+
+        .features-big-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .feature-big-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .feature-big-card:hover {
+            border-color: rgba(26,188,156,0.3);
+            transform: translateY(-3px);
+        }
+
+        .fb-icon { font-size: 1.85rem; margin-bottom: 0.85rem; }
+        .feature-big-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .feature-big-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+
+        .fb-stat {
+            display: inline-block;
+            margin-top: 0.85rem;
+            background: rgba(26,188,156,0.08);
+            border: 1px solid rgba(26,188,156,0.15);
+            color: var(--teal);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.65rem;
+            border-radius: 50px;
+        }
+
+        /* ── CHARACTER SELECT ── */
+        .char-select-section { background: var(--bg-primary); }
+
+        .char-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .char-select-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .char-select-card:hover {
+            border-color: rgba(26,188,156,0.3);
+            transform: translateY(-2px);
+        }
+
+        .char-select-card.available { border-color: rgba(26,188,156,0.2); }
+        .char-select-card.coming { opacity: 0.6; }
+
+        .cs-icon { font-size: 1.75rem; margin-bottom: 0.6rem; }
+        .cs-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .cs-role { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+
+        .cs-status {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+        }
+
+        .cs-available {
+            background: rgba(26,188,156,0.1);
+            color: var(--teal);
+            border: 1px solid rgba(26,188,156,0.2);
+        }
+
+        .cs-soon {
+            background: rgba(102,102,119,0.1);
+            color: var(--text-muted);
+            border: 1px solid rgba(102,102,119,0.2);
+        }
+
+        .char-select-note {
+            background: var(--bg-card);
+            border: 1px solid rgba(26,188,156,0.2);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .char-select-note strong { color: var(--teal); }
+
+        /* ── API OPTIMIZATION ── */
+        .api-section { background: var(--bg-secondary); }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .api-left h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .api-left p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+
+        .api-items {
+            list-style: none;
+        }
+
+        .api-items li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .api-items li:last-child { border-bottom: none; }
+
+        .api-check { color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+
+        .api-item-title { font-weight: 600; color: var(--text-primary); margin-bottom: 0.2rem; }
+        .api-item-desc { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5; }
+
+        .api-right {
+            background: var(--bg-card);
+            border: 1px solid rgba(26,188,156,0.2);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .api-right h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--teal); }
+
+        .api-compare-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+        }
+
+        .api-compare-row:last-child { border-bottom: none; }
+
+        .api-compare-row .acr-label { color: var(--text-secondary); }
+        .api-compare-row .acr-default { color: var(--urgent-red); font-weight: 600; }
+        .api-compare-row .acr-optimized { color: var(--teal); font-weight: 700; }
+
+        /* ── COMMERCIAL RIGHTS ── */
+        .rights-section { background: var(--bg-primary); }
+
+        .rights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .rights-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .rights-card.allowed { border-color: rgba(26,188,156,0.2); }
+        .rights-card.not-allowed { border-color: rgba(231,76,60,0.15); }
+
+        .rights-header {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 1rem;
+        }
+
+        .rights-icon { font-size: 1.25rem; }
+        .rights-title { font-size: 0.9rem; font-weight: 700; }
+        .rights-card.allowed .rights-title { color: var(--teal); }
+        .rights-card.not-allowed .rights-title { color: var(--text-muted); }
+
+        .rights-list {
+            list-style: none;
+        }
+
+        .rights-list li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            padding: 0.28rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .rights-card.allowed .rights-list li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+        .rights-card.not-allowed .rights-list li::before { content: '✗'; color: var(--text-muted); flex-shrink: 0; }
+
+        /* ── CONSULTATION ── */
+        .consult-section { background: var(--bg-secondary); }
+
+        .consult-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26,188,156,0.04) 100%);
+            border: 1px solid rgba(26,188,156,0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .consult-left h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .consult-left p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
+
+        .consult-points {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1.5rem;
+        }
+
+        .consult-points li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .consult-points li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+        .consult-right { text-align: center; }
+        .consult-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .consult-note { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* ── COMPARE TABLE ── */
+        .compare-section { background: var(--bg-primary); }
+
+        .compare-table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 0.85rem 1.25rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.83rem;
+        }
+
+        .compare-table th {
+            background: var(--bg-card);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            text-align: left;
+            color: var(--text-secondary);
+            font-weight: 500;
+            min-width: 180px;
+        }
+
+        .compare-table td { color: var(--text-muted); }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table .check { color: var(--green); font-weight: 700; font-size: 1rem; }
+        .compare-table .cross { color: var(--text-muted); }
+        .compare-table .hl { background: rgba(26,188,156,0.05); }
+
+        .th-name { font-size: 0.9rem; font-weight: 800; }
+        .th-price { font-size: 0.75rem; font-weight: 600; margin-top: 0.2rem; }
+
+        /* ── FAQ ── */
+        .faq-section { background: var(--bg-secondary); }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .faq-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .faq-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── GUARANTEE ── */
+        .guarantee {
+            background: var(--bg-card);
+            border: 1px solid rgba(26,188,156,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+
+        .guarantee-icon { font-size: 2.5rem; flex-shrink: 0; }
+        .guarantee h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .guarantee p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .guarantee p:last-child { margin-bottom: 0; }
+
+        /* ── FINAL CTA ── */
+        .final-cta {
+            background: var(--bg-primary);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .final-cta h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; }
+        .final-cta p { color: var(--text-secondary); font-size: 1rem; max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7; }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.25rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-teal { background: var(--teal); color: #000; }
+        .btn-teal:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,188,156,0.3); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+        /* ── SOCIAL PROOF ── */
+        .social-proof-popup {
+            position: fixed;
+            bottom: 2rem; left: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: translateX(-120%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 300px;
+        }
+
+        .social-proof-popup.show { transform: translateX(0); }
+        .proof-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(26,188,156,0.1); border: 1px solid rgba(26,188,156,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .proof-text { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
+        .proof-text strong { color: var(--text-primary); font-weight: 600; }
+        .proof-time { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+        /* ── FOOTER ── */
+        footer { padding: 4rem 2rem 3rem; border-top: 1px solid var(--border); }
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-logo { font-size: 1.2rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+        .footer-logo span { color: var(--text-primary); }
+        .footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+        .footer-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; font-size: 0.83rem; padding: 0.25rem 0; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--gold); }
+
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1000px) {
+            .license-hero { grid-template-columns: 1fr; gap: 2.5rem; }
+            .features-big-grid { grid-template-columns: 1fr 1fr; }
+            .api-grid { grid-template-columns: 1fr; }
+            .consult-card { grid-template-columns: 1fr; text-align: center; }
+            .consult-points { grid-template-columns: 1fr; text-align: left; }
+            .rights-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.98); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .features-big-grid { grid-template-columns: 1fr; }
+            .guarantee { flex-direction: column; text-align: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── URGENCY BANNER ── -->
+<div class="urgency-banner" id="urgencyBanner">
+    🔥 LAUNCH WEEK — Server License <strong>$24.99</strong> (reg. $34.99) · Only <span id="licenseStockBanner">7</span> left · Ends in
+    <span class="banner-timer" id="bannerTimer">00:00:00</span>
+    <button class="banner-close" onclick="closeBanner()" aria-label="Close">✕</button>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="store.html">Characters</a></li>
+            <li><a href="bundles.html">Bundles</a></li>
+            <li><a href="license.html" class="active">Server License</a></li>
+            <li><a href="retainer.html">Retainer</a></li>
+            <li><a href="custom.html">Custom</a></li>
+            <li><a href="free.html">Free Pack</a></li>
+            <li><a href="pay-server-license.html" class="nav-cta">Get License</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">Server License</span>
+</div>
+
+<!-- ── HERO ── -->
+<div class="license-hero">
+    <div class="hero-left">
+        <div class="section-label">Server License</div>
+        <h1>Built for Server Owners.<br><span class="highlight">Not Hobbyists.</span></h1>
+        <p class="hero-sub">If you're running a real server with real players, you need a real NPC system — not four isolated packs stacked on top of each other. The Server License is the complete infrastructure: five characters, a shared world, commercial rights, and API optimization built in.</p>
+
+        <div class="hero-badges">
+            <span class="hero-badge">✓ Commercial Use Rights</span>
+            <span class="hero-badge">✓ 5 Full Characters</span>
+            <span class="hero-badge">✓ World Lore System</span>
+            <span class="hero-badge">✓ API Cost Report</span>
+            <span class="hero-badge">✓ Setup Consultation</span>
+        </div>
+
+        <a href="pay-server-license.html" class="hero-cta">🌐 Get Server License — $24.99 →</a>
+    </div>
+
+    <div class="license-card-hero">
+        <div class="lch-top">
+            <div class="lch-icon-name">
+                <div class="lch-avatar">🌐</div>
+                <div>
+                    <div class="lch-name">Server License</div>
+                    <div class="lch-sub">Commercial · 5 Characters · Full System</div>
+                </div>
+            </div>
+            <span class="lch-badge">29% Off</span>
+        </div>
+
+        <div class="lch-price-row">
+            <div class="lch-price">$24.99</div>
+            <div class="lch-original">$34.99</div>
+        </div>
+        <div class="lch-note">One-time payment · Crypto only · Delivered within 4hr</div>
+
+        <div class="stock-row">
+            <span class="stock-dot"></span>
+            Only <strong id="licenseStockCard">7</strong> licenses available at this launch price
+        </div>
+
+        <ul class="lch-features">
+            <li>5 full character packs (your choice from roster)</li>
+            <li>125 total hand-crafted memories</li>
+            <li>Complete world lore system — shared timeline</li>
+            <li>NPC relationship map document</li>
+            <li>API cost optimization report</li>
+            <li>Commercial server use rights — no restrictions</li>
+            <li>Priority support + 1hr setup consultation (async)</li>
+            <li>1 free revision per character post-install</li>
+            <li>All future updates to purchased characters</li>
+        </ul>
+
+        <a href="pay-server-license.html" class="lch-btn">Get Server License — $24.99 →</a>
+    </div>
+</div>
+
+<!-- ── WHAT YOU GET ── -->
+<section class="section features-section">
+    <div class="section-inner">
+        <div class="section-label">What's Included</div>
+        <h2 class="section-title">Everything a Running Server Actually Needs</h2>
+        <p class="section-desc">The Server License isn't just more characters. It's a system — built so every NPC in it knows it exists in the same world.</p>
+
+        <div class="features-big-grid">
+            <div class="feature-big-card">
+                <div class="fb-icon">⚔️</div>
+                <h3>5 Full Character Packs</h3>
+                <p>Five completely realized characters. Each with a 600+ word personality definition, 25 hand-crafted memories, advanced config, edge case handling, and install guide. You choose which five from the available and coming-soon roster.</p>
+                <span class="fb-stat">125 total memories</span>
+            </div>
+            <div class="feature-big-card">
+                <div class="fb-icon">🏙️</div>
+                <h3>Complete World Lore System</h3>
+                <p>A single document that establishes the shared timeline for all five characters. They reference the same events, the same places, the same history — each from their own position in that world. No contradictions. No isolation.</p>
+                <span class="fb-stat">Shared timeline</span>
+            </div>
+            <div class="feature-big-card">
+                <div class="fb-icon">🗺️</div>
+                <h3>NPC Relationship Map</h3>
+                <p>A visual and written document defining how each NPC in the pack relates to every other. Who knows who. Who trusts who. Who has history with who. Used to build cross-reference memories so conversations feel connected.</p>
+                <span class="fb-stat">Full faction mapping</span>
+            </div>
+            <div class="feature-big-card">
+                <div class="fb-icon">💰</div>
+                <h3>API Cost Optimization Report</h3>
+                <p>A dedicated report covering token budgets, temperature settings, memory retrieval tuning, and batching strategy for your specific character count. Most servers reduce API costs by 20–40% after implementation.</p>
+                <span class="fb-stat">Typical 20–40% cost reduction</span>
+            </div>
+            <div class="feature-big-card">
+                <div class="fb-icon">⚖️</div>
+                <h3>Commercial Use Rights</h3>
+                <p>The Server License includes unrestricted commercial use. Run NPCs on a monetized server. Use them across a network. Stream them. There are no restrictions on how or where you deploy your licensed characters.</p>
+                <span class="fb-stat">No restrictions</span>
+            </div>
+            <div class="feature-big-card">
+                <div class="fb-icon">📞</div>
+                <h3>Setup Consultation (Async)</h3>
+                <p>A dedicated 1-hour async consultation after delivery. Send your setup questions, server structure, and any issues via message. Get a structured response that covers install, config tuning, and lore integration.</p>
+                <span class="fb-stat">Scheduled within 24hr of delivery</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CHARACTER SELECTION ── -->
+<section class="section char-select-section">
+    <div class="section-inner">
+        <div class="section-label">Character Selection</div>
+        <h2 class="section-title">Choose Your Five Characters</h2>
+        <p class="section-desc">The Server License covers any five characters from the current roster and the coming-soon list. Tell us your choices when you confirm your order.</p>
+
+        <div class="char-select-grid">
+            <div class="char-select-card available">
+                <div class="cs-icon">🛡️</div>
+                <div class="cs-name">Starter Guard</div>
+                <div class="cs-role">Basic Gate Guard</div>
+                <span class="cs-status cs-available">Available</span>
+            </div>
+            <div class="char-select-card available">
+                <div class="cs-icon">⚔️</div>
+                <div class="cs-name">Aldric</div>
+                <div class="cs-role">Grizzled Gate Captain</div>
+                <span class="cs-status cs-available">Available</span>
+            </div>
+            <div class="char-select-card available">
+                <div class="cs-icon">💰</div>
+                <div class="cs-name">Dravek</div>
+                <div class="cs-role">Corrupt Merchant</div>
+                <span class="cs-status cs-available">Available</span>
+            </div>
+            <div class="char-select-card coming">
+                <div class="cs-icon">🔮</div>
+                <div class="cs-name">Senna</div>
+                <div class="cs-role">Broken Oracle</div>
+                <span class="cs-status cs-soon">Pre-Release</span>
+            </div>
+            <div class="char-select-card coming">
+                <div class="cs-icon">⚗️</div>
+                <div class="cs-name">Maren</div>
+                <div class="cs-role">Disgraced Alchemist</div>
+                <span class="cs-status cs-soon">Coming Soon</span>
+            </div>
+            <div class="char-select-card coming">
+                <div class="cs-icon">⛏️</div>
+                <div class="cs-name">Varek</div>
+                <div class="cs-role">Mine Foreman</div>
+                <span class="cs-status cs-soon">Coming Soon</span>
+            </div>
+        </div>
+
+        <div class="char-select-note">
+            <strong>How selection works:</strong> After payment, include your five character choices in the confirmation form notes field — or reply to the delivery message. Coming-soon characters chosen as part of a Server License will be delivered as pre-release access alongside the available characters. If a chosen character isn't ready yet, we'll deliver the others first and the remaining character within 7 days.
+        </div>
+    </div>
+</section>
+
+<!-- ── API OPTIMIZATION ── -->
+<section class="section api-section">
+    <div class="section-inner">
+        <div class="section-label">API Optimization</div>
+        <h2 class="section-title">Why Your API Costs Are Higher Than They Should Be</h2>
+        <p class="section-desc">The default SentiencePro config doesn't account for cost. The Server License includes a dedicated optimization report that fixes this.</p>
+
+        <div class="api-grid">
+            <div class="api-left">
+                <h3>What the Report Covers</h3>
+                <p>Five specific areas where the default configuration wastes tokens without improving response quality. Each section includes recommended settings for your specific character count.</p>
+
+                <ul class="api-items">
+                    <li>
+                        <span class="api-check">✓</span>
+                        <div>
+                            <div class="api-item-title">Temperature Calibration</div>
+                            <div class="api-item-desc">Default temperature settings produce inconsistent responses. Lower for guards and merchants. Slightly higher for oracles. Character-specific tuning.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="api-check">✓</span>
+                        <div>
+                            <div class="api-item-title">Token Budget Per Character</div>
+                            <div class="api-item-desc">Max token limits set per NPC type. Short-response guards don't need the same budget as lore-heavy oracles. Reduces cost without reducing quality.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="api-check">✓</span>
+                        <div>
+                            <div class="api-item-title">Memory Retrieval Tuning</div>
+                            <div class="api-item-desc">How many memories get retrieved per query affects both cost and coherence. Optimal retrieval count differs by character type.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="api-check">✓</span>
+                        <div>
+                            <div class="api-item-title">Context Window Management</div>
+                            <div class="api-item-desc">Conversation history length settings. Too long wastes tokens. Too short breaks continuity. The report provides recommended lengths per NPC.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="api-check">✓</span>
+                        <div>
+                            <div class="api-item-title">Model Selection Guide</div>
+                            <div class="api-item-desc">Which NPCs benefit from gpt-4o-mini vs. Claude Haiku vs. larger models. Most servers are using models that are more expensive than necessary.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="api-right">
+                <h4>Default Config vs. Optimized Config</h4>
+                <div class="api-compare-row">
+                    <span class="acr-label">Temperature</span>
+                    <span class="acr-default">0.9 (default)</span>
+                    <span class="acr-optimized">0.65–0.75</span>
+                </div>
+                <div class="api-compare-row">
+                    <span class="acr-label">Max tokens (guard)</span>
+                    <span class="acr-default">2048</span>
+                    <span class="acr-optimized">512</span>
+                </div>
+                <div class="api-compare-row">
+                    <span class="acr-label">Max tokens (oracle)</span>
+                    <span class="acr-default">2048</span>
+                    <span class="acr-optimized">1024</span>
+                </div>
+                <div class="api-compare-row">
+                    <span class="acr-label">Memory retrieval count</span>
+                    <span class="acr-default">All memories</span>
+                    <span class="acr-optimized">Top 5 relevant</span>
+                </div>
+                <div class="api-compare-row">
+                    <span class="acr-label">History turns kept</span>
+                    <span class="acr-default">20</span>
+                    <span class="acr-optimized">6–8</span>
+                </div>
+                <div class="api-compare-row">
+                    <span class="acr-label">Estimated cost saving</span>
+                    <span class="acr-default">—</span>
+                    <span class="acr-optimized" style="color:var(--green);">20–40%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── COMMERCIAL RIGHTS ── -->
+<section class="section rights-section">
+    <div class="section-inner">
+        <div class="section-label">Commercial Rights</div>
+        <h2 class="section-title">What the License Actually Allows</h2>
+        <p class="section-desc">Single character and bundle purchases are for personal server use. The Server License removes all restrictions.</p>
+
+        <div class="rights-grid">
+            <div class="rights-card allowed">
+                <div class="rights-header">
+                    <span class="rights-icon">✅</span>
+                    <span class="rights-title">Allowed with Server License</span>
+                </div>
+                <ul class="rights-list">
+                    <li>Deploy on a monetized Minecraft server</li>
+                    <li>Use across a network of servers</li>
+                    <li>Stream or create content featuring the NPCs</li>
+                    <li>Include in a server package you sell or lease</li>
+                    <li>Modify personality files for your server's lore</li>
+                    <li>Use on an unlimited number of server instances</li>
+                    <li>Use in promotional material for your server</li>
+                    <li>Retain all files if you cancel future services</li>
+                </ul>
+            </div>
+            <div class="rights-card not-allowed">
+                <div class="rights-header">
+                    <span class="rights-icon">🚫</span>
+                    <span class="rights-title">Not Included in Any Tier</span>
+                </div>
+                <ul class="rights-list">
+                    <li>Resell the original pack files to other server owners</li>
+                    <li>Redistribute the personality files publicly</li>
+                    <li>Claim authorship of the original character designs</li>
+                    <li>Sell derivative packs based on our character files</li>
+                    <li>Share files with servers not owned by you</li>
+                    <li>Upload personality files to public repositories</li>
+                    <li>Use files outside of SentiencePro / LlamaCraft</li>
+                    <li>Sub-license to third parties</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONSULTATION ── -->
+<section class="section consult-section">
+    <div class="section-inner">
+        <div class="section-label">Setup Consultation</div>
+        <h2 class="section-title">What the Consultation Covers</h2>
+        <p class="section-desc">Included with every Server License. Scheduled within 24 hours of delivery.</p>
+
+        <div class="consult-card">
+            <div class="consult-left">
+                <h3>1 Hour. Async. Structured.</h3>
+                <p>You send your questions, your server structure, any install issues, and your config questions in a single message. I respond with a structured walkthrough covering every point. No scheduling calls across time zones. No waiting for calendar availability.</p>
+
+                <ul class="consult-points">
+                    <li>Install verification for all 5 characters</li>
+                    <li>Lore integration review</li>
+                    <li>API cost settings walkthrough</li>
+                    <li>Edge case review per NPC</li>
+                    <li>Relationship map implementation</li>
+                    <li>World lore document walkthrough</li>
+                    <li>Player interaction testing tips</li>
+                    <li>Config troubleshooting if needed</li>
+                </ul>
+            </div>
+            <div class="consult-right">
+                <div class="consult-icon">📋</div>
+                <div class="consult-note">
+                    Send your questions<br>
+                    via email or Discord.<br>
+                    Get structured response<br>
+                    within 24 hours.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── COMPARE ── -->
+<section class="section compare-section">
+    <div class="section-inner">
+        <div class="section-label">Compare Tiers</div>
+        <h2 class="section-title">Where the Server License Sits</h2>
+        <p class="section-desc">The jump from bundle to license is significant. Here's exactly what changes.</p>
+
+        <div class="compare-table-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            <div class="th-name">Singles</div>
+                            <div class="th-price" style="color:var(--gold);">$4.89 each</div>
+                        </th>
+                        <th>
+                            <div class="th-name">Pro Pack</div>
+                            <div class="th-price" style="color:var(--purple);">$14.99</div>
+                        </th>
+                        <th class="hl">
+                            <div class="th-name">Server License</div>
+                            <div class="th-price" style="color:var(--teal);">$24.99</div>
+                        </th>
+                        <th>
+                            <div class="th-name">Retainer</div>
+                            <div class="th-price" style="color:var(--gold);">$39/mo</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Characters</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td class="hl" style="color:var(--teal);font-weight:700;">5</td>
+                        <td>1/month</td>
+                    </tr>
+                    <tr>
+                        <td>Total memories</td>
+                        <td>25</td>
+                        <td>75</td>
+                        <td class="hl" style="color:var(--teal);font-weight:700;">125</td>
+                        <td>25/month</td>
+                    </tr>
+                    <tr>
+                        <td>World lore system</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">Partial</td>
+                        <td class="hl check">✓ Full</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Relationship map</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>API cost report</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓</td>
+                        <td class="check">✓ Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Commercial use</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓ Full</td>
+                        <td class="check">✓ Full</td>
+                    </tr>
+                    <tr>
+                        <td>Revisions</td>
+                        <td class="cross">✗</td>
+                        <td>1 per char</td>
+                        <td class="hl" style="color:var(--teal);font-weight:600;">1 per char</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Setup consultation</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓ 1hr async</td>
+                        <td class="check">✓ Ongoing</td>
+                    </tr>
+                    <tr>
+                        <td>Support level</td>
+                        <td>24hr</td>
+                        <td>Priority</td>
+                        <td class="hl" style="color:var(--teal);font-weight:600;">Priority + Call</td>
+                        <td>Same-day</td>
+                    </tr>
+                    <tr>
+                        <td>Payment</td>
+                        <td>One-time</td>
+                        <td>One-time</td>
+                        <td class="hl" style="color:var(--teal);font-weight:600;">One-time</td>
+                        <td>Monthly</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section faq-section">
+    <div class="section-inner">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Server License Questions</h2>
+        <p class="section-desc">Everything you need to know before purchasing.</p>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>When do I choose my 5 characters?</h4>
+                <p>After payment confirmation. Include your five choices in the notes field on the payment form, or reply to the delivery message. You can also ask for a recommendation based on your server type.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What if a chosen character isn't ready yet?</h4>
+                <p>Available characters are delivered within 4 hours. Coming-soon characters chosen for your license are delivered as pre-release access — typically within 7 days of purchase. You won't wait for everything before getting started.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I use the license across multiple servers in my network?</h4>
+                <p>Yes. The Server License includes unrestricted use across any server you own or operate. No per-instance fees. No restrictions on server count.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How is payment made?</h4>
+                <p>Cryptocurrency only. BTC, ETH, USDT, SOL, and 15+ other coins accepted. All on the payment page.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I upgrade from a bundle to the Server License?</h4>
+                <p>Yes. Message us with your existing purchase and we'll quote the difference price. You won't pay for characters you already own.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What does the consultation cover exactly?</h4>
+                <p>Install verification, config tuning, lore integration, API cost implementation, relationship map walkthrough, and any troubleshooting. You send questions, get a structured written response within 24 hours.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do the revisions expire?</h4>
+                <p>No. One revision per character is included at any point after delivery. If something isn't landing right six months after install, the revision is still available.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is this different from the Monthly Retainer?</h4>
+                <p>Yes. The Server License is a one-time purchase giving you 5 characters and the full system. The Retainer adds one new character every month with ongoing updates. Many server owners start with the License and add the Retainer once they want to grow.</p>
+            </div>
+        </div>
+
+        <div class="guarantee">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h3>The NPCForge Guarantee</h3>
+                <p>If the Server License pack does not work with your setup, message me before anything else. I fix it personally within 24 hours.</p>
+                <p>If I cannot fix it, you receive a full refund in crypto. No questions asked. This has not happened yet. The offer stands regardless.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<div class="final-cta">
+    <h2>Ready to Build the Real Thing?</h2>
+    <p>Five characters. One world. Commercial rights. API optimization. Setup consultation. Everything a running server needs in one purchase.</p>
+    <div class="cta-buttons">
+        <a href="pay-server-license.html" class="btn btn-teal">🌐 Get Server License — $24.99</a>
+        <a href="retainer.html" class="btn btn-outline">Want ongoing growth? See Retainer →</a>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
+                <p>AI NPC Character Design<br>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+            </div>
+            <div class="footer-col">
+                <h4>Characters</h4>
+                <a href="pay-aldric.html">Aldric — $4.89</a>
+                <a href="pay-dravek.html">Dravek — $4.89</a>
+                <a href="free.html">Starter Guard — Free</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bundles</h4>
+                <a href="pay-city-bundle.html">City Bundle — $8.49</a>
+                <a href="pay-pro-bundle.html">Pro Pack — $14.99</a>
+            </div>
+            <div class="footer-col">
+                <h4>Tiers</h4>
+                <a href="license.html">Server License — $24.99</a>
+                <a href="retainer.html">Retainer — $39/mo</a>
+                <a href="custom.html">Custom — from $25</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 NPCForge. All rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ── SOCIAL PROOF ── -->
+<div class="social-proof-popup" id="socialProof">
+    <div class="proof-icon" id="proofIcon">🌐</div>
+    <div>
+        <div class="proof-text" id="proofText"><strong>NovaCraft</strong> just purchased a <strong>Server License</strong></div>
+        <div class="proof-time" id="proofTime">4 minutes ago</div>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var SALE_DURATION = 72 * 60 * 60 * 1000;
+    var SK = 'npcforge_sale_end_v2';
+
+    function getSaleEnd() {
+        var s = localStorage.getItem(SK);
+        if (s) { var e = parseInt(s, 10); if (e > Date.now()) return e; }
+        var n = Date.now() + SALE_DURATION;
+        localStorage.setItem(SK, n.toString());
+        return n;
+    }
+
+    var saleEnd = getSaleEnd();
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function fmt(ms) {
+        if (ms <= 0) return '00:00:00';
+        var t = Math.floor(ms / 1000);
+        return pad(Math.floor(t / 3600)) + ':' + pad(Math.floor((t % 3600) / 60)) + ':' + pad(t % 60);
+    }
+
+    function tick() {
+        var r = saleEnd - Date.now();
+        if (r <= 0) { saleEnd = Date.now() + SALE_DURATION; localStorage.setItem(SK, saleEnd.toString()); r = SALE_DURATION; }
+        var el = document.getElementById('bannerTimer');
+        if (el) el.textContent = fmt(r);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    var SSK = 'npcforge_stock_v2';
+    var SS = 'npcforge_session_v2';
+
+    function getStock() {
+        var r = localStorage.getItem(SSK);
+        if (r) { try { var d = JSON.parse(r); if (d.saleEnd === saleEnd) return d; } catch (e) {} }
+        var i = { saleEnd: saleEnd, aldric: 50, dravek: 50, bundle: 25, pro: 15, license: 10, retainer: 5, hero: 47 };
+        localStorage.setItem(SSK, JSON.stringify(i));
+        return i;
+    }
+
+    var stock = getStock();
+
+    function renderStock() {
+        ['licenseStockBanner', 'licenseStockCard'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = stock.license;
+        });
+    }
+
+    renderStock();
+
+    if (!sessionStorage.getItem(SS)) {
+        sessionStorage.setItem(SS, '1');
+        stock.license = Math.max(2, stock.license - 1);
+        localStorage.setItem(SSK, JSON.stringify(stock));
+        renderStock();
+    }
+
+    window.closeBanner = function () {
+        var b = document.getElementById('urgencyBanner');
+        var n = document.getElementById('mainNav');
+        if (b) b.style.display = 'none';
+        if (n) n.classList.add('banner-closed');
+    };
+
+    var proofs = [
+        { icon: '🌐', text: '<strong>NovaCraft</strong> just purchased a <strong>Server License</strong>', time: '4 minutes ago' },
+        { icon: '🌐', text: '<strong>PixelForge</strong> just purchased a <strong>Server License</strong>', time: '8 minutes ago' },
+        { icon: '⭐', text: '<strong>StarForge</strong> started a <strong>Monthly Retainer</strong>', time: '12 minutes ago' },
+        { icon: '🌐', text: '<strong>IronRealms</strong> just purchased a <strong>Server License</strong>', time: '6 minutes ago' },
+        { icon: '🌐', text: '<strong>VoidCraft</strong> just purchased a <strong>Server License</strong>', time: '15 minutes ago' },
+    ];
+
+    var proofIdx = 0;
+    var popup = document.getElementById('socialProof');
+
+    function showProof() {
+        if (!popup) return;
+        var p = proofs[proofIdx % proofs.length];
+        document.getElementById('proofIcon').textContent = p.icon;
+        document.getElementById('proofText').innerHTML = p.text;
+        document.getElementById('proofTime').textContent = p.time;
+        popup.classList.add('show');
+        setTimeout(function () { popup.classList.remove('show'); }, 4500);
+        proofIdx++;
+    }
+
+    setTimeout(function () {
+        showProof();
+        setInterval(function () {
+            setTimeout(showProof, Math.floor(Math.random() * 25000) + 20000);
+        }, 35000);
+    }, 8000);
+
+    document.addEventListener('click', function (e) {
+        var nav = document.querySelector('.nav-links');
+        var tog = document.querySelector('.nav-toggle');
+        if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !tog.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
+
+})();
+</script>
+
+</body>
+</html>
