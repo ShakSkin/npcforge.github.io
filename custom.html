@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Character Orders — NPCForge</title>
-    <meta name="description" content="Commission a custom AI NPC personality pack built to your specifications. Your world, your character, our expertise.">
-    <meta property="og:title" content="Custom Character Orders — NPCForge">
-    <meta property="og:description" content="We build custom AI NPC personality packs for your Minecraft server. Describe your character, we deliver a full pack.">
+    <title>Custom Character Commission — NPCForge</title>
+    <meta name="description" content="Commission a custom AI NPC character built entirely to your server's lore. Single characters from $25, world packs from $65, full server systems from $150.">
+    <meta property="og:title" content="Custom NPC Commission — NPCForge">
+    <meta property="og:description" content="Your lore. Your characters. Built to spec. Custom SentiencePro personality packs from $25.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://npcforge.github.io/custom.html">
     <link rel="canonical" href="https://npcforge.github.io/custom.html">
@@ -26,19 +26,15 @@
             --green: #4CAF50;
             --red: #E74C3C;
             --blue: #3498DB;
+            --urgent-red: #FF4444;
+            --urgent-orange: #FF6B35;
             --purple: #9B59B6;
-            --orange: #E67E22;
+            --purple-light: #B07CC6;
+            --teal: #1ABC9C;
         }
 
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -51,11 +47,9 @@
         /* ── NAV ── */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(10,10,15,0.97);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 0 2rem;
@@ -75,16 +69,13 @@
             font-weight: 700;
             color: var(--gold);
             text-decoration: none;
-            letter-spacing: 0.5px;
         }
 
-        .nav-logo span {
-            color: var(--text-primary);
-        }
+        .nav-logo span { color: var(--text-primary); }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.75rem;
             list-style: none;
             align-items: center;
         }
@@ -92,14 +83,12 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a:hover { color: var(--gold); }
 
         .nav-links .nav-cta {
             background: var(--gold);
@@ -107,13 +96,9 @@
             padding: 0.5rem 1.25rem;
             border-radius: 6px;
             font-weight: 600;
-            transition: background 0.2s;
         }
 
-        .nav-links .nav-cta:hover {
-            background: var(--gold-light);
-            color: #000;
-        }
+        .nav-links .nav-cta:hover { background: var(--gold-light); color: #000; }
 
         .nav-toggle {
             display: none;
@@ -124,53 +109,88 @@
             cursor: pointer;
         }
 
-        /* ── PAGE HEADER ── */
-        .page-header {
-            padding: 7rem 2rem 2rem;
-            text-align: center;
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5.5rem 2rem 0;
         }
 
-        .page-badge {
-            display: inline-block;
-            background: rgba(212, 165, 55, 0.1);
-            border: 1px solid rgba(212, 165, 55, 0.3);
-            color: var(--gold);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
             font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1.25rem;
+            transition: color 0.2s;
         }
 
-        .page-header h1 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            font-weight: 800;
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { color: var(--text-muted); margin: 0 0.5rem; font-size: 0.75rem; }
+        .breadcrumb .current { color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* ── PAGE HERO ── */
+        .custom-hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .hero-left .section-label {
+            display: inline-block;
+            color: var(--blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 0.75rem;
         }
 
-        .page-header h1 .highlight {
-            color: var(--gold);
+        .hero-left h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
         }
 
-        .page-header p {
+        .hero-left h1 .highlight { color: var(--gold); }
+
+        .hero-left .hero-sub {
             color: var(--text-secondary);
-            font-size: 1.05rem;
-            max-width: 620px;
-            margin: 0 auto;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-bottom: 1.75rem;
         }
 
-        /* ── SECTION UTILITIES ── */
-        .section {
-            padding: 5rem 2rem;
+        .hero-points {
+            list-style: none;
+            margin-bottom: 2rem;
         }
 
-        .section-inner {
-            max-width: 1100px;
-            margin: 0 auto;
+        .hero-points li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            border-bottom: 1px solid var(--border);
         }
+
+        .hero-points li:last-child { border-bottom: none; }
+
+        .hero-points li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── TIER CARDS ── */
+        .section { padding: 5rem 2rem; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
 
         .section-label {
             display: inline-block;
@@ -183,515 +203,337 @@
         }
 
         .section-title {
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
             font-weight: 700;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         .section-desc {
             color: var(--text-secondary);
             font-size: 1rem;
-            max-width: 600px;
+            max-width: 620px;
             margin-bottom: 2.5rem;
             line-height: 1.7;
         }
 
-        /* ── HOW IT WORKS ── */
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            position: relative;
-        }
+        /* ── CUSTOM TIERS ── */
+        .custom-tiers { background: var(--bg-secondary); }
 
-        .process-grid::before {
-            content: '';
-            position: absolute;
-            top: 2.5rem;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--border) 0%, var(--gold-dark) 50%, var(--border) 100%);
-            z-index: 0;
-        }
-
-        .process-step {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .process-step:hover {
-            border-color: rgba(212, 165, 55, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(212, 165, 55, 0.1);
-            border: 2px solid rgba(212, 165, 55, 0.3);
-            color: var(--gold);
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .process-step h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .process-step p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        /* ── PRICING TIERS ── */
-        .pricing-section {
-            background: var(--bg-secondary);
-        }
-
-        .pricing-grid {
+        .tiers-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            align-items: start;
         }
 
-        .pricing-card {
+        .tier-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 14px;
-            overflow: hidden;
-            transition: border-color 0.25s, transform 0.25s;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
+            position: relative;
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-        .pricing-card:hover {
+        .tier-card:hover {
+            border-color: rgba(212,165,55,0.3);
             transform: translateY(-4px);
         }
 
-        .pricing-card.featured {
-            border-color: rgba(212, 165, 55, 0.4);
+        .tier-card.featured-tier {
+            border-color: rgba(212,165,55,0.4);
+            background: linear-gradient(160deg, var(--bg-card) 0%, rgba(212,165,55,0.05) 100%);
         }
 
-        .pricing-card.featured:hover {
-            box-shadow: 0 12px 40px rgba(212, 165, 55, 0.1);
-        }
-
-        .pricing-header {
-            padding: 2rem 2rem 1.5rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .pricing-card.featured .pricing-header {
-            background: rgba(212, 165, 55, 0.03);
-            border-bottom-color: rgba(212, 165, 55, 0.15);
-        }
-
-        .pricing-tier-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
+        .tier-popular-badge {
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #000;
+            font-size: 0.62rem;
+            font-weight: 800;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 0.3rem 0.75rem;
+            padding: 0.28rem 1rem;
             border-radius: 50px;
-            margin-bottom: 1rem;
+            white-space: nowrap;
         }
 
-        .tier-standard {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--blue);
-            border: 1px solid rgba(52, 152, 219, 0.25);
+        .tier-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .tier-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .tier-tagline { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.4; }
+
+        .tier-price-row {
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.25rem;
         }
 
-        .tier-premium {
-            background: rgba(212, 165, 55, 0.1);
-            color: var(--gold);
-            border: 1px solid rgba(212, 165, 55, 0.3);
-        }
-
-        .tier-elite {
-            background: rgba(155, 89, 182, 0.1);
-            color: var(--purple);
-            border: 1px solid rgba(155, 89, 182, 0.25);
-        }
-
-        .pricing-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-header .price {
-            font-size: 2.25rem;
+        .tier-price {
+            font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 0.25rem;
+            color: var(--gold);
+            line-height: 1;
         }
 
-        .pricing-header .price-note {
+        .tier-price-note {
+            font-size: 0.75rem;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            margin-top: 0.2rem;
         }
 
-        .pricing-body {
-            padding: 1.5rem 2rem 2rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-features {
+        .tier-features {
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 1.75rem;
             flex: 1;
         }
 
-        .pricing-features li {
-            font-size: 0.875rem;
+        .tier-features li {
+            font-size: 0.82rem;
             color: var(--text-secondary);
-            padding: 0.4rem 0;
+            padding: 0.3rem 0;
             display: flex;
             align-items: flex-start;
             gap: 0.5rem;
+            line-height: 1.4;
         }
 
-        .pricing-features li::before {
+        .tier-features li::before {
             content: '✓';
             color: var(--green);
             font-weight: 700;
             flex-shrink: 0;
         }
 
-        .pricing-features li.extra::before {
-            content: '★';
-            color: var(--gold);
-        }
-
-        .pricing-btn {
+        .tier-delivery {
+            background: var(--bg-card-hover);
+            border-radius: 6px;
+            padding: 0.6rem 0.85rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            padding: 0.85rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
+        }
+
+        .tier-btn {
+            display: block;
             text-align: center;
-            width: 100%;
-        }
-
-        .pricing-btn-standard {
-            background: var(--blue);
-            color: #fff;
-        }
-
-        .pricing-btn-standard:hover {
-            background: #5dade2;
-            transform: translateY(-2px);
-        }
-
-        .pricing-btn-premium {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
             background: var(--gold);
             color: #000;
+            border: none;
+            cursor: pointer;
         }
 
-        .pricing-btn-premium:hover {
+        .tier-btn:hover {
             background: var(--gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+            transform: translateY(-1px);
         }
 
-        .pricing-btn-elite {
-            background: var(--purple);
-            color: #fff;
-        }
+        /* ── PROCESS ── */
+        .process-section { background: var(--bg-primary); }
 
-        .pricing-btn-elite:hover {
-            background: #a96bc4;
-            transform: translateY(-2px);
-        }
-
-        /* ── WHAT YOU PROVIDE ── */
-        .provide-grid {
+        .process-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            position: relative;
         }
 
-        .provide-card {
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: calc(12.5% + 14px);
+            right: calc(12.5% + 14px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            opacity: 0.2;
+        }
+
+        .process-step {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: border-color 0.2s;
         }
 
-        .provide-card h3 {
-            font-size: 1.1rem;
+        .process-step:hover { border-color: rgba(212,165,55,0.3); }
+
+        .process-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(212,165,55,0.1);
+            border: 2px solid rgba(212,165,55,0.3);
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin: 0 auto 1rem;
+        }
+
+        .process-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .process-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .process-step p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+
+        /* ── FORM ── */
+        .form-section { background: var(--bg-secondary); }
+
+        .form-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .form-sidebar {
+            position: sticky;
+            top: 5rem;
+        }
+
+        .form-sidebar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-sidebar-card h4 {
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .provide-list {
+        .form-sidebar-card p {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-sidebar-card p:last-child { margin-bottom: 0; }
+
+        .sidebar-list {
             list-style: none;
         }
 
-        .provide-list li {
-            font-size: 0.9rem;
+        .sidebar-list li {
+            font-size: 0.82rem;
             color: var(--text-secondary);
-            padding: 0.5rem 0;
+            padding: 0.28rem 0;
             display: flex;
             align-items: flex-start;
-            gap: 0.6rem;
-            line-height: 1.6;
+            gap: 0.5rem;
         }
 
-        .provide-list li .icon {
+        .sidebar-list li::before {
+            content: '→';
+            color: var(--gold);
             flex-shrink: 0;
-            margin-top: 2px;
         }
 
-        .provide-list li.required .icon {
-            color: var(--gold);
-        }
-
-        .provide-list li.optional .icon {
-            color: var(--text-muted);
-        }
-
-        .provide-tag {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            padding: 0.15rem 0.4rem;
-            border-radius: 3px;
-            margin-left: 0.25rem;
-            vertical-align: middle;
-        }
-
-        .tag-required {
-            background: rgba(212, 165, 55, 0.1);
-            color: var(--gold);
-        }
-
-        .tag-optional {
-            background: rgba(102, 102, 119, 0.1);
-            color: var(--text-muted);
-        }
-
-        /* ── EXAMPLES ── */
-        .examples-section {
-            background: var(--bg-secondary);
-        }
-
-        .examples-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .example-card {
+        /* ── COMMISSION FORM ── */
+        .commission-form-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: border-color 0.2s;
+            border-radius: 14px;
+            overflow: hidden;
         }
 
-        .example-card:hover {
-            border-color: rgba(212, 165, 55, 0.25);
-        }
-
-        .example-card .example-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .example-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .example-card .example-type {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .example-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            font-style: italic;
-            padding-left: 1rem;
-            border-left: 2px solid rgba(212, 165, 55, 0.2);
-        }
-
-        /* ── FAQ ── */
-        .faq-section {
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-
-        .faq-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .faq-item {
+        .form-header {
+            padding: 1.5rem 2rem;
             border-bottom: 1px solid var(--border);
-            padding: 1.25rem 0;
+            background: rgba(42,42,58,0.3);
         }
 
-        .faq-q {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
+        .form-header h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .form-header p { color: var(--text-muted); font-size: 0.8rem; }
 
-        .faq-q .toggle {
-            color: var(--gold);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            transition: transform 0.2s;
-        }
+        .form-body { padding: 2rem; }
 
-        .faq-a {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            display: none;
-            padding-top: 0.25rem;
-        }
-
-        .faq-item.open .faq-a {
-            display: block;
-        }
-
-        .faq-item.open .faq-q .toggle {
-            transform: rotate(45deg);
-        }
-
-        .faq-a a {
-            color: var(--gold);
-        }
-
-        /* ── CONTACT FORM ── */
-        .contact-section {
-            background: var(--bg-secondary);
-            padding: 5rem 2rem;
-        }
-
-        .contact-inner {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .contact-inner h2 {
-            font-size: 1.5rem;
+        .form-section-title {
+            font-size: 0.72rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-align: center;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .contact-inner > p {
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 0.95rem;
-        }
+        .form-section-title:first-child { margin-top: 0; }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+        .form-group { margin-bottom: 1.1rem; }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+            color: var(--text-secondary);
         }
 
-        .form-group label .label-optional {
+        .form-group label .required {
+            color: var(--urgent-red);
+            margin-left: 0.2rem;
+        }
+
+        .form-group label .hint {
             color: var(--text-muted);
             font-weight: 400;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
+            margin-left: 0.4rem;
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 0.85rem 1rem;
-            background: var(--bg-card);
+            padding: 0.72rem 0.9rem;
+            background: var(--bg-primary);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-family: inherit;
-            transition: border-color 0.2s;
             outline: none;
+            transition: border-color 0.2s;
+            appearance: none;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--gold);
         }
 
-        .form-group textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-
         .form-group select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239999AA' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666677' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 1rem center;
             padding-right: 2.5rem;
+            cursor: pointer;
         }
 
         .form-group select option {
@@ -699,28 +541,97 @@
             color: var(--text-primary);
         }
 
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .form-group textarea.tall { min-height: 130px; }
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
-        .form-hint {
-            font-size: 0.8rem;
+        .char-count {
+            text-align: right;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            margin-top: 0.4rem;
-            line-height: 1.5;
+            margin-top: 0.25rem;
         }
 
-        .form-submit-btn {
+        /* ── TONE SELECTOR ── */
+        .tone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .tone-btn {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tone-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .tone-btn.selected { background: rgba(212,165,55,0.1); border-color: var(--gold); color: var(--gold); }
+        .tone-btn .tone-icon { display: block; font-size: 1.1rem; margin-bottom: 0.2rem; }
+
+        /* ── PRICE ESTIMATOR ── */
+        .price-estimator {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .estimator-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .estimator-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 0.25rem 0;
+            color: var(--text-secondary);
+        }
+
+        .estimator-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem 0 0;
+            border-top: 1px solid var(--border);
+            margin-top: 0.5rem;
+            color: var(--gold);
+        }
+
+        /* ── SUBMIT ── */
+        .submit-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             width: 100%;
-            padding: 1rem 2rem;
+            padding: 0.9rem 1.5rem;
             border-radius: 8px;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             text-decoration: none;
             border: none;
@@ -728,565 +639,911 @@
             transition: all 0.2s;
             background: var(--gold);
             color: #000;
-            margin-top: 0.5rem;
         }
 
-        .form-submit-btn:hover {
+        .submit-btn:hover {
             background: var(--gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212,165,55,0.2);
         }
 
-        .form-note {
+        .submit-note {
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 1.25rem;
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
             line-height: 1.6;
         }
 
-        /* ── BUTTONS ── */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* ── EXAMPLES ── */
+        .examples-section { background: var(--bg-primary); }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
         }
 
-        .btn-primary {
-            background: var(--gold);
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            background: var(--gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
+        .example-card {
+            background: var(--bg-card);
             border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: border-color 0.2s;
         }
 
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            transform: translateY(-2px);
+        .example-card:hover { border-color: rgba(212,165,55,0.3); }
+
+        .example-avatar {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: rgba(212,165,55,0.1);
+            border: 1px solid rgba(212,165,55,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
+
+        .example-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .example-type { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+
+        .example-quote {
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-left: 0.85rem;
+            border-left: 2px solid rgba(212,165,55,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .example-tag {
+            display: inline-block;
+            background: rgba(212,165,55,0.08);
+            border: 1px solid rgba(212,165,55,0.15);
+            color: var(--gold);
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ── FAQ ── */
+        .faq-section { background: var(--bg-secondary); }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .faq-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .faq-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── GUARANTEE ── */
+        .guarantee {
+            background: var(--bg-card);
+            border: 1px solid rgba(212,165,55,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+
+        .guarantee-icon { font-size: 2.5rem; flex-shrink: 0; }
+        .guarantee h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .guarantee p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .guarantee p:last-child { margin-bottom: 0; }
 
         /* ── FOOTER ── */
         footer {
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 3rem;
             border-top: 1px solid var(--border);
-            text-align: center;
         }
 
-        .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
         }
 
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
+        .footer-brand .footer-logo {
+            font-size: 1.2rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem;
         }
 
-        .footer-links a:hover {
-            color: var(--gold);
+        .footer-brand .footer-logo span { color: var(--text-primary); }
+        .footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem; }
+
+        .footer-col h4 {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.75rem;
         }
 
-        .footer-copy {
-            color: var(--text-muted);
-            font-size: 0.8rem;
+        .footer-col a {
+            display: block; color: var(--text-muted); text-decoration: none;
+            font-size: 0.83rem; padding: 0.25rem 0; transition: color 0.2s;
         }
+
+        .footer-col a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .process-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (max-width: 1000px) {
+            .tiers-grid { grid-template-columns: 1fr 1fr; }
+            .process-grid { grid-template-columns: 1fr 1fr; }
+            .examples-grid { grid-template-columns: 1fr 1fr; }
+            .form-layout { grid-template-columns: 1fr; }
+            .form-sidebar { position: static; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
 
-            .process-grid::before {
-                display: none;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .provide-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 750px) {
+            .custom-hero { grid-template-columns: 1fr; gap: 2.5rem; }
+            .tiers-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .examples-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .tone-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 650px) {
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 15, 0.98);
-                flex-direction: column;
-                padding: 1.5rem 2rem;
-                gap: 1rem;
-                border-bottom: 1px solid var(--border);
+                display: none; position: absolute; top: 64px; left: 0; right: 0;
+                background: rgba(10,10,15,0.98); flex-direction: column;
+                padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border);
             }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .process-grid { grid-template-columns: 1fr; }
+            .guarantee { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAVIGATION ── -->
+<!-- ── NAV ── -->
 <nav>
     <div class="nav-inner">
-        <a href="index.html" class="nav-logo">NPC<span>Forge</span></a>
-        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="store.html">Store</a></li>
+            <li><a href="store.html">Characters</a></li>
+            <li><a href="license.html">Server License</a></li>
+            <li><a href="custom.html">Custom</a></li>
             <li><a href="free.html">Free Pack</a></li>
-            <li><a href="custom.html" style="color:var(--gold);">Custom Orders</a></li>
-            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+            <li><a href="store.html" class="nav-cta">Buy Now</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- ── PAGE HEADER ── -->
-<div class="page-header">
-    <div class="page-badge">Commission Service</div>
-    <h1>Custom <span class="highlight">Character</span> Orders</h1>
-    <p>Your world. Your character. Our expertise. We build fully realized AI NPC personality packs to your exact specifications — ready to drop into your server.</p>
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <a href="store.html">Store</a>
+    <span class="sep">›</span>
+    <span class="current">Custom Commission</span>
 </div>
 
-<!-- ── HOW IT WORKS ── -->
-<section class="section">
+<!-- ── HERO ── -->
+<div class="custom-hero">
+    <div class="hero-left">
+        <div class="section-label">Custom Commission</div>
+        <h1>Your Lore.<br>Your Characters.<br><span class="highlight">Built to Spec.</span></h1>
+        <p class="hero-sub">
+            Pre-built characters fit most servers. But if your world has specific lore, factions, naming conventions, or a story that doesn't map to anything in the store — a custom character will always outperform a generic one. Built from scratch. Delivered within 72 hours.
+        </p>
+        <ul class="hero-points">
+            <li>Written entirely around your server's existing lore</li>
+            <li>Full 600+ word personality definition from scratch</li>
+            <li>25 custom memories tailored to your world</li>
+            <li>Delivered within 72 hours — rush available</li>
+            <li>Crypto payment — all major coins accepted</li>
+            <li>Revision included — we get it right</li>
+            <li>24hr personal support after delivery</li>
+        </ul>
+        <a href="#commission-form" style="
+            display:inline-flex;align-items:center;gap:0.5rem;
+            padding:0.9rem 2rem;background:var(--gold);color:#000;
+            border-radius:8px;font-size:0.95rem;font-weight:700;
+            text-decoration:none;transition:all 0.2s;">
+            🛠 Start a Commission
+        </a>
+    </div>
+
+    <div>
+        <!-- QUICK TIER SUMMARY -->
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+            <div style="padding:1.25rem 1.75rem;background:rgba(42,42,58,0.4);border-bottom:1px solid var(--border);">
+                <div style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);">Commission Tiers</div>
+            </div>
+            <div style="padding:1.5rem 1.75rem;">
+
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border);">
+                    <div>
+                        <div style="font-weight:700;margin-bottom:0.2rem;">⚔️ Single Character</div>
+                        <div style="font-size:0.78rem;color:var(--text-muted);">1 character · 72hr delivery</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.25rem;font-weight:800;color:var(--gold);">$25+</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border);">
+                    <div>
+                        <div style="font-weight:700;margin-bottom:0.2rem;">🏰 World Pack</div>
+                        <div style="font-size:0.78rem;color:var(--text-muted);">3+ characters · Shared lore · 5 day delivery</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.25rem;font-weight:800;color:var(--gold);">$65+</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--border);">
+                    <div>
+                        <div style="font-weight:700;margin-bottom:0.2rem;">🌐 Full Server System</div>
+                        <div style="font-size:0.78rem;color:var(--text-muted);">5+ characters · Full lore · API consult</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.25rem;font-weight:800;color:var(--gold);">$150+</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;">
+                    <div>
+                        <div style="font-weight:700;margin-bottom:0.2rem;">⚡ Rush Delivery</div>
+                        <div style="font-size:0.78rem;color:var(--text-muted);">Any tier · Delivered within 24hr</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.25rem;font-weight:800;color:var(--urgent-orange);">+$15</div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="padding:1.25rem 1.75rem;background:rgba(212,165,55,0.04);border-top:1px solid var(--border);">
+                <div style="font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:0.5rem;">
+                    🛡️ Revision included · Crypto payment · 24hr support post-delivery
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── CUSTOM TIERS ── -->
+<section class="section custom-tiers">
     <div class="section-inner">
-        <div class="section-label">Process</div>
-        <h2 class="section-title">How it works</h2>
-        <p class="section-desc">Four steps from your idea to a working NPC personality. Most orders are delivered within 48 hours.</p>
+        <div class="section-label">Commission Tiers</div>
+        <h2 class="section-title">What Each Tier Includes</h2>
+        <p class="section-desc">Every commission is built from scratch. No templates. No copy-paste. Your lore from the first word.</p>
+
+        <div class="tiers-grid">
+
+            <!-- SINGLE CHARACTER -->
+            <div class="tier-card featured-tier">
+                <div class="tier-popular-badge">Most Ordered</div>
+                <div class="tier-icon">⚔️</div>
+                <div class="tier-name">Single Character</div>
+                <div class="tier-tagline">One fully realized NPC built entirely to your server's lore and naming conventions.</div>
+                <div class="tier-price-row">
+                    <div class="tier-price">$25+</div>
+                    <div class="tier-price-note">Crypto only · Final price quoted after brief</div>
+                </div>
+                <ul class="tier-features">
+                    <li>600+ word custom personality definition</li>
+                    <li>25 custom memory entries</li>
+                    <li>Tuned config for your server's tone</li>
+                    <li>Voice, mannerisms, speech quirks</li>
+                    <li>Knowledge boundaries mapped</li>
+                    <li>Emotional triggers defined</li>
+                    <li>Edge case responses pre-built</li>
+                    <li>3-step install guide</li>
+                    <li>1 revision included</li>
+                </ul>
+                <div class="tier-delivery">⏱ Delivered within 72 hours of brief confirmation</div>
+                <a href="#commission-form" class="tier-btn" onclick="preselectTier('single')">Commission Single Character →</a>
+            </div>
+
+            <!-- WORLD PACK -->
+            <div class="tier-card">
+                <div class="tier-icon">🏰</div>
+                <div class="tier-name">Custom World Pack</div>
+                <div class="tier-tagline">Three or more characters built around your world. Shared lore. Relationship maps. Cross-reference memories.</div>
+                <div class="tier-price-row">
+                    <div class="tier-price">$65+</div>
+                    <div class="tier-price-note">Crypto only · Final price quoted after brief</div>
+                </div>
+                <ul class="tier-features">
+                    <li>3+ custom characters (full 600+ words each)</li>
+                    <li>75+ custom memory entries total</li>
+                    <li>Shared lore document for your world</li>
+                    <li>NPC relationship map</li>
+                    <li>Cross-reference memory system</li>
+                    <li>Faction dynamics if applicable</li>
+                    <li>Priority support + config review</li>
+                    <li>1 revision per character included</li>
+                </ul>
+                <div class="tier-delivery">⏱ Delivered within 5 business days of brief confirmation</div>
+                <a href="#commission-form" class="tier-btn" onclick="preselectTier('world')">Commission World Pack →</a>
+            </div>
+
+            <!-- FULL SERVER SYSTEM -->
+            <div class="tier-card">
+                <div class="tier-icon">🌐</div>
+                <div class="tier-name">Full Server NPC System</div>
+                <div class="tier-tagline">Complete NPC personality infrastructure. Characters, factions, lore, API optimization, and ongoing consultation.</div>
+                <div class="tier-price-row">
+                    <div class="tier-price">$150+</div>
+                    <div class="tier-price-note">Crypto only · Quoted after detailed brief</div>
+                </div>
+                <ul class="tier-features">
+                    <li>5+ custom characters (full 600+ words each)</li>
+                    <li>125+ custom memory entries</li>
+                    <li>Full world lore system</li>
+                    <li>Faction dynamics and allegiance mapping</li>
+                    <li>API cost optimization strategy</li>
+                    <li>Commercial server use rights</li>
+                    <li>Setup consultation (async)</li>
+                    <li>Ongoing support for 30 days post-delivery</li>
+                    <li>Unlimited revisions during delivery</li>
+                </ul>
+                <div class="tier-delivery">⏱ Timeline agreed during brief — typically 7-10 days</div>
+                <a href="#commission-form" class="tier-btn" onclick="preselectTier('system')">Commission Full System →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="section process-section">
+    <div class="section-inner">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">From Brief to Delivery</h2>
+        <p class="section-desc">Four steps. Clear communication at every stage. No surprises.</p>
 
         <div class="process-grid">
             <div class="process-step">
-                <div class="step-number">1</div>
-                <h3>Describe</h3>
-                <p>Tell us about your character, your world, and what role this NPC fills. As much or as little detail as you want.</p>
+                <div class="process-num">1</div>
+                <div class="process-icon">📝</div>
+                <h3>Submit Your Brief</h3>
+                <p>Fill in the commission form below. Tell me about your world, the character's role, tone, and any specific requirements. More detail = better result.</p>
             </div>
             <div class="process-step">
-                <div class="step-number">2</div>
-                <h3>Pay</h3>
-                <p>Choose your tier and pay via cryptocurrency. We start building immediately after confirmation.</p>
+                <div class="process-num">2</div>
+                <div class="process-icon">💬</div>
+                <h3>Quote & Confirmation</h3>
+                <p>I'll reply within 24 hours with a final price quote and any clarifying questions. Once you confirm, payment is arranged in your chosen crypto.</p>
             </div>
             <div class="process-step">
-                <div class="step-number">3</div>
-                <h3>Build</h3>
-                <p>We craft the full personality pack — system prompt, memories, config — tailored to your character and world.</p>
+                <div class="process-num">3</div>
+                <div class="process-icon">⚙️</div>
+                <h3>Build & Review</h3>
+                <p>I build your character pack. You receive a preview of the personality definition before final delivery. One revision is included at every tier.</p>
             </div>
             <div class="process-step">
-                <div class="step-number">4</div>
-                <h3>Deliver</h3>
-                <p>You receive the complete pack. Install, test, and we'll help you tune it until it's perfect.</p>
+                <div class="process-num">4</div>
+                <div class="process-icon">📦</div>
+                <h3>Delivery & Support</h3>
+                <p>Complete pack delivered via your chosen contact. Install guide included. Personal support available for 24 hours post-delivery on any tier.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── PRICING TIERS ── -->
-<section class="section pricing-section">
-    <div class="section-inner">
-        <div class="section-label">Pricing</div>
-        <h2 class="section-title">Choose your tier</h2>
-        <p class="section-desc">Every tier includes a complete, working personality pack. Higher tiers add depth, complexity, and support.</p>
-
-        <div class="pricing-grid">
-            <!-- STANDARD -->
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <span class="pricing-tier-badge tier-standard">Standard</span>
-                    <h3>Single Character</h3>
-                    <div class="price">$12</div>
-                    <div class="price-note">per character</div>
-                </div>
-                <div class="pricing-body">
-                    <p class="pricing-desc">A solid custom character built to your description. Same quality as our store packs, tailored to your world.</p>
-                    <ul class="pricing-features">
-                        <li>600+ word custom system prompt</li>
-                        <li>25 hand-crafted memories</li>
-                        <li>Optimized config.yml</li>
-                        <li>Tailored to your server's lore</li>
-                        <li>1 round of revisions included</li>
-                        <li>Delivered within 48 hours</li>
-                        <li>Personal support</li>
-                    </ul>
-                    <a href="#order-form" class="pricing-btn pricing-btn-standard">Order Standard →</a>
-                </div>
-            </div>
-
-            <!-- PREMIUM -->
-            <div class="pricing-card featured">
-                <div class="pricing-header">
-                    <span class="pricing-tier-badge tier-premium">Premium</span>
-                    <h3>Deep Character</h3>
-                    <div class="price">$20</div>
-                    <div class="price-note">per character</div>
-                </div>
-                <div class="pricing-body">
-                    <p class="pricing-desc">For characters that need to carry conversations. Deeper backstory, more complex emotional logic, richer voice.</p>
-                    <ul class="pricing-features">
-                        <li>1000+ word deep system prompt</li>
-                        <li>40 hand-crafted memories</li>
-                        <li>Optimized config.yml</li>
-                        <li>Emotional trigger system</li>
-                        <li>Complex refusal patterns</li>
-                        <li>Speech quirks &amp; mannerisms</li>
-                        <li class="extra">Relationship dynamics</li>
-                        <li class="extra">3 rounds of revisions</li>
-                        <li>Delivered within 48 hours</li>
-                        <li>Priority support</li>
-                    </ul>
-                    <a href="#order-form" class="pricing-btn pricing-btn-premium">Order Premium →</a>
-                </div>
-            </div>
-
-            <!-- ELITE -->
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <span class="pricing-tier-badge tier-elite">Elite</span>
-                    <h3>Character Group</h3>
-                    <div class="price">$45</div>
-                    <div class="price-note">3 characters · shared lore</div>
-                </div>
-                <div class="pricing-body">
-                    <p class="pricing-desc">Three interconnected characters who share the same world. They reference each other, share history, and feel like a real cast.</p>
-                    <ul class="pricing-features">
-                        <li>3 premium-tier characters</li>
-                        <li>120 total memories across group</li>
-                        <li>Shared world lore document</li>
-                        <li>Cross-character references</li>
-                        <li>Each character knows the others</li>
-                        <li>All configs optimized together</li>
-                        <li class="extra">World bible included</li>
-                        <li class="extra">Unlimited revisions</li>
-                        <li>Delivered within 72 hours</li>
-                        <li>Priority support</li>
-                    </ul>
-                    <a href="#order-form" class="pricing-btn pricing-btn-elite">Order Elite →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── WHAT YOU PROVIDE ── -->
-<section class="section">
-    <div class="section-inner">
-        <div class="section-label">Your Input</div>
-        <h2 class="section-title">What we need from you</h2>
-        <p class="section-desc">The more you give us, the better the character. But even a short paragraph is enough to start.</p>
-
-        <div class="provide-grid">
-            <div class="provide-card">
-                <h3>📋 Required</h3>
-                <ul class="provide-list">
-                    <li class="required">
-                        <span class="icon">●</span>
-                        <span><strong>Character role</strong> — What does this NPC do? Guard, merchant, healer, bartender, etc.</span>
-                    </li>
-                    <li class="required">
-                        <span class="icon">●</span>
-                        <span><strong>Personality tone</strong> — Gruff? Friendly? Suspicious? Cryptic? A few words is enough.</span>
-                    </li>
-                    <li class="required">
-                        <span class="icon">●</span>
-                        <span><strong>Server context</strong> — Medieval? Fantasy? Sci-fi? What kind of world is this NPC living in?</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="provide-card">
-                <h3>💡 Optional (but helpful)</h3>
-                <ul class="provide-list">
-                    <li class="optional">
-                        <span class="icon">○</span>
-                        <span><strong>Backstory details</strong> — Any history, events, or relationships you want included.</span>
-                    </li>
-                    <li class="optional">
-                        <span class="icon">○</span>
-                        <span><strong>Speech examples</strong> — Lines you imagine them saying. Helps us nail the voice.</span>
-                    </li>
-                    <li class="optional">
-                        <span class="icon">○</span>
-                        <span><strong>Topics to avoid</strong> — Things this NPC should never discuss or always deflect.</span>
-                    </li>
-                    <li class="optional">
-                        <span class="icon">○</span>
-                        <span><strong>Relationships</strong> — Other NPCs or factions this character has opinions about.</span>
-                    </li>
-                    <li class="optional">
-                        <span class="icon">○</span>
-                        <span><strong>Secrets</strong> — Things the NPC knows but won't reveal easily.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── PAST EXAMPLES ── -->
+<!-- ── EXAMPLES ── -->
 <section class="section examples-section">
     <div class="section-inner">
-        <div class="section-label">Examples</div>
-        <h2 class="section-title">Characters we've built</h2>
-        <p class="section-desc">A sample of the types of custom characters we create. Every server is different — that's the point.</p>
+        <div class="section-label">Example Briefs</div>
+        <h2 class="section-title">The Kind of Characters We Build</h2>
+        <p class="section-desc">Custom commissions have ranged from classic fantasy to industrial steampunk to post-apocalyptic. If your world is specific, the character should be too.</p>
 
         <div class="examples-grid">
+
             <div class="example-card">
-                <div class="example-icon">⚒️</div>
-                <h3>Tormund</h3>
-                <div class="example-type">Dwarven Blacksmith · Medieval Fantasy</div>
-                <p>"This blade? Took me three weeks. Most smiths would've quit after the first fold cracked. I don't quit. That's why you're here and not at their forge."</p>
+                <div class="example-avatar">⚗️</div>
+                <div class="example-name">Disgraced Alchemist</div>
+                <div class="example-type">Custom Single · $28</div>
+                <div class="example-quote">"I cured the Pale Fever. They burned my notes and called it witchcraft. I remember every formula."</div>
+                <span class="example-tag">Bitter intellect</span>
+                <span class="example-tag">Knowledge-gating</span>
+                <span class="example-tag">Trade interactions</span>
             </div>
+
             <div class="example-card">
-                <div class="example-icon">🍺</div>
-                <h3>Mira</h3>
-                <div class="example-type">Tavern Owner · Knows Every Rumor</div>
-                <p>"Sit down, you look like death warmed over. I'll get you an ale. And while I pour, why don't you tell me who's chasing you? Don't lie — I'll know."</p>
+                <div class="example-avatar">🏴‍☠️</div>
+                <div class="example-name">Retired Pirate Captain</div>
+                <div class="example-type">Custom Single · $30</div>
+                <div class="example-quote">"I've sailed under six flags. None of them were mine. This port is the first honest thing I've owned."</div>
+                <span class="example-tag">Layered loyalty</span>
+                <span class="example-tag">Naval lore</span>
+                <span class="example-tag">Morally grey</span>
             </div>
+
             <div class="example-card">
-                <div class="example-icon">📚</div>
-                <h3>Archivist Venn</h3>
-                <div class="example-type">Reclusive Scholar · Ancient Library</div>
-                <p>"You want knowledge? Then be still. Be quiet. And for the love of all that's written, do not touch the books on the third shelf. Those are not for you. Not yet."</p>
+                <div class="example-avatar">🏭</div>
+                <div class="example-name">Factory Overseer</div>
+                <div class="example-type">Custom Single · $27</div>
+                <div class="example-quote">"The machines don't complain. They don't ask for days off. I respect that about them."</div>
+                <span class="example-tag">Steampunk world</span>
+                <span class="example-tag">Authoritarian tone</span>
+                <span class="example-tag">Class tension</span>
             </div>
+
+            <div class="example-card">
+                <div class="example-avatar">🌿</div>
+                <div class="example-name">Forest Spirit Keeper</div>
+                <div class="example-type">Custom Single · $32</div>
+                <div class="example-quote">"The trees remember everything. Every name carved, every fire started, every promise broken. I am their memory."</div>
+                <span class="example-tag">Non-human tone</span>
+                <span class="example-tag">Ancient speech</span>
+                <span class="example-tag">Lore-keeper</span>
+            </div>
+
+            <div class="example-card">
+                <div class="example-avatar">🔬</div>
+                <div class="example-name">Rogue Scientist Pack</div>
+                <div class="example-type">World Pack · $75 · 3 characters</div>
+                <div class="example-quote">"Three researchers. One lab. One explosion. None of them agree on who caused it."</div>
+                <span class="example-tag">Sci-fi server</span>
+                <span class="example-tag">Faction conflict</span>
+                <span class="example-tag">Shared lore</span>
+            </div>
+
+            <div class="example-card">
+                <div class="example-avatar">🏙️</div>
+                <div class="example-name">City Council System</div>
+                <div class="example-type">Full System · $165 · 5 characters</div>
+                <div class="example-quote">"Five council members. Five agendas. One city. Players can influence the balance of power through NPC interaction."</div>
+                <span class="example-tag">Political dynamics</span>
+                <span class="example-tag">Faction allegiances</span>
+                <span class="example-tag">Quest hooks</span>
+            </div>
+
         </div>
     </div>
 </section>
 
-<!-- ── ORDER FORM ── -->
-<section class="contact-section" id="order-form">
-    <div class="contact-inner">
-        <h2>Submit Your Order</h2>
-        <p>Fill out the form below. We'll review your request and send payment instructions. Most orders are delivered within 48 hours of payment.</p>
+<!-- ── COMMISSION FORM ── -->
+<section class="section form-section" id="commission-form">
+    <div class="section-inner">
+        <div class="section-label">Commission Form</div>
+        <h2 class="section-title">Tell Me About Your Server</h2>
+        <p class="section-desc">The more detail you provide, the better the character. There are no wrong answers — write like you're describing it to a friend.</p>
 
-        <form action="https://formsubmit.co/your-email@example.com" method="POST" id="custom-order-form">
-            <!-- FormSubmit config -->
-            <input type="hidden" name="_subject" value="NPCForge Custom Order">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://npcforge.github.io/success.html">
-            <input type="hidden" name="_template" value="table">
-            <!-- Honeypot -->
-            <input type="text" name="_honey" style="display:none">
+        <div class="form-layout">
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="contact-name">Your Name / Username</label>
-                    <input type="text" id="contact-name" name="name" placeholder="How should we address you?" required>
+            <!-- SIDEBAR -->
+            <div class="form-sidebar">
+
+                <div class="form-sidebar-card">
+                    <h4>💡 Tips for a Great Brief</h4>
+                    <ul class="sidebar-list">
+                        <li>Describe your world's tone — is it gritty, epic, comedic, mysterious?</li>
+                        <li>Tell me what the character does day to day, not just their job title</li>
+                        <li>Mention any other NPCs they interact with</li>
+                        <li>Include any lore events that shaped them</li>
+                        <li>Share example dialogue if you have it</li>
+                        <li>Tell me what players will mostly ask them about</li>
+                    </ul>
                 </div>
-                <div class="form-group">
-                    <label for="contact-email">Contact Email or Discord</label>
-                    <input type="text" id="contact-email" name="contact" placeholder="email@example.com or User#1234" required>
+
+                <div class="form-sidebar-card">
+                    <h4>⚡ What Happens After You Submit</h4>
+                    <p>I'll read your brief and reply within 24 hours with a final price quote and any clarifying questions. No payment until you confirm the quote.</p>
+                    <p>Once confirmed, half payment is due upfront, half on delivery — or full upfront for a 5% discount.</p>
+                </div>
+
+                <div class="form-sidebar-card">
+                    <h4>🔒 Payment</h4>
+                    <p>All payments in crypto. BTC, ETH, USDT, SOL, and 15+ other coins accepted. Full list on the payment page after quote confirmation.</p>
+                </div>
+
+                <div class="form-sidebar-card" style="border-color:rgba(212,165,55,0.2);">
+                    <h4>🛡️ The Guarantee</h4>
+                    <p>One revision is included at every tier. If the final pack doesn't match the brief after revision, full refund in crypto. No exceptions.</p>
+                </div>
+
+            </div>
+
+            <!-- FORM -->
+            <div class="commission-form-card">
+                <div class="form-header">
+                    <h2>Custom Commission Request</h2>
+                    <p>Fill in as much detail as you can. I'll reply within 24 hours.</p>
+                </div>
+
+                <div class="form-body">
+                    <form
+                        action="https://formsubmit.co/your-email@example.com"
+                        method="POST"
+                        id="commissionForm">
+
+                        <input type="hidden" name="_subject" value="NPCForge Custom Commission Request">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://npcforge.github.io/success.html?type=custom">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="text" name="_honey" style="display:none">
+
+                        <!-- CONTACT -->
+                        <div class="form-section-title">Your Contact Details</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email or Discord <span class="required">*</span></label>
+                                <input type="text" name="contact" placeholder="email@example.com or User#1234" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Preferred Contact Method</label>
+                                <select name="contact_method">
+                                    <option value="email">Email</option>
+                                    <option value="discord">Discord</option>
+                                    <option value="either">Either is fine</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- COMMISSION TYPE -->
+                        <div class="form-section-title">Commission Type</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Commission Tier <span class="required">*</span></label>
+                                <select name="commission_tier" id="tierSelect" onchange="updateEstimate()" required>
+                                    <option value="">— Select a tier —</option>
+                                    <option value="single">Single Character — from $25</option>
+                                    <option value="world">World Pack (3+ chars) — from $65</option>
+                                    <option value="system">Full Server System (5+ chars) — from $150</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Rush Delivery? <span class="hint">(+$15 — delivered within 24hr)</span></label>
+                                <select name="rush" id="rushSelect" onchange="updateEstimate()">
+                                    <option value="no">No — standard timeline</option>
+                                    <option value="yes">Yes — rush (+$15)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- WORLD INFO -->
+                        <div class="form-section-title">Your Server & World</div>
+
+                        <div class="form-group">
+                            <label>Server Name / World Name <span class="required">*</span></label>
+                            <input type="text" name="server_name" placeholder="e.g. Eldenvale SMP, The Iron Republic, VoidCraft..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>World Setting & Tone <span class="required">*</span> <span class="hint">(describe the vibe)</span></label>
+                            <textarea name="world_setting" class="tall"
+                                placeholder="e.g. Dark medieval fantasy with political intrigue. Think Game of Thrones meets Skyrim. The world is morally grey — no clear heroes. Players are adventurers operating in a city full of competing factions..."
+                                oninput="countChars(this, 'worldCount')" required></textarea>
+                            <div class="char-count"><span id="worldCount">0</span> characters</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Plugin In Use <span class="required">*</span></label>
+                            <select name="plugin" required>
+                                <option value="">— Select —</option>
+                                <option value="sentiencepro">SentiencePro</option>
+                                <option value="llamacraft">LlamaCraft Bridge</option>
+                                <option value="both">Both</option>
+                                <option value="unsure">Not sure yet</option>
+                            </select>
+                        </div>
+
+                        <!-- CHARACTER DETAILS -->
+                        <div class="form-section-title">Character Details</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Character Name(s) <span class="required">*</span></label>
+                                <input type="text" name="character_names" placeholder="e.g. Aldric, or 'open to suggestions'" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Character Role(s) <span class="required">*</span></label>
+                                <input type="text" name="character_roles" placeholder="e.g. Gate Captain, Merchant, Oracle..." required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Character Background <span class="required">*</span> <span class="hint">(who are they, what shaped them?)</span></label>
+                            <textarea name="character_background" class="tall"
+                                placeholder="e.g. Former soldier who survived the Battle of Irongate. Now guards the eastern gate out of loyalty to a city that has mostly forgotten him. Drinks too much. Distrusts merchants. Has a daughter he hasn't seen in three years..."
+                                oninput="countChars(this, 'bgCount')" required></textarea>
+                            <div class="char-count"><span id="bgCount">0</span> characters</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>What Will Players Mostly Ask This NPC About?</label>
+                            <textarea name="player_interactions"
+                                placeholder="e.g. Lore about the old war, directions around the city, rumors about the merchant guild, access through the gate..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Character Tone</label>
+                            <div class="tone-grid" id="toneGrid">
+                                <button type="button" class="tone-btn" onclick="selectTone('gruff', this)">
+                                    <span class="tone-icon">😤</span>Gruff
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('wise', this)">
+                                    <span class="tone-icon">🦉</span>Wise
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('sinister', this)">
+                                    <span class="tone-icon">😈</span>Sinister
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('melancholic', this)">
+                                    <span class="tone-icon">😔</span>Melancholic
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('jovial', this)">
+                                    <span class="tone-icon">😄</span>Jovial
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('mysterious', this)">
+                                    <span class="tone-icon">🔮</span>Mysterious
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('formal', this)">
+                                    <span class="tone-icon">🎩</span>Formal
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('unhinged', this)">
+                                    <span class="tone-icon">😵</span>Unhinged
+                                </button>
+                                <button type="button" class="tone-btn" onclick="selectTone('neutral', this)">
+                                    <span class="tone-icon">😐</span>Neutral
+                                </button>
+                            </div>
+                            <input type="hidden" name="character_tone" id="toneInput" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Other NPCs They Interact With <span class="hint">(for world packs — names and relationships)</span></label>
+                            <textarea name="npc_relationships"
+                                placeholder="e.g. Dravek the merchant — Aldric suspects him of bribery but can't prove it. Mira the innkeeper — old friend, she passes him information occasionally..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Secrets / Things They Won't Tell Players <span class="hint">(optional but important)</span></label>
+                            <textarea name="secrets"
+                                placeholder="e.g. He knows who really started the East Tower fire but was ordered to stay silent. He is protecting someone in the merchant quarter..."></textarea>
+                        </div>
+
+                        <!-- ADDITIONAL -->
+                        <div class="form-section-title">Additional Info</div>
+
+                        <div class="form-group">
+                            <label>Example Dialogue <span class="hint">(optional — helps nail the voice)</span></label>
+                            <textarea name="example_dialogue"
+                                placeholder="Write 2-3 lines this character might actually say. Even rough examples help more than you'd think..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Anything Else?</label>
+                            <textarea name="additional_notes"
+                                placeholder="Any other requirements, restrictions, specific lore events, faction affiliations, or things you definitely want to avoid..."></textarea>
+                        </div>
+
+                        <!-- PRICE ESTIMATOR -->
+                        <div class="price-estimator">
+                            <div class="estimator-label">Estimated Price Range</div>
+                            <div class="estimator-row">
+                                <span>Base tier</span>
+                                <span id="estBase">— Select a tier above —</span>
+                            </div>
+                            <div class="estimator-row" id="rushRow" style="display:none;">
+                                <span>Rush delivery</span>
+                                <span style="color:var(--urgent-orange);">+$15</span>
+                            </div>
+                            <div class="estimator-total">
+                                <span>Estimated range</span>
+                                <span id="estTotal">—</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            📨 Submit Commission Request
+                        </button>
+                        <p class="submit-note">
+                            No payment now. I'll reply within 24 hours with a quote. You confirm before anything is built.
+                        </p>
+
+                    </form>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="tier-select">Tier</label>
-                <select id="tier-select" name="tier" required>
-                    <option value="" disabled selected>Select a tier</option>
-                    <option value="standard-$12">Standard — Single Character ($12)</option>
-                    <option value="premium-$20">Premium — Deep Character ($20)</option>
-                    <option value="elite-$45">Elite — Character Group / 3 chars ($45)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="character-role">Character Role &amp; Name <span class="label-optional">(required)</span></label>
-                <input type="text" id="character-role" name="character_role" placeholder='e.g., "Guard captain named Varn" or "Mysterious potion seller"' required>
-            </div>
-
-            <div class="form-group">
-                <label for="server-world">Server / World Context <span class="label-optional">(required)</span></label>
-                <input type="text" id="server-world" name="server_world" placeholder='e.g., "Medieval fantasy kingdom" or "Post-apocalyptic wasteland"' required>
-            </div>
-
-            <div class="form-group">
-                <label for="personality-tone">Personality / Tone</label>
-                <input type="text" id="personality-tone" name="personality_tone" placeholder='e.g., "Gruff, suspicious, hides a soft side" or "Cheerful but hiding grief"'>
-            </div>
-
-            <div class="form-group">
-                <label for="details">Full Description &amp; Details <span class="label-optional">(the more the better)</span></label>
-                <textarea id="details" name="details" placeholder="Backstory, relationships, speech examples, secrets, topics to avoid, anything else you want us to know. Even a short paragraph helps. The more detail you provide, the better the character will be."></textarea>
-                <div class="form-hint">Include backstory, relationships, speech style, secrets, anything relevant. There's no such thing as too much detail.</div>
-            </div>
-
-            <div class="form-group">
-                <label for="plugin-choice">Plugin</label>
-                <select id="plugin-choice" name="plugin">
-                    <option value="sentiencepro">SentiencePro</option>
-                    <option value="llamacraft">LlamaCraft Bridge</option>
-                    <option value="both">Both / Not Sure</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="additional">Anything Else? <span class="label-optional">(optional)</span></label>
-                <textarea id="additional" name="additional" placeholder="Special requests, timeline needs, questions, etc." style="min-height: 80px;"></textarea>
-            </div>
-
-            <button type="submit" class="form-submit-btn">🛠 Submit Custom Order</button>
-            <p class="form-note">We'll reply within 24 hours with payment instructions and any clarifying questions. No payment is taken until we confirm the order details with you.</p>
-        </form>
+        </div>
     </div>
 </section>
 
 <!-- ── FAQ ── -->
-<div class="faq-section">
-    <h2>Custom Order FAQ</h2>
+<section class="section faq-section">
+    <div class="section-inner">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Custom Commission Questions</h2>
+        <p class="section-desc">Everything you need to know before submitting a brief.</p>
 
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>How long does delivery take?</span>
-            <span class="toggle">+</span>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>When do I pay?</h4>
+                <p>Not until you've confirmed the quote. After I reply with a final price and you agree, half is due upfront and half on delivery. Paying in full upfront gets a 5% discount.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What coins do you accept?</h4>
+                <p>BTC, ETH, USDT, USDC, SOL, TRX, LTC, XRP, ADA, DOGE, XMR, BNB, BCH, XLM, POL, DASH, ZEC, DGB, and FEY.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How long does delivery take?</h4>
+                <p>Single characters within 72 hours. World packs within 5 business days. Full systems within 7-10 days. Rush delivery (+$15) guarantees 24 hours for any tier.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What if I don't like the result?</h4>
+                <p>One revision is included at every tier. You'll see the personality definition before final delivery so we can align on voice. If after revision it still doesn't match the brief, full crypto refund.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I use custom characters commercially?</h4>
+                <p>Yes. Custom commissions include full commercial use rights. You own the character. Use it on any number of servers in your network.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do you need anything specific from me?</h4>
+                <p>Just the brief form. The more detail the better — world lore, character background, what players will ask, and example dialogue if you have it. I'll ask for anything missing.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I add characters to a world pack later?</h4>
+                <p>Yes. Additional characters added to an existing world pack are quoted individually and built into the existing lore system at a reduced rate.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What's the difference between a custom commission and the Server License?</h4>
+                <p>The Server License uses pre-built characters adapted for your server. A custom commission builds everything from scratch around your specific lore. Custom is always more tailored — and priced accordingly.</p>
+            </div>
         </div>
-        <div class="faq-a">Standard and Premium orders are delivered within 48 hours of payment confirmation. Elite (3-character group) orders are delivered within 72 hours. Rush delivery may be available — ask when you submit.</div>
-    </div>
 
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>What if the character doesn't match what I wanted?</span>
-            <span class="toggle">+</span>
+        <div class="guarantee">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h3>The NPCForge Custom Guarantee</h3>
+                <p>Every custom commission includes one revision. You see the personality definition before final files are delivered.</p>
+                <p>If the delivered pack does not match the confirmed brief after revision, you receive a full crypto refund. No conditions. No argument.</p>
+                <p>This has not happened yet. The offer stands regardless.</p>
+            </div>
         </div>
-        <div class="faq-a">Every tier includes revision rounds. Standard gets 1 round, Premium gets 3 rounds, Elite gets unlimited revisions. We work with you until the character feels right for your server.</div>
-    </div>
 
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Can I order a character type you already sell?</span>
-            <span class="toggle">+</span>
-        </div>
-        <div class="faq-a">Yes — but if you want a guard character and our Aldric pack fits your needs, buying from the <a href="store.html">store</a> is cheaper. Custom orders make sense when you need a character tailored to your specific world, lore, or role that we don't currently offer.</div>
     </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>What payment methods do you accept?</span>
-            <span class="toggle">+</span>
-        </div>
-        <div class="faq-a">We accept cryptocurrency — Bitcoin, Ethereum, USDT, Solana, and many more. After we confirm your order details, we'll send you the wallet address and amount. Payment is handled before we begin building.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Can I use the custom character on multiple servers?</span>
-            <span class="toggle">+</span>
-        </div>
-        <div class="faq-a">Yes. Once you receive the files, they're yours. Use them on as many of your own servers as you like. You may not resell or redistribute the files.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Do you build characters for non-Minecraft projects?</span>
-            <span class="toggle">+</span>
-        </div>
-        <div class="faq-a">Our packs are optimized for SentiencePro and LlamaCraft Bridge. If you have a different AI NPC system with similar architecture (system prompt + memories + config), reach out and we can discuss. The personality engineering principles are transferable.</div>
-    </div>
-</div>
+</section>
 
 <!-- ── FOOTER ── -->
 <footer>
     <div class="footer-inner">
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="store.html">Store</a>
-            <a href="free.html">Free Pack</a>
-            <a href="custom.html">Custom Orders</a>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
+                <p>AI NPC Character Design<br>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+            </div>
+            <div class="footer-col">
+                <h4>Characters</h4>
+                <a href="pay-aldric.html">Aldric — $4.89</a>
+                <a href="pay-dravek.html">Dravek — $4.89</a>
+                <a href="free.html">Starter Guard — Free</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bundles & Tiers</h4>
+                <a href="pay-city-bundle.html">City Bundle — $8.49</a>
+                <a href="pay-pro-bundle.html">Pro Pack — $14.99</a>
+                <a href="pay-server-license.html">Server License — $24.99</a>
+                <a href="pay-retainer.html">Retainer — $39/mo</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="custom.html">Custom Orders</a>
+                <a href="store.html">All Products</a>
+                <a href="free.html">Free Starter Pack</a>
+                <a href="index.html">Home</a>
+            </div>
         </div>
-        <p class="footer-copy">© 2025 NPCForge. All rights reserved. Custom character packs are proprietary to the buyer.</p>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 NPCForge. All rights reserved.</span>
+        </div>
     </div>
 </footer>
 
-<!-- ── SCRIPTS ── -->
 <script>
-    // Mobile nav
-    document.addEventListener('click', function(e) {
-        const nav = document.querySelector('.nav-links');
-        const toggle = document.querySelector('.nav-toggle');
-        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+(function () {
+    'use strict';
+
+    /* ─── MOBILE NAV ─── */
+    document.addEventListener('click', function (e) {
+        var nav = document.querySelector('.nav-links');
+        var tog = document.querySelector('.nav-toggle');
+        if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !tog.contains(e.target)) {
             nav.classList.remove('open');
         }
     });
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-        anchor.addEventListener('click', function(e) {
-            var target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+    /* ─── TIER PRESELECT ─── */
+    window.preselectTier = function (tier) {
+        var sel = document.getElementById('tierSelect');
+        if (sel) {
+            sel.value = tier;
+            updateEstimate();
+        }
+        var el = document.getElementById('commission-form');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    /* ─── TONE SELECTOR ─── */
+    window.selectTone = function (tone, btn) {
+        document.querySelectorAll('.tone-btn').forEach(function (b) {
+            b.classList.remove('selected');
         });
-    });
+        btn.classList.add('selected');
+        var inp = document.getElementById('toneInput');
+        if (inp) inp.value = tone;
+    };
 
-    // Pricing button scroll to form with tier pre-selected
-    document.querySelectorAll('.pricing-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var card = this.closest('.pricing-card');
-            var tierBadge = card.querySelector('.pricing-tier-badge');
-            var tierText = tierBadge ? tierBadge.textContent.trim().toLowerCase() : '';
-            var select = document.getElementById('tier-select');
+    /* ─── PRICE ESTIMATOR ─── */
+    var tierData = {
+        single: { label: '$25 – $35', min: 25, max: 35 },
+        world:  { label: '$65 – $90', min: 65, max: 90 },
+        system: { label: '$150 – $220', min: 150, max: 220 }
+    };
 
-            for (var i = 0; i < select.options.length; i++) {
-                if (select.options[i].value.toLowerCase().indexOf(tierText) !== -1) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
+    window.updateEstimate = function () {
+        var tier = document.getElementById('tierSelect').value;
+        var rush = document.getElementById('rushSelect').value;
+        var baseEl = document.getElementById('estBase');
+        var totalEl = document.getElementById('estTotal');
+        var rushRow = document.getElementById('rushRow');
 
-            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
+        if (!tier) {
+            if (baseEl) baseEl.textContent = '— Select a tier above —';
+            if (totalEl) totalEl.textContent = '—';
+            if (rushRow) rushRow.style.display = 'none';
+            return;
+        }
+
+        var data = tierData[tier];
+        if (!data) return;
+
+        if (baseEl) baseEl.textContent = data.label;
+
+        if (rush === 'yes') {
+            if (rushRow) rushRow.style.display = 'flex';
+            if (totalEl) totalEl.textContent = '$' + (data.min + 15) + ' – $' + (data.max + 15);
+        } else {
+            if (rushRow) rushRow.style.display = 'none';
+            if (totalEl) totalEl.textContent = data.label;
+        }
+    };
+
+    /* ─── CHAR COUNT ─── */
+    window.countChars = function (el, countId) {
+        var counter = document.getElementById(countId);
+        if (counter) counter.textContent = el.value.length;
+    };
+
+})();
 </script>
 
 </body>
