@@ -1,40 +1,863 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<!-- Primary Meta Tags -->
-<title>NPCForge — AI NPC Personalities for 
-       SentiencePro & LlamaCraft Bridge</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPCForge — AI NPC Personality Engine</title>
+    <meta name="description" content="Stop your AI NPCs from sounding like customer service bots. Deep personality packs for SentiencePro and LlamaCraft Bridge.">
+    <meta name="keywords" content="NPCForge, SentiencePro, LlamaCraft, Minecraft NPC, AI NPC, personality engine">
+    <meta property="og:title" content="NPCForge — AI NPC Personality Engine">
+    <meta property="og:description" content="Your AI NPC sounds like a customer service bot. We fix that.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://npcforge.github.io">
+    <link rel="canonical" href="https://npcforge.github.io">
+    <style>
+        :root {
+            --gold: #D4A537;
+            --gold-light: #F2D06B;
+            --gold-dark: #B8860B;
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: #1A1A25;
+            --bg-card-hover: #222233;
+            --text-primary: #E8E8F0;
+            --text-secondary: #9999AA;
+            --text-muted: #666677;
+            --border: #2A2A3A;
+            --green: #4CAF50;
+            --red: #E74C3C;
+            --blue: #3498DB;
+        }
 
-<meta name="title" 
-      content="NPCForge — AI NPC Personalities 
-               for SentiencePro & LlamaCraft Bridge">
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta name="description" 
-      content="Your Minecraft AI NPC sounds like 
-               a customer service bot. NPCForge 
-               builds the personality layer that 
-               makes the difference. Free starter 
-               pack. Full characters from $15. 
-               SentiencePro & LlamaCraft compatible.">
+        html {
+            scroll-behavior: smooth;
+        }
 
-<meta name="keywords" 
-      content="SentiencePro, LlamaCraft Bridge, 
-               AI NPC, Minecraft NPC personality, 
-               SentiencePro config, NPC prompt, 
-               Minecraft AI plugin, NPC character, 
-               system prompt minecraft">
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-<meta name="author" content="NPCForge">
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
 
-<!-- Open Graph (Facebook, Discord, BBB previews) -->
-<meta property="og:type" content="website">
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
 
-<meta property="og:url" 
-      content="https://npcforge.github.io/">
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
 
-<meta property="og:title" 
-      content="NPCForge — AI NPC Characters 
+        .nav-logo span {
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-links .nav-cta:hover {
+            background: var(--gold-light);
+            color: #000;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 165, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 165, 55, 0.1);
+            border: 1px solid rgba(212, 165, 55, 0.3);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .highlight {
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 165, 55, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ── PROBLEM / SOLUTION ── */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin-bottom: 3rem;
+        }
+
+        /* ── COMPARISON ── */
+        .comparison {
+            background: var(--bg-secondary);
+        }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .compare-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .compare-card.bad {
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        .compare-card.good {
+            border-color: rgba(212, 165, 55, 0.3);
+        }
+
+        .compare-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .compare-card.bad .compare-label {
+            color: var(--red);
+        }
+
+        .compare-card.good .compare-label {
+            color: var(--gold);
+        }
+
+        .chat-line {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .chat-line .speaker {
+            font-weight: 700;
+            margin-right: 0.25rem;
+        }
+
+        .chat-line .speaker.player {
+            color: var(--blue);
+        }
+
+        .chat-line .speaker.npc {
+            color: var(--text-muted);
+        }
+
+        .compare-card.good .chat-line .speaker.npc {
+            color: var(--gold);
+        }
+
+        .chat-line .dialogue {
+            color: var(--text-secondary);
+        }
+
+        .compare-card.good .chat-line .dialogue {
+            color: var(--text-primary);
+        }
+
+        /* ── FEATURES ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(212, 165, 55, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ── CHARACTERS PREVIEW ── */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .char-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .char-card:hover {
+            border-color: rgba(212, 165, 55, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .char-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .char-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(212, 165, 55, 0.1);
+            border: 1px solid rgba(212, 165, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .char-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .char-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .char-quote {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(212, 165, 55, 0.3);
+        }
+
+        .char-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .char-tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            background: rgba(212, 165, 55, 0.08);
+            color: var(--gold);
+            border: 1px solid rgba(212, 165, 55, 0.15);
+        }
+
+        .char-tag.free-tag {
+            background: rgba(76, 175, 80, 0.08);
+            color: var(--green);
+            border-color: rgba(76, 175, 80, 0.15);
+        }
+
+        /* ── COMPATIBILITY ── */
+        .compat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .compat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .compat-check {
+            color: var(--green);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .compat-item span {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* ── CTA FINAL ── */
+        .cta-section {
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .cta-section .section-title {
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .cta-section .section-desc {
+            margin: 0 auto 2.5rem;
+            text-align: center;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .compare-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-sub {
+                font-size: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">☰</button>
+        <ul class="nav-links">
+            <li><a href="store.html">Store</a></li>
+            <li><a href="free.html">Free Pack</a></li>
+            <li><a href="custom.html">Custom Orders</a></li>
+            <li><a href="store.html" class="nav-cta">Browse Characters</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">AI NPC Personality Engine</div>
+        <h1>Your AI NPC sounds like a <span class="highlight">customer service bot.</span><br>We fix that.</h1>
+        <p class="hero-sub">Deep personality packs for SentiencePro &amp; LlamaCraft Bridge. Hand-crafted system prompts, layered memories, and real character voice — not generic AI filler.</p>
+        <div class="hero-buttons">
+            <a href="store.html" class="btn btn-primary">⚔ Browse Character Packs</a>
+            <a href="free.html" class="btn btn-secondary">↓ Free Starter Pack</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── COMPARISON ── -->
+<section class="section comparison">
+    <div class="section-inner">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Same plugin. Completely different result.</h2>
+        <p class="section-desc">The default configuration gives the language model almost no direction. It falls back to generic assistant behavior. Here's what changes with a real personality pack.</p>
+
+        <div class="compare-grid">
+            <div class="compare-card bad">
+                <div class="compare-label">✕ Without Personality Pack</div>
+                <div class="chat-line">
+                    <span class="speaker player">Player:</span>
+                    <span class="dialogue">"Have you always been a guard?"</span>
+                </div>
+                <div class="chat-line">
+                    <span class="speaker npc">NPC:</span>
+                    <span class="dialogue">"Yes. It is my job."</span>
+                </div>
+                <div class="chat-line" style="margin-top:1.5rem;">
+                    <span class="speaker player">Player:</span>
+                    <span class="dialogue">"What happened to the old king?"</span>
+                </div>
+                <div class="chat-line">
+                    <span class="speaker npc">NPC:</span>
+                    <span class="dialogue">"I don't have information about that."</span>
+                </div>
+            </div>
+
+            <div class="compare-card good">
+                <div class="compare-label">✓ With NPCForge — Aldric Pack</div>
+                <div class="chat-line">
+                    <span class="speaker player">Player:</span>
+                    <span class="dialogue">"Have you always been a guard?"</span>
+                </div>
+                <div class="chat-line">
+                    <span class="speaker npc">Aldric:</span>
+                    <span class="dialogue">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen. Too young to know that some fires don't go out just because you stop seeing the smoke."</span>
+                </div>
+                <div class="chat-line" style="margin-top:1.5rem;">
+                    <span class="speaker player">Player:</span>
+                    <span class="dialogue">"What happened to the old king?"</span>
+                </div>
+                <div class="chat-line">
+                    <span class="speaker npc">Aldric:</span>
+                    <span class="dialogue">"We don't say his name at the gate. Not anymore. You want stories, find a tavern. You want through, state your business."</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">What You Get</div>
+        <h2 class="section-title">Everything the default config is missing.</h2>
+        <p class="section-desc">Each character pack is a complete personality definition. Not a template — a fully realized character.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📜</div>
+                <h3>Deep System Prompts</h3>
+                <p>600+ word personality definitions covering voice, mannerisms, knowledge boundaries, emotional triggers, and refusal patterns.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Layered Memories</h3>
+                <p>25 hand-crafted memory entries per character. Backstory, relationships, opinions, secrets — retrieved contextually by the AI.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Tuned Configuration</h3>
+                <p>Optimized temperature, token limits, and cost controls. Works out of the box with gpt-4o-mini or Claude.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏰</div>
+                <h3>Shared World Lore</h3>
+                <p>Bundle characters share consistent lore. Aldric and Dravek reference the same events differently — because they experienced them differently.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔌</div>
+                <h3>Drop-In Install</h3>
+                <p>Copy folder, add API key, restart. Three steps. No code. Works with SentiencePro and LlamaCraft Bridge on all versions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Personal Support</h3>
+                <p>Every paid pack includes direct support. Personality not landing right? We'll help you dial it in for your server's world.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CHARACTERS PREVIEW ── -->
+<section class="section" style="background: var(--bg-secondary);">
+    <div class="section-inner">
+        <div class="section-label">Characters</div>
+        <h2 class="section-title">Built to feel real.</h2>
+        <p class="section-desc">Each character has a distinct voice, history, and way of refusing questions. They don't just answer — they react.</p>
+
+        <div class="characters-grid">
+            <div class="char-card">
+                <div class="char-header">
+                    <div class="char-avatar">🛡️</div>
+                    <div>
+                        <div class="char-name">Starter Guard</div>
+                        <div class="char-role">Basic Gate Guard</div>
+                    </div>
+                </div>
+                <div class="char-quote">"State your business or move along."</div>
+                <div class="char-meta">
+                    <span class="char-tag free-tag">Free</span>
+                    <span class="char-tag">10 memories</span>
+                    <span class="char-tag">Basic config</span>
+                </div>
+            </div>
+
+            <div class="char-card">
+                <div class="char-header">
+                    <div class="char-avatar">⚔️</div>
+                    <div>
+                        <div class="char-name">Aldric</div>
+                        <div class="char-role">Grizzled Gate Captain</div>
+                    </div>
+                </div>
+                <div class="char-quote">"Thirty-one years on this gate. Some fires don't go out just because you stop seeing the smoke."</div>
+                <div class="char-meta">
+                    <span class="char-tag">$6.99</span>
+                    <span class="char-tag">25 memories</span>
+                    <span class="char-tag">Full config</span>
+                </div>
+            </div>
+
+            <div class="char-card">
+                <div class="char-header">
+                    <div class="char-avatar">💰</div>
+                    <div>
+                        <div class="char-name">Dravek</div>
+                        <div class="char-role">Corrupt Merchant</div>
+                    </div>
+                </div>
+                <div class="char-quote">"Everything has a price, friend. The trick is knowing who's paying it."</div>
+                <div class="char-meta">
+                    <span class="char-tag">$6.99</span>
+                    <span class="char-tag">25 memories</span>
+                    <span class="char-tag">Full config</span>
+                </div>
+            </div>
+
+            <div class="char-card">
+                <div class="char-header">
+                    <div class="char-avatar">🔮</div>
+                    <div>
+                        <div class="char-name">Senna</div>
+                        <div class="char-role">Broken Oracle</div>
+                    </div>
+                </div>
+                <div class="char-quote">"I saw the end of your road. I wish I hadn't."</div>
+                <div class="char-meta">
+                    <span class="char-tag">Coming Soon</span>
+                    <span class="char-tag">25 memories</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top: 2.5rem;">
+            <a href="store.html" class="btn btn-primary">View All in Store →</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── COMPATIBILITY ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">Compatibility</div>
+        <h2 class="section-title">Works with your stack.</h2>
+        <p class="section-desc">Tested and compatible across all current versions.</p>
+
+        <div class="compat-grid">
+            <div class="compat-item">
+                <span class="compat-check">✓</span>
+                <span>SentiencePro — All versions</span>
+            </div>
+            <div class="compat-item">
+                <span class="compat-check">✓</span>
+                <span>LlamaCraft Bridge — Full support</span>
+            </div>
+            <div class="compat-item">
+                <span class="compat-check">✓</span>
+                <span>OpenAI API — gpt-4o-mini recommended</span>
+            </div>
+            <div class="compat-item">
+                <span class="compat-check">✓</span>
+                <span>Anthropic API — Claude compatible</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section class="section cta-section">
+    <div class="section-inner">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Stop shipping generic NPCs.</h2>
+        <p class="section-desc">Grab the free starter pack and see the difference in five minutes. Or go straight to the full character packs.</p>
+        <div class="hero-buttons" style="justify-content:center;">
+            <a href="free.html" class="btn btn-secondary">↓ Free Starter Pack</a>
+            <a href="store.html" class="btn btn-primary">⚔ Full Character Packs</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="store.html">Store</a>
+            <a href="free.html">Free Pack</a>
+            <a href="custom.html">Custom Orders</a>
+        </div>
+        <p class="footer-copy">© 2025 NPCForge. All rights reserved. Paid packs are proprietary. Free starter pack is MIT licensed.</p>
+    </div>
+</footer>
+
+<!-- ── MOBILE NAV JS ── -->
+<script>
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.nav-links');
+        const toggle = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
+</script>
+
+</body>
+</html>      content="NPCForge — AI NPC Characters 
                That Actually Feel Human">
 
 <meta property="og:description" 
