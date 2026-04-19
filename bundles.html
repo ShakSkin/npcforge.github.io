@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundles — NPCForge</title>
+    <meta name="description" content="NPCForge character bundles. City Bundle $8.49, Pro Pack $14.99. Shared world lore, cross-reference memories, faction dynamics.">
+    <meta property="og:title" content="NPCForge Bundles — More Characters. One World.">
+    <meta property="og:description" content="Bundle characters share lore, reference each other, and create a living city instead of isolated NPCs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://npcforge.github.io/bundles.html">
+    <link rel="canonical" href="https://npcforge.github.io/bundles.html">
+    <style>
+        :root {
+            --gold: #D4A537;
+            --gold-light: #F2D06B;
+            --gold-dark: #B8860B;
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: #1A1A25;
+            --bg-card-hover: #222233;
+            --text-primary: #E8E8F0;
+            --text-secondary: #9999AA;
+            --text-muted: #666677;
+            --border: #2A2A3A;
+            --green: #4CAF50;
+            --red: #E74C3C;
+            --blue: #3498DB;
+            --urgent-red: #FF4444;
+            --urgent-orange: #FF6B35;
+            --purple: #9B59B6;
+            --purple-light: #B07CC6;
+            --teal: #1ABC9C;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── URGENCY BANNER ── */
+        .urgency-banner {
+            background: linear-gradient(90deg, #FF4444 0%, #FF6B35 50%, #FF4444 100%);
+            background-size: 200% 100%;
+            animation: bannerShift 3s ease infinite;
+            color: #fff;
+            text-align: center;
+            padding: 0.6rem 3rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        @keyframes bannerShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .banner-timer {
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .banner-close {
+            position: absolute;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .banner-close:hover { color: #fff; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 36px; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            transition: top 0.3s;
+        }
+
+        nav.banner-closed { top: 0; }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--text-primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--gold); }
+
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .nav-links .nav-cta:hover { background: var(--gold-light); color: #000; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem 0;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { color: var(--text-muted); margin: 0 0.5rem; font-size: 0.75rem; }
+        .breadcrumb .current { color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 0;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--purple);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 .highlight { color: var(--purple); }
+
+        .page-header .page-sub {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        /* ── SECTIONS ── */
+        .section { padding: 4rem 2rem; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* ── BUNDLE HERO CARDS ── */
+        .bundles-hero { padding: 3rem 2rem 2rem; }
+
+        .bundle-hero-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .bundle-hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .bundle-hero-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .bundle-hero-card.city-bundle {
+            border-color: rgba(155,89,182,0.3);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(155,89,182,0.04) 100%);
+        }
+
+        .bundle-hero-card.city-bundle:hover { border-color: rgba(155,89,182,0.6); }
+
+        .bundle-hero-card.pro-bundle {
+            border-color: rgba(212,165,55,0.3);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,165,55,0.04) 100%);
+        }
+
+        .bundle-hero-card.pro-bundle:hover { border-color: rgba(212,165,55,0.6); }
+
+        .bundle-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(155,89,182,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pro-bundle::before {
+            background: radial-gradient(circle, rgba(212,165,55,0.06) 0%, transparent 70%);
+        }
+
+        .bundle-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .bundle-icon-name {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bundle-avatar {
+            width: 56px; height: 56px;
+            border-radius: 12px;
+            background: rgba(155,89,182,0.1);
+            border: 1px solid rgba(155,89,182,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .pro-bundle .bundle-avatar {
+            background: rgba(212,165,55,0.1);
+            border-color: rgba(212,165,55,0.2);
+        }
+
+        .bundle-name { font-size: 1.25rem; font-weight: 800; }
+        .bundle-type { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+        .bundle-badges {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.4rem;
+        }
+
+        .badge-pill {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        .badge-save {
+            background: rgba(231,76,60,0.1);
+            color: var(--red);
+            border: 1px solid rgba(231,76,60,0.25);
+        }
+
+        .badge-popular {
+            background: rgba(212,165,55,0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212,165,55,0.25);
+        }
+
+        .stock-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--urgent-red);
+        }
+
+        .stock-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--urgent-red);
+            animation: sPulse 1.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes sPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .bundle-quote {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.65;
+            padding: 1rem 1.25rem;
+            border-left: 2px solid rgba(155,89,182,0.35);
+            background: rgba(155,89,182,0.03);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .pro-bundle .bundle-quote {
+            border-left-color: rgba(212,165,55,0.35);
+            background: rgba(212,165,55,0.03);
+        }
+
+        .bundle-includes {
+            list-style: none;
+            margin-bottom: 1.75rem;
+            flex: 1;
+        }
+
+        .bundle-includes li {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            padding: 0.28rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .bundle-includes li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .bundle-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .bundle-price-block .bundle-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--purple);
+            line-height: 1;
+        }
+
+        .pro-bundle .bundle-price-block .bundle-price { color: var(--gold); }
+
+        .bundle-price-block .bundle-original {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-top: 0.1rem;
+        }
+
+        .bundle-price-block .bundle-launch-tag {
+            display: inline-block;
+            background: rgba(255,68,68,0.1);
+            border: 1px solid rgba(255,68,68,0.2);
+            color: var(--urgent-red);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.3rem;
+            display: block;
+            width: fit-content;
+        }
+
+        .bundle-buy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            background: var(--purple);
+            color: #fff;
+        }
+
+        .bundle-buy-btn:hover {
+            background: var(--purple-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(155,89,182,0.3);
+        }
+
+        .pro-bundle .bundle-buy-btn {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .pro-bundle .bundle-buy-btn:hover {
+            background: var(--gold-light);
+            box-shadow: 0 8px 25px rgba(212,165,55,0.3);
+        }
+
+        /* ── CHARACTER BREAKDOWN ── */
+        .chars-section { background: var(--bg-secondary); }
+
+        .chars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .char-mini-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .char-mini-card:hover {
+            border-color: rgba(212,165,55,0.3);
+            transform: translateY(-3px);
+        }
+
+        .char-mini-header {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .char-mini-avatar {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: rgba(212,165,55,0.1);
+            border: 1px solid rgba(212,165,55,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .char-mini-name { font-size: 1rem; font-weight: 700; }
+        .char-mini-role { font-size: 0.75rem; color: var(--text-muted); }
+
+        .char-mini-quote {
+            font-style: italic;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            padding-left: 0.85rem;
+            border-left: 2px solid rgba(212,165,55,0.25);
+            margin-bottom: 1rem;
+        }
+
+        .char-mini-stats {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-tag {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+        }
+
+        .stat-tag.gold { color: var(--gold); background: rgba(212,165,55,0.08); border-color: rgba(212,165,55,0.15); }
+        .stat-tag.purple { color: var(--purple); background: rgba(155,89,182,0.08); border-color: rgba(155,89,182,0.15); }
+        .stat-tag.green { color: var(--green); background: rgba(76,175,80,0.08); border-color: rgba(76,175,80,0.15); }
+
+        .char-mini-bundle-tag {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .char-mini-bundle-tag span {
+            font-weight: 600;
+        }
+
+        .in-city { color: var(--purple); }
+        .in-pro { color: var(--gold); }
+
+        /* ── LORE SYSTEM ── */
+        .lore-section { background: var(--bg-primary); }
+
+        .lore-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .lore-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s;
+        }
+
+        .lore-card:hover { border-color: rgba(212,165,55,0.3); }
+
+        .lore-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .lore-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .lore-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+
+        /* ── RELATIONSHIP MAP ── */
+        .relationship-section { background: var(--bg-secondary); }
+
+        .rel-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(155,89,182,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rel-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .rel-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .rel-npc {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .rel-npc-icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+        .rel-npc-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .rel-npc-role { font-size: 0.72rem; color: var(--text-muted); }
+
+        .rel-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .rel-arrow { font-size: 1.25rem; color: var(--text-muted); }
+
+        .rel-label {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.4;
+            max-width: 120px;
+        }
+
+        .rel-memories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .rel-memory {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+        }
+
+        .rel-memory .rm-npc {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .rm-npc.aldric { color: var(--gold); }
+        .rm-npc.dravek { color: var(--green); }
+        .rm-npc.senna { color: var(--purple); }
+
+        .rel-memory .rm-quote {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ── COMPARISON ── */
+        .compare-section { background: var(--bg-primary); }
+
+        .compare-table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 0.85rem 1.25rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.83rem;
+        }
+
+        .compare-table th {
+            background: var(--bg-card);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            text-align: left;
+            color: var(--text-secondary);
+            font-weight: 500;
+            min-width: 180px;
+        }
+
+        .compare-table td { color: var(--text-muted); }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table .check { color: var(--green); font-weight: 700; font-size: 1rem; }
+        .compare-table .cross { color: var(--text-muted); }
+        .compare-table .hl { background: rgba(155,89,182,0.04); }
+        .compare-table .hl2 { background: rgba(212,165,55,0.04); }
+
+        .th-name { font-size: 0.9rem; font-weight: 800; }
+        .th-price { font-size: 0.75rem; font-weight: 600; margin-top: 0.2rem; }
+
+        /* ── FAQ ── */
+        .faq-section { background: var(--bg-secondary); }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .faq-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .faq-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ── GUARANTEE ── */
+        .guarantee {
+            background: var(--bg-card);
+            border: 1px solid rgba(212,165,55,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+
+        .guarantee-icon { font-size: 2.5rem; flex-shrink: 0; }
+        .guarantee h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .guarantee p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .guarantee p:last-child { margin-bottom: 0; }
+
+        /* ── FINAL CTA ── */
+        .final-cta { background: var(--bg-primary); text-align: center; }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2.25rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-purple { background: var(--purple); color: #fff; }
+        .btn-purple:hover { background: var(--purple-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(155,89,182,0.3); }
+
+        .btn-gold { background: var(--gold); color: #000; }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,165,55,0.3); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        /* ── FOOTER ── */
+        footer { padding: 4rem 2rem 3rem; border-top: 1px solid var(--border); }
+        .footer-inner { max-width: 1100px; margin: 0 auto; }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-logo { font-size: 1.2rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+        .footer-logo span { color: var(--text-primary); }
+        .footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+        .footer-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; font-size: 0.83rem; padding: 0.25rem 0; transition: color 0.2s; }
+        .footer-col a:hover { color: var(--gold); }
+
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy { color: var(--text-muted); font-size: 0.78rem; }
+
+        /* ── SOCIAL PROOF POPUP ── */
+        .social-proof-popup {
+            position: fixed;
+            bottom: 2rem; left: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: translateX(-120%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 300px;
+        }
+
+        .social-proof-popup.show { transform: translateX(0); }
+        .proof-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .proof-text { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4; }
+        .proof-text strong { color: var(--text-primary); font-weight: 600; }
+        .proof-time { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .bundle-hero-grid { grid-template-columns: 1fr; }
+            .chars-grid { grid-template-columns: 1fr 1fr; }
+            .lore-grid { grid-template-columns: 1fr; }
+            .rel-grid { grid-template-columns: 1fr; }
+            .rel-arrow { transform: rotate(90deg); }
+            .faq-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.98); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .chars-grid { grid-template-columns: 1fr; }
+            .rel-memories { grid-template-columns: 1fr; }
+            .bundle-footer-row { flex-direction: column; gap: 1rem; text-align: center; }
+            .guarantee { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── URGENCY BANNER ── -->
+<div class="urgency-banner" id="urgencyBanner">
+    🔥 LAUNCH WEEK — City Bundle <strong>$8.49</strong> · Pro Pack <strong>$14.99</strong> · Ends in
+    <span class="banner-timer" id="bannerTimer">00:00:00</span>
+    <button class="banner-close" onclick="closeBanner()" aria-label="Close">✕</button>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="store.html">Characters</a></li>
+            <li><a href="bundles.html" class="active">Bundles</a></li>
+            <li><a href="license.html">Server License</a></li>
+            <li><a href="retainer.html">Retainer</a></li>
+            <li><a href="custom.html">Custom</a></li>
+            <li><a href="free.html">Free Pack</a></li>
+            <li><a href="store.html" class="nav-cta">Buy Now</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">Bundles</span>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+    <div class="section-label">Bundles</div>
+    <h1>More Characters.<br><span class="highlight">One World.</span></h1>
+    <p class="page-sub">Bundle characters share lore, reference each other, and create a living city instead of isolated NPCs. The difference between buying two characters and buying two characters who actually know each other.</p>
+</div>
+
+<!-- ── BUNDLE HERO CARDS ── -->
+<div class="bundles-hero">
+    <div class="bundle-hero-grid">
+
+        <!-- CITY BUNDLE -->
+        <div class="bundle-hero-card city-bundle">
+            <div class="bundle-top-row">
+                <div class="bundle-icon-name">
+                    <div class="bundle-avatar">🏰</div>
+                    <div>
+                        <div class="bundle-name">City Bundle</div>
+                        <div class="bundle-type">Aldric + Dravek · 2 Characters</div>
+                    </div>
+                </div>
+                <div class="bundle-badges">
+                    <span class="badge-pill badge-save">Save 39%</span>
+                    <span class="stock-pill"><span class="stock-dot"></span><span id="cityStock">12</span> left</span>
+                </div>
+            </div>
+
+            <div class="bundle-quote">
+                "Twenty years of watching each other across the same cobblestones. Aldric suspects Dravek. Dravek respects Aldric. Neither trusts the other. Both reference the same fire — from completely different windows."
+            </div>
+
+            <ul class="bundle-includes">
+                <li>Complete Aldric pack — 600-word personality, 25 memories, advanced config</li>
+                <li>Complete Dravek pack — full ethics code, 25 memories, merchant config</li>
+                <li>Shared world lore document — one timeline, two perspectives</li>
+                <li>Cross-reference memory system — they mention each other</li>
+                <li>50 total hand-crafted memories</li>
+                <li>Both 3-step install guides</li>
+                <li>Priority personal support</li>
+                <li>Free updates for life on both characters</li>
+            </ul>
+
+            <div class="bundle-footer-row">
+                <div class="bundle-price-block">
+                    <span class="bundle-launch-tag">Launch Week — 39% Off</span>
+                    <div class="bundle-price">$8.49</div>
+                    <div class="bundle-original">Regular: $13.98</div>
+                </div>
+                <a href="pay-city-bundle.html" class="bundle-buy-btn">Buy City Bundle →</a>
+            </div>
+        </div>
+
+        <!-- PRO PACK -->
+        <div class="bundle-hero-card pro-bundle">
+            <div class="bundle-top-row">
+                <div class="bundle-icon-name">
+                    <div class="bundle-avatar">⚜️</div>
+                    <div>
+                        <div class="bundle-name">Pro Pack</div>
+                        <div class="bundle-type">Aldric + Dravek + Senna · 3 Characters</div>
+                    </div>
+                </div>
+                <div class="bundle-badges">
+                    <span class="badge-pill badge-popular">Best Value</span>
+                    <span class="badge-pill badge-save">Save $5.98</span>
+                    <span class="stock-pill"><span class="stock-dot"></span><span id="proStock">8</span> left</span>
+                </div>
+            </div>
+
+            <div class="bundle-quote">
+                "Add the Oracle to the city. Senna knows things Aldric won't say and things Dravek would pay to keep buried. Three characters with interlocking memory systems and a faction lore document that binds them."
+            </div>
+
+            <ul class="bundle-includes">
+                <li>Complete Aldric pack — all files included</li>
+                <li>Complete Dravek pack — all files included</li>
+                <li>Senna pack — pre-release access (delivered with bundle)</li>
+                <li>Full faction lore document — three-way shared timeline</li>
+                <li>Three-way cross-reference memory system</li>
+                <li>75 total hand-crafted memories</li>
+                <li>All three advanced configs + edge cases</li>
+                <li>Priority support + config review session</li>
+                <li>1 revision per character included</li>
+                <li>Free updates for life on all three characters</li>
+            </ul>
+
+            <div class="bundle-footer-row">
+                <div class="bundle-price-block">
+                    <span class="bundle-launch-tag">Launch Week — Save $5.98</span>
+                    <div class="bundle-price">$14.99</div>
+                    <div class="bundle-original">Regular: $20.97</div>
+                </div>
+                <a href="pay-pro-bundle.html" class="bundle-buy-btn">Buy Pro Pack →</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ── CHARACTER BREAKDOWN ── -->
+<section class="section chars-section">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--purple);">Characters Included</div>
+        <h2 class="section-title">Every Character in Every Bundle</h2>
+        <p class="section-desc">Each character is fully realized on their own. In a bundle they become part of something larger.</p>
+
+        <div class="chars-grid">
+
+            <div class="char-mini-card">
+                <div class="char-mini-header">
+                    <div class="char-mini-avatar">⚔️</div>
+                    <div>
+                        <div class="char-mini-name">Aldric</div>
+                        <div class="char-mini-role">Grizzled Gate Captain</div>
+                    </div>
+                </div>
+                <div class="char-mini-quote">"Thirty-one years on this gate. Started the year the East Tower burned. I was seventeen."</div>
+                <div class="char-mini-stats">
+                    <span class="stat-tag gold">600+ word prompt</span>
+                    <span class="stat-tag green">25 memories</span>
+                    <span class="stat-tag">Advanced config</span>
+                </div>
+                <div class="char-mini-bundle-tag">
+                    Included in: <span class="in-city">City Bundle</span> · <span class="in-pro">Pro Pack</span>
+                </div>
+            </div>
+
+            <div class="char-mini-card">
+                <div class="char-mini-header">
+                    <div class="char-mini-avatar">💰</div>
+                    <div>
+                        <div class="char-mini-name">Dravek</div>
+                        <div class="char-mini-role">Corrupt Merchant</div>
+                    </div>
+                </div>
+                <div class="char-mini-quote">"Everything has a price, friend. The trick is knowing who's paying it."</div>
+                <div class="char-mini-stats">
+                    <span class="stat-tag gold">600+ word prompt</span>
+                    <span class="stat-tag green">25 memories</span>
+                    <span class="stat-tag">Ethics code</span>
+                </div>
+                <div class="char-mini-bundle-tag">
+                    Included in: <span class="in-city">City Bundle</span> · <span class="in-pro">Pro Pack</span>
+                </div>
+            </div>
+
+            <div class="char-mini-card">
+                <div class="char-mini-header">
+                    <div class="char-mini-avatar">🔮</div>
+                    <div>
+                        <div class="char-mini-name">Senna</div>
+                        <div class="char-mini-role">Broken Oracle</div>
+                    </div>
+                </div>
+                <div class="char-mini-quote">"I saw the end of your road. I wish I hadn't. The visions don't ask permission."</div>
+                <div class="char-mini-stats">
+                    <span class="stat-tag gold">600+ word prompt</span>
+                    <span class="stat-tag green">25 memories</span>
+                    <span class="stat-tag purple">Vision triggers</span>
+                </div>
+                <div class="char-mini-bundle-tag">
+                    Included in: <span class="in-pro">Pro Pack only</span> · Pre-release access
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── LORE SYSTEM ── -->
+<section class="section lore-section">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--gold);">The Lore System</div>
+        <h2 class="section-title">What "Shared World Lore" Actually Means</h2>
+        <p class="section-desc">Buying two characters separately gives you two isolated NPCs. Buying a bundle gives you two characters who exist in the same world and know it.</p>
+
+        <div class="lore-grid">
+            <div class="lore-card">
+                <div class="lore-icon">🏙️</div>
+                <h3>One Shared Timeline</h3>
+                <p>Every bundle includes a world lore document that establishes the shared history. The East Tower fire. The old king. The events that shaped every character in the pack. They all reference it consistently — because they lived through it.</p>
+            </div>
+            <div class="lore-card">
+                <div class="lore-icon">🔀</div>
+                <h3>Cross-Reference Memory System</h3>
+                <p>Aldric's memory file includes entries about Dravek — what he thinks of him, what he suspects, what he won't say out loud. Dravek's file mirrors this from his angle. When players talk to both, the city feels inhabited instead of scripted.</p>
+            </div>
+            <div class="lore-card">
+                <div class="lore-icon">🎭</div>
+                <h3>Consistent Knowledge Boundaries</h3>
+                <p>In a bundle, what each NPC knows and doesn't know is coordinated. Aldric doesn't know what Dravek privately thinks. Dravek doesn't know what Aldric reported to the watch. Senna knows things neither of them know they know.</p>
+            </div>
+            <div class="lore-card">
+                <div class="lore-icon">⚙️</div>
+                <h3>Coordinated API Config</h3>
+                <p>Bundle configs are tuned together. Temperature, token budgets, and memory retrieval settings are designed so all characters in the pack respond at the same quality level without competing API costs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── RELATIONSHIP MAP ── -->
+<section class="section relationship-section">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--purple);">Cross-Reference System</div>
+        <h2 class="section-title">How They See Each Other</h2>
+        <p class="section-desc">These are actual memory entries from the bundle files. Players will encounter these perspectives in conversation.</p>
+
+        <div class="rel-card">
+            <div class="rel-title">The City Bundle — Relationship Map</div>
+
+            <div class="rel-grid">
+                <div class="rel-npc">
+                    <div class="rel-npc-icon">⚔️</div>
+                    <div class="rel-npc-name">Aldric</div>
+                    <div class="rel-npc-role">Gate Captain</div>
+                </div>
+                <div class="rel-connector">
+                    <div class="rel-arrow">⇄</div>
+                    <div class="rel-label">20 years. Same street. Different loyalties.</div>
+                </div>
+                <div class="rel-npc">
+                    <div class="rel-npc-icon">💰</div>
+                    <div class="rel-npc-name">Dravek</div>
+                    <div class="rel-npc-role">Merchant</div>
+                </div>
+            </div>
+
+            <div class="rel-memories">
+                <div class="rel-memory">
+                    <div class="rm-npc aldric">Aldric's memory of Dravek</div>
+                    <div class="rm-quote">"Dravek's been in this market twenty years. Longer than most honest men last. That says something — I'm just not sure what."</div>
+                </div>
+                <div class="rel-memory">
+                    <div class="rm-npc dravek">Dravek's memory of Aldric</div>
+                    <div class="rm-quote">"Aldric's the kind of man who'd arrest his own brother if the law required it. I respect that. It's also why I'm careful what I say around him."</div>
+                </div>
+                <div class="rel-memory">
+                    <div class="rm-npc aldric">Aldric on the East Tower fire</div>
+                    <div class="rm-quote">"I was at the gate the night it burned. Dravek's cart was the last one through before the fire started. Probably means nothing."</div>
+                </div>
+                <div class="rel-memory">
+                    <div class="rm-npc dravek">Dravek on the East Tower fire</div>
+                    <div class="rm-quote">"Everyone remembers where they were that night. I remember exactly what I was carrying and exactly why it couldn't wait until morning."</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── COMPARISON TABLE ── -->
+<section class="section compare-section">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--gold);">Compare</div>
+        <h2 class="section-title">Bundle vs. Singles vs. License</h2>
+        <p class="section-desc">Where bundles sit in the full product lineup.</p>
+
+        <div class="compare-table-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            <div class="th-name">Singles</div>
+                            <div class="th-price" style="color:var(--gold);">$4.89 each</div>
+                        </th>
+                        <th class="hl">
+                            <div class="th-name">City Bundle</div>
+                            <div class="th-price" style="color:var(--purple);">$8.49</div>
+                        </th>
+                        <th class="hl2">
+                            <div class="th-name">Pro Pack</div>
+                            <div class="th-price" style="color:var(--gold);">$14.99</div>
+                        </th>
+                        <th>
+                            <div class="th-name">Server License</div>
+                            <div class="th-price" style="color:var(--teal);">$24.99</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Characters</td>
+                        <td>1</td>
+                        <td class="hl">2</td>
+                        <td class="hl2">3</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Total memories</td>
+                        <td>25</td>
+                        <td class="hl">50</td>
+                        <td class="hl2">75</td>
+                        <td>125</td>
+                    </tr>
+                    <tr>
+                        <td>Shared world lore</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓</td>
+                        <td class="hl2 check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Cross-reference memories</td>
+                        <td class="cross">✗</td>
+                        <td class="hl check">✓</td>
+                        <td class="hl2 check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Faction lore document</td>
+                        <td class="cross">✗</td>
+                        <td class="hl cross">✗</td>
+                        <td class="hl2 check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Relationship map</td>
+                        <td class="cross">✗</td>
+                        <td class="hl cross">✗</td>
+                        <td class="hl2 cross">✗</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Commercial use</td>
+                        <td class="cross">Personal</td>
+                        <td class="hl cross">Personal</td>
+                        <td class="hl2 cross">Personal</td>
+                        <td class="check">✓ Full</td>
+                    </tr>
+                    <tr>
+                        <td>Config review</td>
+                        <td class="cross">✗</td>
+                        <td class="hl cross">✗</td>
+                        <td class="hl2 check">✓</td>
+                        <td class="check">✓ + Call</td>
+                    </tr>
+                    <tr>
+                        <td>Support level</td>
+                        <td>24hr</td>
+                        <td class="hl">Priority</td>
+                        <td class="hl2">Priority</td>
+                        <td>Same-day</td>
+                    </tr>
+                    <tr>
+                        <td>Savings vs. singles</td>
+                        <td>—</td>
+                        <td class="hl" style="color:var(--green);font-weight:700;">Save $5.49</td>
+                        <td class="hl2" style="color:var(--green);font-weight:700;">Save $5.98</td>
+                        <td style="color:var(--green);font-weight:700;">Save $9.96</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section faq-section">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--gold);">FAQ</div>
+        <h2 class="section-title">Bundle Questions</h2>
+        <p class="section-desc">Everything you need to know before buying.</p>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Can I buy characters separately and get bundle lore later?</h4>
+                <p>No. The shared lore document and cross-reference memories are built specifically for the bundle and require both characters to be set up together. Buy the bundle if you want the lore system.</p>
+            </div>
+            <div class="faq-item">
+                <h4>When does Senna release?</h4>
+                <p>Senna is in the Pro Pack as pre-release access. She will be delivered alongside Aldric and Dravek when you purchase the Pro Pack. Standalone Senna will be listed in the store separately once finalized.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I upgrade from City Bundle to Pro Pack?</h4>
+                <p>Yes. Contact us after purchasing the City Bundle and we'll quote you the difference price for upgrading to the Pro Pack. You won't pay for Aldric and Dravek again.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do bundle characters have to be used on the same server?</h4>
+                <p>For the lore system to work properly, yes. The cross-reference memories are written assuming the characters coexist in the same world. They can technically be installed separately but the lore consistency requires both.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How is the bundle delivered?</h4>
+                <p>As a single download — one folder containing both character packs, the shared lore document, and both install guides. Delivered to your email or Discord within 2 hours of payment confirmation.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What if I already own Aldric?</h4>
+                <p>Contact us. We'll issue you a partial credit toward the City Bundle or Pro Pack. We don't want you paying for the same character twice.</p>
+            </div>
+        </div>
+
+        <div class="guarantee">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h3>The NPCForge Guarantee</h3>
+                <p>If any bundle pack does not work with your setup, message me before anything else.</p>
+                <p>I fix it personally within 24 hours. Every purchase. Every time.</p>
+                <p>If I cannot fix it, you receive a full refund in crypto. No questions asked.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section class="section final-cta">
+    <div class="section-inner">
+        <div class="section-label" style="color:var(--purple);">Get Started</div>
+        <h2 class="section-title" style="text-align:center;">Ready to Build a Living City?</h2>
+        <p class="section-desc" style="margin:0 auto 0;text-align:center;">Start with the City Bundle if you want two characters. Upgrade to the Pro Pack if you want a full faction. Both include the shared lore system.</p>
+
+        <div class="cta-buttons">
+            <a href="pay-city-bundle.html" class="btn btn-purple">🏰 City Bundle — $8.49</a>
+            <a href="pay-pro-bundle.html" class="btn btn-gold">⚜️ Pro Pack — $14.99</a>
+            <a href="license.html" class="btn btn-outline">🌐 Need More? Server License →</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
+                <p>AI NPC Character Design<br>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+            </div>
+            <div class="footer-col">
+                <h4>Characters</h4>
+                <a href="pay-aldric.html">Aldric — $4.89</a>
+                <a href="pay-dravek.html">Dravek — $4.89</a>
+                <a href="free.html">Starter Guard — Free</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bundles</h4>
+                <a href="pay-city-bundle.html">City Bundle — $8.49</a>
+                <a href="pay-pro-bundle.html">Pro Pack — $14.99</a>
+            </div>
+            <div class="footer-col">
+                <h4>Tiers</h4>
+                <a href="license.html">Server License — $24.99</a>
+                <a href="retainer.html">Retainer — $39/mo</a>
+                <a href="custom.html">Custom — from $25</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 NPCForge. All rights reserved.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ── SOCIAL PROOF ── -->
+<div class="social-proof-popup" id="socialProof">
+    <div class="proof-icon" id="proofIcon">🏰</div>
+    <div>
+        <div class="proof-text" id="proofText"><strong>CraftLord</strong> just purchased the <strong>City Bundle</strong></div>
+        <div class="proof-time" id="proofTime">3 minutes ago</div>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    /* ─── COUNTDOWN ─── */
+    var SALE_DURATION = 72 * 60 * 60 * 1000;
+    var SK = 'npcforge_sale_end_v2';
+
+    function getSaleEnd() {
+        var s = localStorage.getItem(SK);
+        if (s) { var e = parseInt(s, 10); if (e > Date.now()) return e; }
+        var n = Date.now() + SALE_DURATION;
+        localStorage.setItem(SK, n.toString());
+        return n;
+    }
+
+    var saleEnd = getSaleEnd();
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function fmt(ms) {
+        if (ms <= 0) return '00:00:00';
+        var t = Math.floor(ms / 1000);
+        return pad(Math.floor(t / 3600)) + ':' + pad(Math.floor((t % 3600) / 60)) + ':' + pad(t % 60);
+    }
+
+    function tick() {
+        var r = saleEnd - Date.now();
+        if (r <= 0) { saleEnd = Date.now() + SALE_DURATION; localStorage.setItem(SK, saleEnd.toString()); r = SALE_DURATION; }
+        var el = document.getElementById('bannerTimer');
+        if (el) el.textContent = fmt(r);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    /* ─── STOCK ─── */
+    var SSK = 'npcforge_stock_v2';
+    var SS = 'npcforge_session_v2';
+
+    function getStock() {
+        var r = localStorage.getItem(SSK);
+        if (r) { try { var d = JSON.parse(r); if (d.saleEnd === saleEnd) return d; } catch (e) {} }
+        var i = { saleEnd: saleEnd, aldric: 50, dravek: 50, bundle: 25, pro: 15, license: 10, retainer: 5, hero: 47 };
+        localStorage.setItem(SSK, JSON.stringify(i));
+        return i;
+    }
+
+    var stock = getStock();
+
+    function renderStock() {
+        var c = document.getElementById('cityStock');
+        var p = document.getElementById('proStock');
+        if (c) c.textContent = stock.bundle;
+        if (p) p.textContent = stock.pro;
+    }
+
+    renderStock();
+
+    if (!sessionStorage.getItem(SS)) {
+        sessionStorage.setItem(SS, '1');
+        var d = Math.floor(Math.random() * 2) + 1;
+        stock.bundle = Math.max(2, stock.bundle - d);
+        stock.pro = Math.max(1, stock.pro - Math.floor(Math.random() * 2));
+        localStorage.setItem(SSK, JSON.stringify(stock));
+        renderStock();
+    }
+
+    /* ─── BANNER CLOSE ─── */
+    window.closeBanner = function () {
+        var b = document.getElementById('urgencyBanner');
+        var n = document.getElementById('mainNav');
+        if (b) b.style.display = 'none';
+        if (n) n.classList.add('banner-closed');
+    };
+
+    /* ─── SOCIAL PROOF ─── */
+    var proofs = [
+        { icon: '🏰', text: '<strong>CraftLord</strong> just purchased the <strong>City Bundle</strong>', time: '3 minutes ago' },
+        { icon: '⚜️', text: '<strong>EpicRealms</strong> just purchased the <strong>Pro Pack</strong>', time: '7 minutes ago' },
+        { icon: '🏰', text: '<strong>NovaCraft</strong> just purchased the <strong>City Bundle</strong>', time: '11 minutes ago' },
+        { icon: '⚜️', text: '<strong>DragonSlayer99</strong> just purchased the <strong>Pro Pack</strong>', time: '2 minutes ago' },
+        { icon: '🏰', text: '<strong>RealmForge</strong> just purchased the <strong>City Bundle</strong>', time: '5 minutes ago' },
+        { icon: '⚜️', text: '<strong>IronVault</strong> just purchased the <strong>Pro Pack</strong>', time: '9 minutes ago' },
+    ];
+
+    var proofIdx = 0;
+    var popup = document.getElementById('socialProof');
+
+    function showProof() {
+        if (!popup) return;
+        var p = proofs[proofIdx % proofs.length];
+        document.getElementById('proofIcon').textContent = p.icon;
+        document.getElementById('proofText').innerHTML = p.text;
+        document.getElementById('proofTime').textContent = p.time;
+        popup.classList.add('show');
+        setTimeout(function () { popup.classList.remove('show'); }, 4500);
+        proofIdx++;
+    }
+
+    setTimeout(function () {
+        showProof();
+        setInterval(function () {
+            setTimeout(showProof, Math.floor(Math.random() * 25000) + 20000);
+        }, 35000);
+    }, 10000);
+
+    /* ─── MOBILE NAV ─── */
+    document.addEventListener('click', function (e) {
+        var nav = document.querySelector('.nav-links');
+        var tog = document.querySelector('.nav-toggle');
+        if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !tog.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
+
+})();
+</script>
+
+</body>
+</html>
