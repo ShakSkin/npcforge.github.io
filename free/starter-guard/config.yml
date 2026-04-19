@@ -1,0 +1,209 @@
+# ================================================================
+# NPCFORGE — STARTER GUARD
+# Configuration File v1.0 — Free Pack
+# Compatible: SentiencePro | LlamaCraft Bridge
+# ================================================================
+# QUICK START:
+#   1. Set your api_provider and api_key below
+#   2. Copy this entire folder to your plugin's personalities dir
+#   3. Restart your server
+# ================================================================
+
+# ----------------------------------------------------------------
+# IDENTITY
+# ----------------------------------------------------------------
+character:
+  name: "Guard"
+  version: "1.0"
+  pack: "NPCForge — Starter Guard (Free)"
+  role: "Gate Guard"
+  location: "City Gate"
+
+# ----------------------------------------------------------------
+# API PROVIDER
+# Set provider to "openai" or "anthropic" then add your key.
+# ----------------------------------------------------------------
+api:
+  provider: "openai"               # "openai" or "anthropic"
+  api_key: "YOUR_API_KEY_HERE"     # Paste your API key here
+
+  # OpenAI settings
+  openai:
+    model: "gpt-4o-mini"           # Recommended for this pack
+
+  # Anthropic settings
+  anthropic:
+    model: "claude-3-haiku-20240307"
+
+# ----------------------------------------------------------------
+# PERSONALITY FILES
+# Do not change these unless you rename the files.
+# ----------------------------------------------------------------
+personality:
+  system_prompt: "system_prompt.txt"
+  memories: "memories.json"
+
+# ----------------------------------------------------------------
+# RESPONSE TUNING
+# These settings are conservative — safe defaults for a
+# first-time install. See notes for adjustment guidance.
+# ----------------------------------------------------------------
+response:
+
+  # Temperature: 0.6 keeps the guard consistent and direct.
+  # Raise to 0.75 if responses feel too robotic.
+  temperature: 0.6
+
+  # Max tokens: Guards speak short. 150 is generous.
+  # Lower to 100 for even shorter responses.
+  max_tokens: 150
+
+  # Min tokens: Prevents one-word answers.
+  min_tokens: 15
+
+  # Presence penalty: Reduces phrase repetition.
+  presence_penalty: 0.3
+
+  # Frequency penalty: Reduces word repetition.
+  frequency_penalty: 0.3
+
+  # Top-p: Vocabulary range control.
+  top_p: 0.88
+
+# ----------------------------------------------------------------
+# MEMORY RETRIEVAL
+# ----------------------------------------------------------------
+memory:
+
+  # Memories pulled per conversation turn.
+  # 2 is enough for the starter pack's 10 memories.
+  max_memories_per_turn: 2
+
+  # Minimum weight for memory retrieval.
+  min_weight_threshold: 0.5
+
+  # Always inject these core behavior memories.
+  always_inject:
+    - "guard_behavioral_001"     # Inspection procedure
+    - "guard_behavioral_002"     # Bribery refusal
+
+  # Memory priority order.
+  priority_types:
+    - "behavioral_anchor"
+    - "opinion"
+    - "backstory"
+    - "world_lore"
+    - "humor"
+
+  # Match player input to memory trigger_keywords.
+  semantic_search: true
+
+  # Auto-inject world_lore when player asks about locations.
+  auto_inject_lore: true
+
+# ----------------------------------------------------------------
+# CONVERSATION CONTEXT
+# ----------------------------------------------------------------
+context:
+
+  # Past exchanges the AI sees. 4 is enough for a guard.
+  history_turns: 4
+
+  # Maximum total context tokens.
+  max_context_tokens: 1024
+
+  # Remove oldest messages if limit is exceeded.
+  trim_strategy: "oldest_first"
+
+# ----------------------------------------------------------------
+# COST CONTROLS
+# Conservative limits for a free-tier test setup.
+# ----------------------------------------------------------------
+cost:
+
+  # Max API calls per player per session.
+  max_calls_per_session: 20
+
+  # Max API calls per player per day.
+  max_calls_per_day: 60
+
+  # Cooldown between responses in milliseconds.
+  response_cooldown_ms: 800
+
+  # In-character message shown when limit is reached.
+  limit_reached_message: "The guard looks at you with the
+    patience of someone who has had this conversation before.
+    'I've said what I have to say. Move along or wait your
+    turn. I don't have more words for you today.'"
+
+  # Cache identical questions (seconds).
+  response_cache_seconds: 300
+
+# ----------------------------------------------------------------
+# BEHAVIOR
+# ----------------------------------------------------------------
+behavior:
+
+  # Filter out AI-speak phrases and retry.
+  filter_ooc_phrases: true
+
+  ooc_filter_list:
+    - "as an AI"
+    - "I'm an AI"
+    - "I am an AI"
+    - "language model"
+    - "I cannot help"
+    - "I'm unable to"
+    - "I apologize"
+    - "I'm sorry, I"
+    - "How can I assist"
+    - "I'd be happy to help"
+    - "Great question"
+    - "Certainly!"
+    - "Absolutely!"
+    - "OpenAI"
+    - "Anthropic"
+    - "Claude"
+    - "ChatGPT"
+
+  # Retries if OOC phrase detected.
+  max_ooc_retries: 2
+
+  # Enforce first-person responses.
+  enforce_first_person: true
+
+  # Block character-break attempts.
+  block_character_break_attempts: true
+
+  character_break_response: "The guard stares at you flatly.
+    'I don't know what that means. State your business
+    or step aside. You're holding up the line.'"
+
+# ----------------------------------------------------------------
+# LOGGING
+# ----------------------------------------------------------------
+logging:
+  enabled: true
+  log_file: "logs/starter_guard_conversations.log"
+  level: "minimal"
+  max_log_size_mb: 5
+  max_log_files: 3
+
+# ================================================================
+# WANT THE FULL EXPERIENCE?
+# ================================================================
+# This free config uses conservative defaults.
+# The Aldric pack includes:
+#   - Temperature tuned to 0.65 for a grizzled veteran voice
+#   - 180 token max (short but weighted)
+#   - 3 memories per turn across 25 hand-crafted entries
+#   - Always-inject behavioral anchors
+#   - Vulnerability unlock thresholds
+#   - Tone reminder system
+#   - Bundle cross-character lore injection
+#
+# npcforge.github.io/store.html
+# ================================================================
+# NPCFORGE | npcforge.github.io | Starter Pack v1.0
+# MIT Licensed — Free to use, modify, and share.
+# ================================================================
