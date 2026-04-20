@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Server License — NPCForge</title>
+    <meta name="description" content="Purchase the NPCForge Server License. 5 characters, commercial rights, world lore system, API optimization, setup consultation. $24.99 launch price.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --gold: #D4A537;
+            --gold-light: #F2D06B;
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #12121A;
+            --bg-card: #1A1A25;
+            --bg-card-hover: #222233;
+            --text-primary: #E8E8F0;
+            --text-secondary: #9999AA;
+            --text-muted: #666677;
+            --border: #2A2A3A;
+            --green: #4CAF50;
+            --red: #E74C3C;
+            --urgent-red: #FF4444;
+            --urgent-orange: #FF6B35;
+            --teal: #1ABC9C;
+            --teal-light: #2EE0BA;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── URGENCY STRIP ── */
+        .urgency-strip {
+            background: linear-gradient(90deg, #FF4444, #FF6B35, #FF4444);
+            background-size: 200% 100%;
+            animation: stripShift 3s ease infinite;
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        @keyframes stripShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .urgency-strip .strip-timer {
+            background: rgba(0,0,0,0.25);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10,10,15,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+        .nav-logo span { color: var(--text-primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-links .nav-cta {
+            background: var(--gold);
+            color: #000;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .nav-links .nav-cta:hover { background: var(--gold-light); color: #000; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 0;
+        }
+
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb .sep { color: var(--text-muted); margin: 0 0.5rem; font-size: 0.75rem; }
+        .breadcrumb .current { color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* ── MAIN LAYOUT ── */
+        .pay-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 2rem 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* ── LEFT: PRODUCT INFO ── */
+        .product-info { position: sticky; top: 5rem; }
+
+        .product-banner {
+            background: linear-gradient(135deg, #031a14 0%, #010f0d 100%);
+            border-radius: 14px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(26,188,156,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(26,188,156,0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .product-banner .p-icon { font-size: 3.5rem; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .product-banner h1 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.25rem; position: relative; z-index: 1; }
+        .product-banner .p-role { color: var(--text-secondary); font-size: 0.95rem; position: relative; z-index: 1; }
+
+        .launch-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: var(--urgent-red);
+            color: #fff;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+            z-index: 1;
+        }
+
+        .product-quote {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 1.25rem 1.5rem;
+            border-left: 3px solid rgba(26,188,156,0.3);
+            background: rgba(26,188,156,0.03);
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 2rem;
+        }
+
+        .product-details h3 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-features { list-style: none; margin-bottom: 2rem; }
+
+        .product-features li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: var(--teal);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .product-price-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price-left .price-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .price-left .price-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--teal);
+            line-height: 1;
+        }
+
+        .price-left .price-original {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-top: 0.15rem;
+        }
+
+        .price-right { text-align: right; }
+
+        .price-right .price-note {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .stock-counter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            background: rgba(255,68,68,0.05);
+            border: 1px solid rgba(255,68,68,0.15);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+
+        .stock-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--urgent-red);
+            animation: sPulse 1.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes sPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.75); }
+        }
+
+        .stock-counter strong { color: var(--urgent-red); }
+
+        /* ── RIGHT: PAYMENT PANEL ── */
+        .payment-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .payment-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(42,42,58,0.3);
+        }
+
+        .payment-header h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .payment-header p { color: var(--text-muted); font-size: 0.8rem; }
+
+        .payment-body { padding: 2rem; }
+
+        /* ── STEP INDICATOR ── */
+        .pay-steps { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+        .pay-step { flex: 1; text-align: center; }
+
+        .step-dot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--bg-card-hover);
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            transition: all 0.3s;
+        }
+
+        .pay-step.active .step-dot {
+            background: rgba(26,188,156,0.1);
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        .pay-step.completed .step-dot {
+            background: rgba(76,175,80,0.15);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .step-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+        .pay-step.active .step-label { color: var(--teal); }
+        .pay-step.completed .step-label { color: var(--green); }
+
+        /* ── INFO BOXES ── */
+        .info-box {
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        .info-box-teal {
+            background: rgba(26,188,156,0.04);
+            border: 1px solid rgba(26,188,156,0.12);
+            color: var(--text-secondary);
+        }
+
+        .info-box-green {
+            background: rgba(76,175,80,0.04);
+            border: 1px solid rgba(76,175,80,0.12);
+            color: var(--text-secondary);
+        }
+
+        .info-box-verify {
+            background: rgba(76,175,80,0.05);
+            border: 1px solid rgba(76,175,80,0.15);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .info-box-verify h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-box-verify ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+
+        .info-box-verify li {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box-verify li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .info-box strong { color: var(--text-primary); }
+
+        /* ── NOWPAYMENTS WIDGET ── */
+        .widget-section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .widget-wrapper {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            min-height: 180px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .widget-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            min-height: 160px;
+        }
+
+        .widget-spinner {
+            width: 32px; height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--teal);
+            border-radius: 50%;
+            animation: wSpin 0.8s linear infinite;
+        }
+
+        @keyframes wSpin { to { transform: rotate(360deg); } }
+
+        /* ── COIN BADGES ── */
+        .coin-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .coin-badge {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.3rem 0.55rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .coin-badge-icon { font-size: 0.8rem; }
+
+        /* ── DELIVERY FORM ── */
+        .delivery-section {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .delivery-section h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+        .delivery-section > p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group { margin-bottom: 1rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group .required { color: var(--urgent-red); }
+
+        .form-group .optional {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.75rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: var(--teal); }
+
+        .form-group textarea { min-height: 90px; resize: vertical; }
+
+        .form-hint {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .submit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--teal);
+            color: #000;
+        }
+
+        .submit-btn:hover {
+            background: var(--teal-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(26,188,156,0.2);
+        }
+
+        .submit-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
+            line-height: 1.6;
+        }
+
+        /* ── TRUST BAR ── */
+        .trust-bar { max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        .trust-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .trust-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .trust-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .trust-item p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; }
+
+        /* ── FOOTER ── */
+        footer { padding: 3rem 2rem; border-top: 1px solid var(--border); text-align: center; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .pay-layout { grid-template-columns: 1fr; }
+            .product-info { position: static; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .product-price-box { flex-direction: column; text-align: center; gap: 0.75rem; }
+        }
+
+        @media (max-width: 650px) {
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(10,10,15,0.98); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .coin-badges { gap: 0.3rem; }
+            .coin-badge { font-size: 0.6rem; padding: 0.25rem 0.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── URGENCY STRIP ── -->
+<div class="urgency-strip">
+    🔥 LAUNCH WEEK — 29% OFF · <span id="stockCount">7</span> licenses left at this price · Sale ends <span class="strip-timer" id="stripTimer">00:00:00</span>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">⚔️ NPC<span>Forge</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="license.html">Server License</a></li>
+            <li><a href="free.html">Free Pack</a></li>
+            <li><a href="store.html" class="nav-cta">Browse All</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <a href="license.html">Server License</a>
+    <span class="sep">›</span>
+    <span class="current">Purchase</span>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="pay-layout">
+
+    <!-- LEFT: PRODUCT INFO -->
+    <div class="product-info">
+        <div class="product-banner">
+            <span class="launch-badge">29% Off</span>
+            <div class="p-icon">🌐</div>
+            <h1>Server License</h1>
+            <div class="p-role">Commercial · 5 Characters · Full World System</div>
+        </div>
+
+        <div class="product-quote">
+            "Five characters. One world. Commercial rights, a shared lore system, and API optimization. Built for server owners who take their NPC infrastructure seriously."
+        </div>
+
+        <div class="product-details">
+            <h3>What's Included</h3>
+            <ul class="product-features">
+                <li>5 full character packs (your choice from roster)</li>
+                <li>125 total hand-crafted memories</li>
+                <li>Complete world lore system — shared timeline</li>
+                <li>NPC relationship map document</li>
+                <li>API cost optimization report</li>
+                <li>Commercial server use rights — no restrictions</li>
+                <li>Priority support + 1hr setup consultation (async)</li>
+                <li>1 free revision per character post-install</li>
+                <li>All future updates to purchased characters</li>
+            </ul>
+        </div>
+
+        <div class="product-price-box">
+            <div class="price-left">
+                <div class="price-label">Launch Week Price</div>
+                <div class="price-value">$24.99</div>
+                <div class="price-original">Regular: $34.99</div>
+            </div>
+            <div class="price-right">
+                <div class="price-note">One-time payment<br>Crypto · Auto-verified<br>Delivered within 4hr</div>
+            </div>
+        </div>
+
+        <div class="stock-counter">
+            <span class="stock-dot"></span>
+            Only <strong id="stockDisplay">7</strong> licenses available at this launch price
+        </div>
+    </div>
+
+    <!-- RIGHT: PAYMENT PANEL -->
+    <div class="payment-panel">
+        <div class="payment-header">
+            <h2>Complete Your Purchase</h2>
+            <p>Automated crypto payment · $24.99 USD · Verified on-chain</p>
+        </div>
+
+        <div class="payment-body">
+
+            <!-- STEPS -->
+            <div class="pay-steps">
+                <div class="pay-step active" id="pstep-1">
+                    <div class="step-dot">1</div>
+                    <div class="step-label">Pay</div>
+                </div>
+                <div class="pay-step" id="pstep-2">
+                    <div class="step-dot">2</div>
+                    <div class="step-label">Confirmed</div>
+                </div>
+                <div class="pay-step" id="pstep-3">
+                    <div class="step-dot">3</div>
+                    <div class="step-label">Delivered</div>
+                </div>
+            </div>
+
+            <!-- NON-CUSTODIAL EXPLAINER -->
+            <div class="info-box info-box-teal">
+                🔒 <strong>Non-custodial payment.</strong>
+                Your crypto goes to a temporary address, then forwards
+                directly to the seller's wallet on confirmation.
+                NOWPayments never holds funds. ~0.5% service fee applies.
+            </div>
+
+            <!-- NOWPAYMENTS WIDGET -->
+            <div class="widget-section-label">Select Coin & Pay</div>
+            <div class="widget-wrapper" id="widget-wrapper">
+                <div class="widget-loading" id="widget-loader">
+                    <div class="widget-spinner"></div>
+                    <span>Loading payment gateway...</span>
+                </div>
+
+                <!-- NOWPayments Widget -->
+                <div id="nowpayments-widget"
+                     data-api-key="9QX1T0A-KEXMG9W-GGE42GV-2FHCKC3"
+                     data-amount="24.99"
+                     data-currency="usd"
+                     data-style="dark"
+                     data-is-fee-paid-by-user="true"
+                     style="width:100%;">
+                </div>
+            </div>
+
+            <!-- LOW FEE TIP -->
+            <div class="info-box info-box-green">
+                💡 <strong>Tip:</strong>
+                Use <strong>LTC, SOL, TRX, or DOGE</strong> for the lowest network fees
+                on amounts like $24.99. Avoid ETH mainnet — gas fees can be significant.
+            </div>
+
+            <!-- ACCEPTED COINS -->
+            <div class="widget-section-label" style="text-align:center; margin-bottom:0.5rem;">Accepted Cryptocurrencies</div>
+            <div class="coin-badges">
+                <span class="coin-badge"><span class="coin-badge-icon">₿</span>BTC</span>
+                <span class="coin-badge"><span class="coin-badge-icon">⟠</span>ETH</span>
+                <span class="coin-badge"><span class="coin-badge-icon">💲</span>USDT</span>
+                <span class="coin-badge"><span class="coin-badge-icon">💵</span>USDC</span>
+                <span class="coin-badge"><span class="coin-badge-icon">◎</span>SOL</span>
+                <span class="coin-badge"><span class="coin-badge-icon">🔺</span>TRX</span>
+                <span class="coin-badge"><span class="coin-badge-icon">Ł</span>LTC</span>
+                <span class="coin-badge"><span class="coin-badge-icon">✕</span>XRP</span>
+                <span class="coin-badge"><span class="coin-badge-icon">₳</span>ADA</span>
+                <span class="coin-badge"><span class="coin-badge-icon">Ð</span>DOGE</span>
+                <span class="coin-badge"><span class="coin-badge-icon">ɱ</span>XMR</span>
+                <span class="coin-badge"><span class="coin-badge-icon">🔶</span>BNB</span>
+                <span class="coin-badge"><span class="coin-badge-icon">+150</span></span>
+            </div>
+
+            <!-- AUTOMATED VERIFICATION -->
+            <div class="info-box-verify">
+                <h4>🔒 Automated Payment Verification</h4>
+                <ul>
+                    <li>Payment tracked on-chain in real time</li>
+                    <li>System auto-confirms once blockchain settles</li>
+                    <li>Discord &amp; delivery queue notified instantly</li>
+                    <li>No manual TX hash needed</li>
+                </ul>
+            </div>
+
+            <!-- DELIVERY CONTACT FORM -->
+            <div class="delivery-section">
+                <h3>Where Should We Deliver?</h3>
+                <p>Fill this in <strong>after</strong> completing payment above. Include your 5 character choices in the Notes field.</p>
+
+                <form
+                    action="https://script.google.com/macros/s/AKfycbwWp83QEMpN2BWhCZwSNzkmhUN7Tnpji-N8Gej9qt_gxAeX_mqTYx-Xv6vNfM19CG8I/exec"
+                    method="POST"
+                >
+                    <input type="hidden" name="source" value="server_license_checkout_form">
+                    <input type="hidden" name="product" value="Server License — 5 Characters + Commercial Rights ($24.99 Launch Price)">
+
+                    <!-- Contact -->
+                    <div class="form-group">
+                        <label>
+                            Email or Discord <span class="required">*</span>
+                        </label>
+                        <input type="text" name="contact" placeholder="email@example.com or YourName#1234" required>
+                        <div class="form-hint">This is where we'll deliver all five character pack files.</div>
+                    </div>
+
+                    <!-- NOWPayments Payment ID -->
+                    <div class="form-group">
+                        <label>
+                            NOWPayments Payment ID <span class="optional">(optional — speeds matching)</span>
+                        </label>
+                        <input type="text" name="nowpayments_payment_id" placeholder="Shown in the widget after you pay">
+                        <div class="form-hint">The payment ID displayed by the widget after you send.</div>
+                    </div>
+
+                    <!-- Character Selection -->
+                    <div class="form-group">
+                        <label>
+                            Your 5 Character Choices <span class="required">*</span>
+                        </label>
+                        <textarea name="character_choices" placeholder="e.g. Aldric, Dravek, Senna (pre-release), Maren, Varek" required></textarea>
+                        <div class="form-hint">List any 5 from the roster. Coming-soon characters will be delivered as pre-release or within 7 days of completion.</div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group">
+                        <label>
+                            Notes <span class="optional">(optional)</span>
+                        </label>
+                        <textarea name="notes" placeholder="Server type, any specific lore requirements, questions about the consultation, etc."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">📦 Submit Delivery Details</button>
+
+                    <p class="submit-note">
+                        ⚡ Payment verified automatically by NOWPayments on-chain.<br>
+                        Submit this form <strong>after</strong> completing payment above.<br>
+                        All 5 packs + documents delivered within 4 hours of blockchain confirmation.
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ── TRUST ── -->
+<div class="trust-bar">
+    <div class="trust-grid">
+        <div class="trust-item">
+            <div class="trust-icon">🔒</div>
+            <h4>Auto-Verified</h4>
+            <p>NOWPayments confirms on-chain. No manual checking needed.</p>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">⚡</div>
+            <h4>Fast Delivery</h4>
+            <p>All 5 packs + world lore documents delivered within 4 hours of confirmation.</p>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">📋</div>
+            <h4>Consultation Included</h4>
+            <p>1hr async setup consultation scheduled within 24hrs of delivery.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="license.html">Server License</a>
+        <a href="free.html">Free Pack</a>
+        <a href="custom.html">Custom Orders</a>
+    </div>
+    <p class="footer-copy">© 2025 NPCForge. All rights reserved. All cryptocurrency transactions are final.</p>
+</footer>
+
+<!-- NOWPayments Widget Script -->
+<script src="https://nowpayments.io/widget/widget.js" async></script>
+
+<script>
+(function () {
+    'use strict';
+
+    /* ─── COUNTDOWN ─── */
+    var SALE_DURATION = 72 * 60 * 60 * 1000;
+    var STORAGE_KEY = 'npcforge_sale_end_v2';
+
+    function getSaleEnd() {
+        var s = localStorage.getItem(STORAGE_KEY);
+        if (s) { var e = parseInt(s, 10); if (e > Date.now()) return e; }
+        var n = Date.now() + SALE_DURATION;
+        localStorage.setItem(STORAGE_KEY, n.toString());
+        return n;
+    }
+
+    var saleEnd = getSaleEnd();
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function fmt(ms) {
+        if (ms <= 0) return '00:00:00';
+        var t = Math.floor(ms / 1000);
+        return pad(Math.floor(t / 3600)) + ':' + pad(Math.floor((t % 3600) / 60)) + ':' + pad(t % 60);
+    }
+
+    function tick() {
+        var r = saleEnd - Date.now();
+        if (r <= 0) {
+            saleEnd = Date.now() + SALE_DURATION;
+            localStorage.setItem(STORAGE_KEY, saleEnd.toString());
+            r = SALE_DURATION;
+        }
+        var el = document.getElementById('stripTimer');
+        if (el) el.textContent = fmt(r);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    /* ─── STOCK ─── */
+    var SK = 'npcforge_stock_v2';
+    var stock = (function () {
+        var r = localStorage.getItem(SK);
+        if (r) {
+            try {
+                var d = JSON.parse(r);
+                if (d.saleEnd === saleEnd) return d;
+            } catch (e) {}
+        }
+        var i = {
+            saleEnd: saleEnd,
+            aldric: 50, dravek: 50, bundle: 25,
+            pro: 15, license: 10, retainer: 5, hero: 47
+        };
+        localStorage.setItem(SK, JSON.stringify(i));
+        return i;
+    })();
+
+    function renderStock() {
+        var s = document.getElementById('stockCount');
+        var d = document.getElementById('stockDisplay');
+        if (s) s.textContent = stock.license;
+        if (d) d.textContent = stock.license;
+    }
+
+    renderStock();
+
+    /* ─── WIDGET LOAD DETECTION ─── */
+    var widgetCheck = setInterval(function () {
+        var wrapper = document.getElementById('widget-wrapper');
+        var loader = document.getElementById('widget-loader');
+        if (!wrapper || !loader) return;
+
+        var iframe = wrapper.querySelector('iframe');
+        var widgetEl = wrapper.querySelector('.nowpayments-widget-container, .np-widget');
+
+        if (iframe || widgetEl) {
+            loader.style.display = 'none';
+            clearInterval(widgetCheck);
+        }
+    }, 500);
+
+    setTimeout(function () {
+        var loader = document.getElementById('widget-loader');
+        if (loader) loader.style.display = 'none';
+        clearInterval(widgetCheck);
+    }, 8000);
+
+    /* ─── MOBILE NAV ─── */
+    document.addEventListener('click', function (e) {
+        var navLinks = document.querySelector('.nav-links');
+        var tog = document.querySelector('.nav-toggle');
+        if (navLinks && navLinks.classList.contains('open') && !navLinks.contains(e.target) && !tog.contains(e.target)) {
+            navLinks.classList.remove('open');
+        }
+    });
+
+})();
+</script>
+
+</body>
+</html>
