@@ -531,9 +531,7 @@
         .api-left h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
         .api-left p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
 
-        .api-items {
-            list-style: none;
-        }
+        .api-items { list-style: none; }
 
         .api-items li {
             display: flex;
@@ -570,7 +568,6 @@
         }
 
         .api-compare-row:last-child { border-bottom: none; }
-
         .api-compare-row .acr-label { color: var(--text-secondary); }
         .api-compare-row .acr-default { color: var(--urgent-red); font-weight: 600; }
         .api-compare-row .acr-optimized { color: var(--teal); font-weight: 700; }
@@ -606,9 +603,7 @@
         .rights-card.allowed .rights-title { color: var(--teal); }
         .rights-card.not-allowed .rights-title { color: var(--text-muted); }
 
-        .rights-list {
-            list-style: none;
-        }
+        .rights-list { list-style: none; }
 
         .rights-list li {
             font-size: 0.82rem;
@@ -919,7 +914,7 @@
             <div class="lch-price">$24.99</div>
             <div class="lch-original">$34.99</div>
         </div>
-        <div class="lch-note">One-time payment · Crypto only · Delivered within 4hr</div>
+        <div class="lch-note">One-time payment · Crypto · Auto-verified · Delivered within 4hr</div>
 
         <div class="stock-row">
             <span class="stock-dot"></span>
@@ -1308,7 +1303,7 @@
                         <td>Payment</td>
                         <td>One-time</td>
                         <td>One-time</td>
-                        <td class="hl" style="color:var(--teal);font-weight:600;">One-time</td>
+                        <td class="hl">One-time</td>
                         <td>Monthly</td>
                     </tr>
                 </tbody>
@@ -1321,50 +1316,42 @@
 <section class="section faq-section">
     <div class="section-inner">
         <div class="section-label">FAQ</div>
-        <h2 class="section-title">Server License Questions</h2>
+        <h2 class="section-title">Common Questions</h2>
         <p class="section-desc">Everything you need to know before purchasing.</p>
 
         <div class="faq-grid">
             <div class="faq-item">
-                <h4>When do I choose my 5 characters?</h4>
-                <p>After payment confirmation. Include your five choices in the notes field on the payment form, or reply to the delivery message. You can also ask for a recommendation based on your server type.</p>
+                <h4>How do I choose my 5 characters?</h4>
+                <p>Include your choices in the notes field of the delivery form after payment — or reply to the delivery message. Coming-soon characters are included; we'll deliver them as pre-release or within 7 days of completion.</p>
             </div>
             <div class="faq-item">
-                <h4>What if a chosen character isn't ready yet?</h4>
-                <p>Available characters are delivered within 4 hours. Coming-soon characters chosen for your license are delivered as pre-release access — typically within 7 days of purchase. You won't wait for everything before getting started.</p>
+                <h4>What does "commercial use" actually mean?</h4>
+                <p>You can run these NPCs on a monetized server, include them in a paid server package, stream them, or use them in promotional content. You cannot resell the pack files themselves or redistribute the personality documents.</p>
             </div>
             <div class="faq-item">
-                <h4>Can I use the license across multiple servers in my network?</h4>
-                <p>Yes. The Server License includes unrestricted use across any server you own or operate. No per-instance fees. No restrictions on server count.</p>
+                <h4>How does the async consultation work?</h4>
+                <p>After delivery, send one message via Discord or email with your questions, server structure, and any issues. You get a structured written response within 24 hours covering every point you raised.</p>
             </div>
             <div class="faq-item">
-                <h4>How is payment made?</h4>
-                <p>Cryptocurrency only. BTC, ETH, USDT, SOL, and 15+ other coins accepted. All on the payment page.</p>
+                <h4>How is payment processed?</h4>
+                <p>Cryptocurrency only via NOWPayments. Your payment is auto-verified on-chain and forwarded directly to the seller's wallet. No funds are held by a third party. Delivery happens within 4 hours of blockchain confirmation.</p>
             </div>
             <div class="faq-item">
-                <h4>Can I upgrade from a bundle to the Server License?</h4>
-                <p>Yes. Message us with your existing purchase and we'll quote the difference price. You won't pay for characters you already own.</p>
+                <h4>What if a coming-soon character isn't ready?</h4>
+                <p>We deliver all available characters first. Coming-soon characters arrive within 7 days of their completion. You'll have access to the pre-release version while you wait if one exists.</p>
             </div>
             <div class="faq-item">
-                <h4>What does the consultation cover exactly?</h4>
-                <p>Install verification, config tuning, lore integration, API cost implementation, relationship map walkthrough, and any troubleshooting. You send questions, get a structured written response within 24 hours.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Do the revisions expire?</h4>
-                <p>No. One revision per character is included at any point after delivery. If something isn't landing right six months after install, the revision is still available.</p>
-            </div>
-            <div class="faq-item">
-                <h4>Is this different from the Monthly Retainer?</h4>
-                <p>Yes. The Server License is a one-time purchase giving you 5 characters and the full system. The Retainer adds one new character every month with ongoing updates. Many server owners start with the License and add the Retainer once they want to grow.</p>
+                <h4>Can I upgrade from a bundle later?</h4>
+                <p>Yes — contact us via Discord or email after purchasing a bundle and we'll calculate the difference. You pay only the gap, not the full license price again.</p>
             </div>
         </div>
 
         <div class="guarantee">
             <div class="guarantee-icon">🛡️</div>
             <div>
-                <h3>The NPCForge Guarantee</h3>
-                <p>If the Server License pack does not work with your setup, message me before anything else. I fix it personally within 24 hours.</p>
-                <p>If I cannot fix it, you receive a full refund in crypto. No questions asked. This has not happened yet. The offer stands regardless.</p>
+                <h3>Delivery Guarantee</h3>
+                <p>All Server License packs are delivered within 4 hours of blockchain confirmation. If delivery takes longer than 6 hours, contact us and we'll include a free bonus character at no charge.</p>
+                <p>Every character pack is reviewed before delivery. If anything is missing or incorrect, we fix it same-day.</p>
             </div>
         </div>
     </div>
@@ -1372,11 +1359,20 @@
 
 <!-- ── FINAL CTA ── -->
 <div class="final-cta">
-    <h2>Ready to Build the Real Thing?</h2>
-    <p>Five characters. One world. Commercial rights. API optimization. Setup consultation. Everything a running server needs in one purchase.</p>
+    <h2>Ready to Build a Real NPC System?</h2>
+    <p>The Server License is the only tier that gives you everything — characters, world lore, commercial rights, API optimization, and a consultation. One payment. Everything you need.</p>
     <div class="cta-buttons">
-        <a href="pay-server-license.html" class="btn btn-teal">🌐 Get Server License — $24.99</a>
-        <a href="retainer.html" class="btn btn-outline">Want ongoing growth? See Retainer →</a>
+        <a href="pay-server-license.html" class="btn btn-teal">🌐 Get Server License — $24.99 →</a>
+        <a href="store.html" class="btn btn-outline">Browse Individual Characters</a>
+    </div>
+</div>
+
+<!-- ── SOCIAL PROOF ── -->
+<div class="social-proof-popup" id="socialProof">
+    <div class="proof-icon">🌐</div>
+    <div class="proof-text">
+        <strong>Server owner from EU</strong> just purchased the Server License<br>
+        <div class="proof-time">12 minutes ago</div>
     </div>
 </div>
 
@@ -1386,58 +1382,56 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <div class="footer-logo">⚔️ NPC<span>Forge</span></div>
-                <p>AI NPC Character Design<br>SentiencePro &amp; LlamaCraft Bridge Specialist</p>
+                <p>Premium NPC character packs for SentiencePro and LlamaCraft. Hand-crafted personalities, memories, and configs for server owners who take their NPCs seriously.</p>
             </div>
             <div class="footer-col">
-                <h4>Characters</h4>
-                <a href="pay-aldric.html">Aldric — $4.89</a>
-                <a href="pay-dravek.html">Dravek — $4.89</a>
-                <a href="free.html">Starter Guard — Free</a>
+                <h4>Products</h4>
+                <a href="store.html">Individual Characters</a>
+                <a href="bundles.html">Bundles</a>
+                <a href="license.html">Server License</a>
+                <a href="retainer.html">Monthly Retainer</a>
+                <a href="free.html">Free Pack</a>
             </div>
             <div class="footer-col">
-                <h4>Bundles</h4>
-                <a href="pay-city-bundle.html">City Bundle — $8.49</a>
-                <a href="pay-pro-bundle.html">Pro Pack — $14.99</a>
+                <h4>Pages</h4>
+                <a href="index.html">Home</a>
+                <a href="custom.html">Custom Orders</a>
+                <a href="free.html">Free Pack</a>
             </div>
             <div class="footer-col">
-                <h4>Tiers</h4>
-                <a href="license.html">Server License — $24.99</a>
-                <a href="retainer.html">Retainer — $39/mo</a>
-                <a href="custom.html">Custom — from $25</a>
+                <h4>Purchase</h4>
+                <a href="pay-server-license.html">Buy License</a>
+                <a href="pay-aldric.html">Buy Aldric</a>
+                <a href="pay-dravek.html">Buy Dravek</a>
+                <a href="pay-city-bundle.html">Buy Bundle</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 NPCForge. All rights reserved.</span>
+            <div class="footer-copy">© 2025 NPCForge. All rights reserved. All cryptocurrency transactions are final.</div>
         </div>
     </div>
 </footer>
-
-<!-- ── SOCIAL PROOF ── -->
-<div class="social-proof-popup" id="socialProof">
-    <div class="proof-icon" id="proofIcon">🌐</div>
-    <div>
-        <div class="proof-text" id="proofText"><strong>NovaCraft</strong> just purchased a <strong>Server License</strong></div>
-        <div class="proof-time" id="proofTime">4 minutes ago</div>
-    </div>
-</div>
 
 <script>
 (function () {
     'use strict';
 
+    /* ─── COUNTDOWN ─── */
     var SALE_DURATION = 72 * 60 * 60 * 1000;
-    var SK = 'npcforge_sale_end_v2';
+    var STORAGE_KEY = 'npcforge_sale_end_v2';
 
     function getSaleEnd() {
-        var s = localStorage.getItem(SK);
+        var s = localStorage.getItem(STORAGE_KEY);
         if (s) { var e = parseInt(s, 10); if (e > Date.now()) return e; }
         var n = Date.now() + SALE_DURATION;
-        localStorage.setItem(SK, n.toString());
+        localStorage.setItem(STORAGE_KEY, n.toString());
         return n;
     }
 
     var saleEnd = getSaleEnd();
+
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
     function fmt(ms) {
         if (ms <= 0) return '00:00:00';
         var t = Math.floor(ms / 1000);
@@ -1446,84 +1440,69 @@
 
     function tick() {
         var r = saleEnd - Date.now();
-        if (r <= 0) { saleEnd = Date.now() + SALE_DURATION; localStorage.setItem(SK, saleEnd.toString()); r = SALE_DURATION; }
-        var el = document.getElementById('bannerTimer');
-        if (el) el.textContent = fmt(r);
+        if (r <= 0) {
+            saleEnd = Date.now() + SALE_DURATION;
+            localStorage.setItem(STORAGE_KEY, saleEnd.toString());
+            r = SALE_DURATION;
+        }
+        var bt = document.getElementById('bannerTimer');
+        if (bt) bt.textContent = fmt(r);
     }
 
     tick();
     setInterval(tick, 1000);
 
-    var SSK = 'npcforge_stock_v2';
-    var SS = 'npcforge_session_v2';
-
-    function getStock() {
-        var r = localStorage.getItem(SSK);
-        if (r) { try { var d = JSON.parse(r); if (d.saleEnd === saleEnd) return d; } catch (e) {} }
-        var i = { saleEnd: saleEnd, aldric: 50, dravek: 50, bundle: 25, pro: 15, license: 10, retainer: 5, hero: 47 };
-        localStorage.setItem(SSK, JSON.stringify(i));
+    /* ─── STOCK ─── */
+    var SK = 'npcforge_stock_v2';
+    var stock = (function () {
+        var r = localStorage.getItem(SK);
+        if (r) {
+            try {
+                var d = JSON.parse(r);
+                if (d.saleEnd === saleEnd) return d;
+            } catch (e) {}
+        }
+        var i = {
+            saleEnd: saleEnd,
+            aldric: 50, dravek: 50, bundle: 25,
+            pro: 15, license: 10, retainer: 5, hero: 47
+        };
+        localStorage.setItem(SK, JSON.stringify(i));
         return i;
-    }
-
-    var stock = getStock();
+    })();
 
     function renderStock() {
-        ['licenseStockBanner', 'licenseStockCard'].forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) el.textContent = stock.license;
-        });
+        var b = document.getElementById('licenseStockBanner');
+        var c = document.getElementById('licenseStockCard');
+        if (b) b.textContent = stock.license;
+        if (c) c.textContent = stock.license;
     }
 
     renderStock();
 
-    if (!sessionStorage.getItem(SS)) {
-        sessionStorage.setItem(SS, '1');
-        stock.license = Math.max(2, stock.license - 1);
-        localStorage.setItem(SSK, JSON.stringify(stock));
-        renderStock();
-    }
-
+    /* ─── BANNER CLOSE ─── */
     window.closeBanner = function () {
-        var b = document.getElementById('urgencyBanner');
-        var n = document.getElementById('mainNav');
-        if (b) b.style.display = 'none';
-        if (n) n.classList.add('banner-closed');
+        var banner = document.getElementById('urgencyBanner');
+        var nav = document.getElementById('mainNav');
+        if (banner) banner.style.display = 'none';
+        if (nav) nav.classList.add('banner-closed');
     };
 
-    var proofs = [
-        { icon: '🌐', text: '<strong>NovaCraft</strong> just purchased a <strong>Server License</strong>', time: '4 minutes ago' },
-        { icon: '🌐', text: '<strong>PixelForge</strong> just purchased a <strong>Server License</strong>', time: '8 minutes ago' },
-        { icon: '⭐', text: '<strong>StarForge</strong> started a <strong>Monthly Retainer</strong>', time: '12 minutes ago' },
-        { icon: '🌐', text: '<strong>IronRealms</strong> just purchased a <strong>Server License</strong>', time: '6 minutes ago' },
-        { icon: '🌐', text: '<strong>VoidCraft</strong> just purchased a <strong>Server License</strong>', time: '15 minutes ago' },
-    ];
-
-    var proofIdx = 0;
-    var popup = document.getElementById('socialProof');
-
-    function showProof() {
-        if (!popup) return;
-        var p = proofs[proofIdx % proofs.length];
-        document.getElementById('proofIcon').textContent = p.icon;
-        document.getElementById('proofText').innerHTML = p.text;
-        document.getElementById('proofTime').textContent = p.time;
-        popup.classList.add('show');
-        setTimeout(function () { popup.classList.remove('show'); }, 4500);
-        proofIdx++;
-    }
-
+    /* ─── SOCIAL PROOF ─── */
     setTimeout(function () {
-        showProof();
-        setInterval(function () {
-            setTimeout(showProof, Math.floor(Math.random() * 25000) + 20000);
-        }, 35000);
-    }, 8000);
+        var el = document.getElementById('socialProof');
+        if (el) {
+            el.classList.add('show');
+            setTimeout(function () { el.classList.remove('show'); }, 5000);
+        }
+    }, 4000);
 
+    /* ─── MOBILE NAV ─── */
     document.addEventListener('click', function (e) {
-        var nav = document.querySelector('.nav-links');
+        var navLinks = document.querySelector('.nav-links');
         var tog = document.querySelector('.nav-toggle');
-        if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !tog.contains(e.target)) {
-            nav.classList.remove('open');
+        if (navLinks && navLinks.classList.contains('open') && !navLinks.contains(e.target) && !tog.contains(e.target)) {
+            navLinks.classList.remove('open');
         }
     });
 
