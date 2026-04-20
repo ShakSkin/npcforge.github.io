@@ -818,29 +818,20 @@
         <div class="payment-body">
 
             <!-- STEPS -->
-           <!-- START NOWPAYMENTS AUTOMATED SECTION -->
-<div id="payment-container" style="max-width: 450px; margin: 20px auto; font-family: sans-serif; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
-    <h2 style="text-align: center;">Complete Your Purchase</h2>
-    <p style="text-align: center; color: #666;">Fixed Price: <strong>$8.49 USD</strong></p>
-    
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-
-    <!-- NOWPayments Widget Embed -->
-    <script src="https://nowpayments.io"></script>
-    <div id="nowpayments-widget" 
-         data-api-key="YOUR_API_KEY_HERE" 
-         data-amount="8.49" 
-         data-currency="usd" 
-         data-style="dark" 
-         data-is-fee-paid-by-user="true">
-    </div>
-
-    <p style="font-size: 12px; color: #888; text-align: center; margin-top: 15px;">
-        ⚠️ System automatically verifies payment. <br>
-        Discord/Google Sheet will be notified once confirmed.
-    </p>
-</div>
-<!-- END NOWPAYMENTS AUTOMATED SECTION -->
+            <div class="pay-steps">
+                <div class="pay-step active" id="pstep-1">
+                    <div class="step-dot">1</div>
+                    <div class="step-label">Select Coin</div>
+                </div>
+                <div class="pay-step" id="pstep-2">
+                    <div class="step-dot">2</div>
+                    <div class="step-label">Send Payment</div>
+                </div>
+                <div class="pay-step" id="pstep-3">
+                    <div class="step-dot">3</div>
+                    <div class="step-label">Confirm</div>
+                </div>
+            </div>
 
             <!-- COIN SELECTOR -->
             <div class="coin-section-label">Select Payment Method</div>
